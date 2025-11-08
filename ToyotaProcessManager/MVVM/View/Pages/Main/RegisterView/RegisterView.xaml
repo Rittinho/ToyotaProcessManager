@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToyotaProcessManager.MVVM.View.Pages.Main.RegisterView.RegisterView"
+             xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
+             xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button"
+             Title="RegisterView"
+             NavigationPage.HasNavigationBar="False"
+             x:Name="Root">
+
+    <Grid RowDefinitions="Auto,*" RowSpacing="10" Padding="10">
+
+        <Grid></Grid>
+
+        <Grid Grid.Row="1">
+
+            <!--  Process  -->
+            <Grid x:Name="ProcessPanel" ColumnDefinitions="*,3*" IsVisible="True">
+
+                <Border Padding="10"
+                        StrokeShape="24"
+                        StrokeThickness="0"
+                        BackgroundColor="#FF4C4C">
+
+                    <ScrollView >
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <CollectionView ItemsSource="{Binding ProcessList}"
+                                            ItemTemplate="{StaticResource ToastProcessStyle}"
+                                            SelectionMode="None"
+                                            HorizontalOptions="Center">
+
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
+                                </CollectionView.ItemsLayout>
+
+                            </CollectionView>
+
+                        </VerticalStackLayout>
+
+                    </ScrollView>
+
+                </Border>
+
+                <Grid Grid.Column="1"  RowDefinitions="*,auto" RowSpacing="10">
+
+                    <ScrollView>
+
+                        <VerticalStackLayout Spacing="10" Padding="10">
+
+                            <Label Text="Criar processo" FontSize="60" HorizontalOptions="Center"/>
+
+                            <Border StrokeThickness="0"
+                                Padding="30"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+
+                                <AbsoluteLayout HeightRequest="250"
+                                                WidthRequest="250">
+
+                                    <elements:CircularIcon AbsoluteLayout.LayoutBounds="1,1,1,1"
+                                                           AbsoluteLayout.LayoutFlags="All"
+                                                           Unicode="{Binding Icon.Unicode}"
+                                                           ColorCode="ffffff"
+                                                           iconSize="250"/>
+
+                                    <Border AbsoluteLayout.LayoutBounds="0.95,0.05,0.3,0.3"
+                                            AbsoluteLayout.LayoutFlags="All"
+                                            BackgroundColor="#707070"
+                                            StrokeThickness="0"
+                                            StrokeShape="100">
+
+                                        <Label Text="{DynamicResource FAS_Eye}"
+                                               FontFamily="FAR"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               Padding="5"
+                                               FontSize="40"
+                                               TextColor="White"/>
+
+                                    </Border>
+
+                                </AbsoluteLayout>
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding CreateNewProcessCommand}"/>
+                                </Border.GestureRecognizers>
+
+                            </Border>
+
+                            <Label Text="Nome do processo:" FontSize="30"/>
+                            <Entry Background="#FF4C4C" Text="{Binding Title}" x:Name="ProcessTitle"></Entry>
+
+                            <Label Text="Descrição processo:" FontSize="30"/>
+                            <Entry Background="#FF4C4C" Text="{Binding Description}" x:Name="ProcessDescription"></Entry>
+
+                            <Grid x:Name="ProcessCreateButtons">
+
+                                <button:IconButton BackgorundColorCode="#FF4C4C"
+                                                   Unicode="{DynamicResource FAS_Eye}"
+                                                   TextContent="Criar processo"
+                                                   FontSize="20"
+                                                   Event="{Binding Path=EditProcessOnCommand, Source={x:Reference Root}}"/>
+
+                            </Grid>
+                            
+                            <Grid x:Name="ProcessEditButtons" IsVisible="False"
+                                  ColumnDefinitions="*,*" ColumnSpacing="10">
+
+                                <button:IconButton BackgorundColorCode="Green"
+                                                   Unicode="{DynamicResource FAS_Eye}"
+                                                   TextContent="Cancelar alterações"
+                                                   FontSize="20"
+                                                   Event="{Binding Path=EditProcessOffCommand, Source={x:Reference Root}}"/>
+
+                                <button:IconButton BackgorundColorCode="Green"
+                                                   Grid.Column="1"
+                                                   Unicode="{DynamicResource FAS_Eye}"
+                                                   TextContent="Salvar alterações"
+                                                   FontSize="20"
+                                                   Event="{Binding CreateNewProcessCommand}"/>
+
+                            </Grid>
+
+                        </VerticalStackLayout>
+
+                    </ScrollView>
+
+                    <HorizontalStackLayout x:Name="ProcessButtonPanel" HorizontalOptions="End" Spacing="10" Grid.Column="1" Grid.Row="1">
+
+                        <button:IconButton BackgorundColorCode="#FF4C4C"
+                                           Unicode="{DynamicResource FAS_Eye}"
+                                           TextContent="Colaboradores"
+                                           FontSize="20"
+                                           Event="{Binding Path=SwitchPanelCommand, Source={x:Reference Root}}"/>
+
+                    </HorizontalStackLayout>
+
+                </Grid>
+
+            </Grid>
+
+            <!--  Emploeer  -->
+            <Grid x:Name="EmployeePanel" ColumnDefinitions="3*,*" IsVisible="False">
+
+                <Border Padding="10"
+                        Grid.Column="1"
+                          StrokeShape="24"
+                          StrokeThickness="0"
+                          BackgroundColor="CadetBlue">
+
+                    <ScrollView>
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <CollectionView ItemsSource="{Binding EmployeeList}"
+                                            ItemTemplate="{StaticResource ToastEmployeeStyle}"
+                                            SelectionMode="None"
+                                            HorizontalOptions="Center">
+
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
+                                </CollectionView.ItemsLayout>
+
+                            </CollectionView>
+
+                        </VerticalStackLayout>
+
+                    </ScrollView>
+
+                </Border>
+
+                <Grid RowDefinitions="*,auto" RowSpacing="10">
+
+                    <ScrollView>
+
+                        <VerticalStackLayout Spacing="10" Padding="10">
+
+                            <Label Text="Cadastrar colaborador" FontSize="60" HorizontalOptions="Center"/>
+
+                            <Label Text="Nome do colaborador:" FontSize="30"/>
+                            <Entry Background="CadetBlue" Text="{Binding Name}" ></Entry>
+
+                            <Label Text="Cargo do colaborador:" FontSize="30"/>
+                            <Entry Background="CadetBlue" Text="{Binding Position}" ></Entry>
+
+                            <Grid x:Name="EmployeeCreateButtons">
+
+                                <button:IconButton BackgorundColorCode="CadetBlue"
+                                                   Unicode="{DynamicResource FAS_Eye}"
+                                                   TextContent="Criar processo"
+                                                   FontSize="20"
+                                                   Event="{Binding Path=EditEmployeeOnCommand, Source={x:Reference Root}}"/>
+
+                            </Grid>
+
+                            <Grid x:Name="EmployeeEditButtons" IsVisible="False"
+                                  ColumnDefinitions="*,*" ColumnSpacing="10">
+
+                                <button:IconButton BackgorundColorCode="Green"
+                                                   Unicode="{DynamicResource FAS_Eye}"
+                                                   TextContent="Cancelar alterações"
+                                                   FontSize="20"
+                                                   Event="{Binding Path=EditEmployeeOffCommand, Source={x:Reference Root}}"/>
+
+                                <button:IconButton BackgorundColorCode="Green"
+                                                   Grid.Column="1"
+                                                   Unicode="{DynamicResource FAS_Eye}"
+                                                   TextContent="Salvar alterações"
+                                                   FontSize="20"
+                                                   Event="{Binding CreateNewProcessCommand}"/>
+
+                            </Grid>
+
+                        </VerticalStackLayout>
+
+                    </ScrollView>
+
+                    <HorizontalStackLayout x:Name="EmployeeButtonPanel" HorizontalOptions="Start" Spacing="10" Grid.Row="1">
+
+                        <button:IconButton BackgorundColorCode="CadetBlue"
+                                           Unicode="{DynamicResource FAS_Eye}"
+                                           TextContent="Processos"
+                                           FontSize="20"
+                                           Event="{Binding Path=SwitchPanelCommand, Source={x:Reference Root}}"/>
+
+                    </HorizontalStackLayout>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

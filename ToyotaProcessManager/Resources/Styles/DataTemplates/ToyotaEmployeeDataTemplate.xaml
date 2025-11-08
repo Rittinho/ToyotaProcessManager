@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <DataTemplate x:Key="ToastEmployeeStyle">
+
+        <Border StrokeShape="14"
+                Padding="10,5,10,5"
+                StrokeThickness="0"
+                BackgroundColor="#323232">
+
+            <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="5">
+                
+                <!--Name-->
+                <Border StrokeShape="14"
+                     Grid.Column="1"
+                     Padding="10"
+                     StrokeThickness="0"
+                     BackgroundColor="#222222">
+
+                    <Label Text="{Binding Name}"
+                        LineBreakMode="TailTruncation"                                                     
+                        FontSize="25"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+
+                </Border>
+
+                <!--Show-Button-->
+                <Button Grid.Column="2"
+                     FontSize="20"
+                     TextColor="White"
+                     FontFamily="FAS"
+                     CornerRadius="9999"
+                     BackgroundColor="red"
+                     Command="{Binding ShowProcessCommand}"
+                     CommandParameter="{Binding .}"
+                     Text="{DynamicResource FAS_Eye}"/>
+
+                <!--Update-Button-->
+                <Button Grid.Column="3"
+                     FontSize="20"
+                     TextColor="White"
+                     FontFamily="FAS"
+                     CornerRadius="9999"
+                     BackgroundColor="red"
+                     Command="{Binding UpdateProcessCommand}"
+                     CommandParameter="{Binding .}"
+                     Text="{DynamicResource FAS_Pen}"/>
+
+                <!--Delete-Button-->
+                <Button Grid.Column="4"
+                     FontSize="20"
+                     TextColor="White"
+                     FontFamily="FAS"
+                     CornerRadius="9999"
+                     BackgroundColor="red"
+                     Command="{Binding DeleteProcessCommand}"
+                     CommandParameter="{Binding .}"
+                     Text="{DynamicResource FAS_Pen}"/>
+
+            </Grid>
+
+        </Border>
+
+    </DataTemplate>
+
+
+</ResourceDictionary>

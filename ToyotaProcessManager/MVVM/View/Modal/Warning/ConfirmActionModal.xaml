@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             x:TypeArguments="system:Boolean"
+             BackgroundColor="#343434"
+             x:Class="ToyotaProcessManager.MVVM.View.Modal.Warning.ConfirmActionModal">
+
+    <Grid RowDefinitions="Auto,*,Auto" RowSpacing="10">
+
+        <!--Titulo-->
+        <Label x:Name="TitleLabel"
+               FontSize="40"
+               FontAttributes="Bold"
+               TextColor="White"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+
+        <!--Descrição da ação-->
+        <Label x:Name="DescriptionLabel"
+               Grid.Row="1"
+               FontSize="20"
+               TextColor="White"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+
+        <!--Botão de voltar-->
+        <Border x:Name="BackButton" 
+                Grid.Row="2"
+                Padding="10"
+                HorizontalOptions="End"
+                StrokeShape="14"
+                StrokeThickness="0"
+                BackgroundColor="#4DA3FF">
+
+            <HorizontalStackLayout Spacing="10">
+
+                <Label Text="{DynamicResource FAS_ThumbsUp}"
+                TextColor="White"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                FontFamily="FAS"
+                FontSize="15"/>
+
+                <Label Text="Ok"
+                TextColor="White"
+                FontAttributes="Bold"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                FontSize="15"/>
+
+            </HorizontalStackLayout>
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CancelCommand}"/>
+            </Border.GestureRecognizers>
+
+        </Border>
+
+        <!--Botões de ação-->
+        <HorizontalStackLayout x:Name="ActionButtons"
+                               Grid.Row="2"
+                               Spacing="10" 
+                               HorizontalOptions="Center">
+
+            <!--Retornar-->
+            <Border Padding="10"
+                    StrokeShape="14"
+                    StrokeThickness="0"
+                    BackgroundColor="#FF4C4C">
+
+                <HorizontalStackLayout Spacing="10">
+
+                    <Label Text="{DynamicResource FAS_CircleXmark}"
+                           TextColor="White"
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Center"
+                           FontFamily="FAS"
+                           FontSize="15"/>
+
+                    <Label Text="Cancelar"
+                           TextColor="White"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Center"
+                           FontSize="15"/>
+
+                </HorizontalStackLayout>
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CancelCommand}"/>
+                </Border.GestureRecognizers>
+
+            </Border>
+
+            <!--Confirmar-->
+            <Border Grid.Column="1" 
+                    Padding="10"
+                    StrokeShape="14"
+                    StrokeThickness="0"
+                    BackgroundColor="#4CAF50">
+
+                <HorizontalStackLayout Spacing="10">
+
+                    <Label Text="{DynamicResource FAS_CircleCheck}"
+                           TextColor="White"
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Center"
+                           FontFamily="FAS"
+                           FontSize="15"/>
+
+                    <Label Text="Aceitar"
+                           TextColor="White"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Center"
+                           FontSize="15"/>
+
+                </HorizontalStackLayout>
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ConfirmCommand}"/>
+                </Border.GestureRecognizers>
+
+            </Border>
+
+        </HorizontalStackLayout>
+
+    </Grid>
+
+</toolkit:Popup>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToyotaProcessManager.MVVM.View.Components.Button.EmptyButton"
+             x:Name="Root">
+
+    <Border StrokeThickness="0"
+            Padding="20"
+            BackgroundColor="red">
+
+        <ContentPresenter InputTransparent="True"/>
+
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Path=Event, Source={x:Reference Root}}"/>
+        </Border.GestureRecognizers>
+
+    </Border>
+
+</ContentView>
