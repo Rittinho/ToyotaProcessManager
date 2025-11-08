@@ -15,7 +15,7 @@
         <Grid Grid.Row="1">
 
             <!--  Process  -->
-            <Grid x:Name="ProcessPanel" ColumnDefinitions="*,3*" IsVisible="True">
+            <Grid ColumnDefinitions="*,3*" IsVisible="{Binding IsInProcessPanel}">
 
                 <Border Padding="10"
                         StrokeShape="24"
@@ -62,7 +62,7 @@
                                     <elements:CircularIcon AbsoluteLayout.LayoutBounds="1,1,1,1"
                                                            AbsoluteLayout.LayoutFlags="All"
                                                            Unicode="{Binding Icon.Unicode}"
-                                                           ColorCode="ffffff"
+                                                           ColorCode="{Binding Icon.ColorCode}"
                                                            iconSize="250"/>
 
                                     <Border AbsoluteLayout.LayoutBounds="0.95,0.05,0.3,0.3"
@@ -71,8 +71,8 @@
                                             StrokeThickness="0"
                                             StrokeShape="100">
 
-                                        <Label Text="{DynamicResource FAS_Eye}"
-                                               FontFamily="FAR"
+                                        <Label Text="{DynamicResource FAS_Pen}"
+                                               FontFamily="FAS"
                                                HorizontalOptions="Center"
                                                VerticalOptions="Center"
                                                Padding="5"
@@ -95,31 +95,31 @@
                             <Label Text="Descrição processo:" FontSize="30"/>
                             <Entry Background="#FF4C4C" Text="{Binding Description}" x:Name="ProcessDescription"></Entry>
 
-                            <Grid x:Name="ProcessCreateButtons">
+                            <Grid IsVisible="{Binding IsInCreateMode}">
 
                                 <button:IconButton BackgorundColorCode="#FF4C4C"
-                                                   Unicode="{DynamicResource FAS_Eye}"
+                                                   Unicode="{DynamicResource FAS_CirclePlus}"
                                                    TextContent="Criar processo"
                                                    FontSize="20"
-                                                   Event="{Binding Path=EditProcessOnCommand, Source={x:Reference Root}}"/>
-
+                                                   Event="{Binding CreateNewProcessCommand}"/>
+                                
                             </Grid>
-                            
-                            <Grid x:Name="ProcessEditButtons" IsVisible="False"
+
+                            <Grid IsVisible="{Binding IsInEditMode}"
                                   ColumnDefinitions="*,*" ColumnSpacing="10">
 
-                                <button:IconButton BackgorundColorCode="Green"
-                                                   Unicode="{DynamicResource FAS_Eye}"
+                                <button:IconButton BackgorundColorCode="#FF4C4C"
+                                                   Unicode="{DynamicResource FAS_CircleXmark}"
                                                    TextContent="Cancelar alterações"
                                                    FontSize="20"
-                                                   Event="{Binding Path=EditProcessOffCommand, Source={x:Reference Root}}"/>
+                                                   Event="{Binding CancelUpdateProcessCommand}"/>
 
-                                <button:IconButton BackgorundColorCode="Green"
+                                <button:IconButton BackgorundColorCode="#0078D7"
                                                    Grid.Column="1"
-                                                   Unicode="{DynamicResource FAS_Eye}"
+                                                   Unicode="{DynamicResource FAS_CircleCheck}"
                                                    TextContent="Salvar alterações"
                                                    FontSize="20"
-                                                   Event="{Binding CreateNewProcessCommand}"/>
+                                                   Event="{Binding SaveUpdateProcessCommand}"/>
 
                             </Grid>
 
@@ -127,13 +127,13 @@
 
                     </ScrollView>
 
-                    <HorizontalStackLayout x:Name="ProcessButtonPanel" HorizontalOptions="End" Spacing="10" Grid.Column="1" Grid.Row="1">
+                    <HorizontalStackLayout HorizontalOptions="End" Spacing="10" Grid.Column="1" Grid.Row="1">
 
                         <button:IconButton BackgorundColorCode="#FF4C4C"
-                                           Unicode="{DynamicResource FAS_Eye}"
+                                           Unicode="{DynamicResource FAS_CaretRight}"
                                            TextContent="Colaboradores"
                                            FontSize="20"
-                                           Event="{Binding Path=SwitchPanelCommand, Source={x:Reference Root}}"/>
+                                           Event="{Binding SwitchToEmployeePanelCommand}"/>
 
                     </HorizontalStackLayout>
 
@@ -142,7 +142,7 @@
             </Grid>
 
             <!--  Emploeer  -->
-            <Grid x:Name="EmployeePanel" ColumnDefinitions="3*,*" IsVisible="False">
+            <Grid ColumnDefinitions="3*,*" IsVisible="{Binding IsInEmployeePanel}">
 
                 <Border Padding="10"
                         Grid.Column="1"
@@ -185,31 +185,31 @@
                             <Label Text="Cargo do colaborador:" FontSize="30"/>
                             <Entry Background="CadetBlue" Text="{Binding Position}" ></Entry>
 
-                            <Grid x:Name="EmployeeCreateButtons">
+                            <Grid IsVisible="{Binding IsInCreateMode}">
 
                                 <button:IconButton BackgorundColorCode="CadetBlue"
-                                                   Unicode="{DynamicResource FAS_Eye}"
+                                                   Unicode="{DynamicResource FAS_CirclePlus}"
                                                    TextContent="Criar processo"
                                                    FontSize="20"
-                                                   Event="{Binding Path=EditEmployeeOnCommand, Source={x:Reference Root}}"/>
+                                                   Event="{Binding CreateNewEmployeeCommand}"/>
 
                             </Grid>
 
-                            <Grid x:Name="EmployeeEditButtons" IsVisible="False"
+                            <Grid IsVisible="{Binding IsInEditMode}"
                                   ColumnDefinitions="*,*" ColumnSpacing="10">
 
                                 <button:IconButton BackgorundColorCode="Green"
-                                                   Unicode="{DynamicResource FAS_Eye}"
+                                                   Unicode="{DynamicResource FAS_CircleXmark}"
                                                    TextContent="Cancelar alterações"
                                                    FontSize="20"
-                                                   Event="{Binding Path=EditEmployeeOffCommand, Source={x:Reference Root}}"/>
+                                                   Event="{Binding CancelUpdateEmployeeCommand}"/>
 
                                 <button:IconButton BackgorundColorCode="Green"
                                                    Grid.Column="1"
-                                                   Unicode="{DynamicResource FAS_Eye}"
+                                                   Unicode="{DynamicResource FAS_CircleCheck}"
                                                    TextContent="Salvar alterações"
                                                    FontSize="20"
-                                                   Event="{Binding CreateNewProcessCommand}"/>
+                                                   Event="{Binding SaveUpdateEmployeeCommand}"/>
 
                             </Grid>
 
@@ -217,13 +217,13 @@
 
                     </ScrollView>
 
-                    <HorizontalStackLayout x:Name="EmployeeButtonPanel" HorizontalOptions="Start" Spacing="10" Grid.Row="1">
+                    <HorizontalStackLayout HorizontalOptions="Start" Spacing="10" Grid.Row="1">
 
                         <button:IconButton BackgorundColorCode="CadetBlue"
-                                           Unicode="{DynamicResource FAS_Eye}"
+                                           Unicode="{DynamicResource FAS_CaretLeft}"
                                            TextContent="Processos"
                                            FontSize="20"
-                                           Event="{Binding Path=SwitchPanelCommand, Source={x:Reference Root}}"/>
+                                           Event="{Binding SwitchToProcessPanelCommand}"/>
 
                     </HorizontalStackLayout>
 

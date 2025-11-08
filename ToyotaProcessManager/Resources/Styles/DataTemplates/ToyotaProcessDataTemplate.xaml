@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+                    xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
+                    xmlns:vm="clr-namespace:ToyotaProcessManager.MVVM.ViewModel.Pages.Main.RegisterViewModel"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <DataTemplate x:Key="ToastProcessStyle">
 
@@ -41,7 +42,7 @@
                         FontFamily="FAS"
                         CornerRadius="9999"
                         BackgroundColor="red"
-                        Command="{Binding ShowProcessCommand}"
+                        Command="{Binding Path=ShowProcessCommand, Source={RelativeSource AncestorType={x:Type vm:RegisterViewModel}}}"
                         CommandParameter="{Binding .}"
                         Text="{DynamicResource FAS_Eye}"/>
 
@@ -52,7 +53,7 @@
                         FontFamily="FAS"
                         CornerRadius="9999"
                         BackgroundColor="red"
-                        Command="{Binding UpdateProcessCommand}"
+                        Command="{Binding Path=UpdateProcessCommand, Source={RelativeSource AncestorType={x:Type vm:RegisterViewModel}}}"
                         CommandParameter="{Binding .}"
                         Text="{DynamicResource FAS_Pen}"/>
 
@@ -63,9 +64,9 @@
                         FontFamily="FAS"
                         CornerRadius="9999"
                         BackgroundColor="red"
-                        Command="{Binding DeleteProcessCommand}"
+                        Command="{Binding Path=DeleteProcessCommand, Source={RelativeSource AncestorType={x:Type vm:RegisterViewModel}}}"
                         CommandParameter="{Binding .}"
-                        Text="{DynamicResource FAS_Pen}"/>
+                        Text="{DynamicResource FAS_TrashCan}"/>
 
             </Grid>
 

@@ -5,10 +5,10 @@
              x:Name="Root">
 
     <Border x:Name="externalBorder" 
-        StrokeThickness="0"
-        HeightRequest="{Binding Path=iconSize, Source={x:Reference Root}}"
-        WidthRequest="{Binding Path=Unicode, Source={x:Reference Root}}"
-        Background="{Binding Path=iconColor, Source={x:Reference Root}}"
+            StrokeThickness="0"
+            HeightRequest="{Binding Path=iconSize, Source={x:Reference Root}}"
+            WidthRequest="{Binding Path=Unicode, Source={x:Reference Root}}"
+            Background="{Binding Path=iconColor, Source={x:Reference Root}}"
         StrokeShape="1000000000000">
 
         <Border StrokeThickness="0"
@@ -16,11 +16,11 @@
             StrokeShape="1000000000000">
 
             <Label FontFamily="FAS" 
-               x:Name="icon" 
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               Text="{Binding Path=Unicode, Source={x:Reference Root}}"
-               TextColor="{Binding Path=iconColor, Source={x:Reference Root}}"/>
+                   x:Name="icon" 
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Text="{Binding Path=Unicode, Source={x:Reference Root}}"
+                   TextColor="{Binding Path=iconColor, Source={x:Reference Root}}"/>
 
         </Border>
 

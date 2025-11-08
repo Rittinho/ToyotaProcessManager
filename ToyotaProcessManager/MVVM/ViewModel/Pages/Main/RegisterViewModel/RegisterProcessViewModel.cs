@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToyotaProcessManager.Services.Constants;
+using ToyotaProcessManager.Services.Icons;
 using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.RegisterViewModel;
-partial class RegisterViewModel
+public partial class RegisterViewModel
 {
     private ToyotaProcess? _currentProcessInEdit;
 
@@ -26,48 +27,80 @@ partial class RegisterViewModel
     [ObservableProperty]
     private string? _description;
 
-    public IAsyncRelayCommand CreateNewProcessCommand => new AsyncRelayCommand(CreateNewProcess);
-    public IAsyncRelayCommand ShowProcessCommand => new AsyncRelayCommand<ToyotaProcess>(ShowProcess);
-    public IAsyncRelayCommand UpdateProcessCommand => new AsyncRelayCommand<ToyotaProcess>(DeleteProcess);
-    public IAsyncRelayCommand DeleteProcessCommand => new AsyncRelayCommand<ToyotaProcess>(UpdateProcess);
-    //public IAsyncRelayCommand SaveUpdateProcessCommand => new AsyncRelayCommand(test);
-
-    public async Task<bool> CreateNewProcess()
+    [RelayCommand]
+    public async Task CreateNewProcess()
     {
         ToyotaProcess newProcess = new(Title, Description, Icon);
 
         if (_verification.CheckSameProcess(newProcess, [.. ProcessList]))
         {
-            //await _verification.WaringPopup(WarningTokens.Existing, this);
             await Application.Current.MainPage.DisplayAlert(WarningTokens.ExistingProcess.Item1, WarningTokens.ExistingProcess.Item2, "ok");
-            return false;
+            return;
         }
 
-        ProcessList.Add(newProcess);
+        _toyotaProcessModel.CreateProcess(newProcess);
+
         _currentProcessInEdit = newProcess;
 
-        ClearProcessFilds();
+        RefreshList();
 
-        return true;
+        ClearProcessFilds();
     }
-    public async Task<bool> ShowProcess(ToyotaProcess? toyotaProcess)
+    //---Read Process---
+    [RelayCommand]
+    public async Task ShowProcess(ToyotaProcess? toyotaProcess)
     {
         await Application.Current.MainPage.DisplayAlert("Show", WarningTokens.ExistingProcess.Item2, "ok");
-
-        return true;
     }
-    public async Task<bool> DeleteProcess(ToyotaProcess? toyotaProcess)
+    //---Delete Process---
+    [RelayCommand]
+    public async Task DeleteProcess(ToyotaProcess? toyotaProcess)
     {
         await Application.Current.MainPage.DisplayAlert("Delete", WarningTokens.ExistingProcess.Item2, "ok");
-
-        return true;
+            
+        _toyotaProcessModel.DeleteProcess(toyotaProcess!);
     }
+    //---Update Process---
+    [RelayCommand]
     public async Task<bool> UpdateProcess(ToyotaProcess? toyotaProcess)
     {
         await Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
+        SwitchMode(RegisterMode.Edit);
 
         return true;
     }
+    [RelayCommand]
+    public async Task<bool> SaveUpdateProcess(ToyotaProcess? toyotaProcess)
+    {
+        if (CheckIfAnythingHasChangedEmployee())
+        {
+            ClearProcessFilds();
+            SwitchMode(RegisterMode.Create);
+            return true;
+        }
+
+        _toyotaProcessModel.UpdateProcess(_currentProcessInEdit!, toyotaProcess!);
+
+        await Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
+        SwitchMode(RegisterMode.Create);
+
+        return true;
+    }
+    [RelayCommand]
+    public async Task<bool> CancelUpdateProcess(ToyotaProcess? toyotaProcess)
+    {
+        if (CheckIfAnythingHasChangedEmployee())
+        {
+            ClearProcessFilds();
+            SwitchMode(RegisterMode.Create);
+            return true;
+        }
+
+        await Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
+        SwitchMode(RegisterMode.Create);
+        return true;
+    }
+
     //----Tools-----
     private bool CheckIfAnythingHasChangedProcess()
     {
@@ -77,7 +110,7 @@ partial class RegisterViewModel
     }
     private void ClearProcessFilds()
     {
-        Icon = new IconParameters("FASolid.Asterisk","FFFFFF");
+        Icon = new IconParameters(FASolid.Asterisk,"FFFFFF");
         Title = string.Empty;
         Description = string.Empty;
     }

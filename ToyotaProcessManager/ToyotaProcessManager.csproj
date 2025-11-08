@@ -68,8 +68,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="MVVM\Model\Domain\ToyotaEmployee\" />
-	  <Folder Include="MVVM\Model\Domain\ToyotaProcess\" />
 	  <Folder Include="MVVM\ViewModel\Components\Button\" />
 	  <Folder Include="MVVM\ViewModel\Components\Elements\" />
 	  <Folder Include="MVVM\ViewModel\Modal\Description\" />
@@ -79,7 +77,6 @@
 	  <Folder Include="MVVM\View\Modal\Forms\" />
 	  <Folder Include="MVVM\View\Modal\Description\" />
 	  <Folder Include="MVVM\View\Pages\Secondary\" />
-	  <Folder Include="Services\Icons\" />
 	</ItemGroup>
 
 	<ItemGroup>

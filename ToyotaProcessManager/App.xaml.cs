@@ -1,5 +1,6 @@
 ﻿using ToyotaProcessManager.MVVM.View.Pages.Main;
 using ToyotaProcessManager.MVVM.View.Pages.Main.RegisterView;
+using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.RegisterViewModel;
 using ToyotaProcessManager.Services.Injections.Contract;
 
 namespace ToyotaProcessManager
@@ -15,9 +16,8 @@ namespace ToyotaProcessManager
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            //var verificationServices = MauiProgram.ServiceProvider.GetRequiredService<IVerificationServices>();
-            //var jsonServices = MauiProgram.ServiceProvider.GetRequiredService<IJsonServices>();
-            var window = new Window(new NavigationPage(new RegisterView()));
+            var vm = MauiProgram.ServiceProvider.GetRequiredService<RegisterViewModel>();
+            var window = new Window(new NavigationPage(new RegisterView(vm)));
             window.Height = 720;
             window.MinimumHeight = 720;
             window.Width = 1280;

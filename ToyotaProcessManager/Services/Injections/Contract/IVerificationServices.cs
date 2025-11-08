@@ -7,7 +7,7 @@ using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.Services.Injections.Contract
 {
-    internal interface IVerificationServices
+    public interface IVerificationServices
     {
         //public Task WaringPopup(Tuple<string, string> token);
         //public Task WaringPopup(string title, string description);
@@ -15,7 +15,8 @@ namespace ToyotaProcessManager.Services.Injections.Contract
         //public Task<bool> ConfirmPopup(Tuple<string, string> token);
         //public Task<bool> ConfirmPopup(string title, string description);
 
-        public bool CheckSameProcess(ToyotaProcess toyotaProcess, List<ToyotaProcess> list);
-        public bool CheckSameEmployee(ToyotaEmployee toyotaEmployee, List<ToyotaEmployee> list);
+         
+        bool CheckSameProcess(ToyotaProcess toyotaProcess, List<ToyotaProcess> list);
+        bool CheckSameEmployee(ToyotaEmployee toyotaEmployee, List<ToyotaEmployee> list);
     }
 }

@@ -1,7 +1,10 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using ToyotaProcessManager.MVVM.Model.Domain.Employee;
+using ToyotaProcessManager.MVVM.Model.Domain.Process;
 using ToyotaProcessManager.MVVM.View.Pages.Main;
 using ToyotaProcessManager.MVVM.View.Pages.Main.RegisterView;
+using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.RegisterViewModel;
 using ToyotaProcessManager.Services.Injections.Contract;
 using ToyotaProcessManager.Services.Injections.Implementation;
 
@@ -31,10 +34,19 @@ namespace ToyotaProcessManager
     		builder.Logging.AddDebug();
 
             builder.Services.AddTransient<IVerificationServices, VerificationServices>();
+            builder.Services.AddTransient<IJsonServices, JsonServices>();
+
+            //views
             builder.Services.AddTransient<CreateTableView>();
             builder.Services.AddTransient<RegisterView>();
             builder.Services.AddTransient<ShowTableViw>();
+            //ViewModels
 
+            builder.Services.AddTransient<RegisterViewModel>();
+
+            //models
+            builder.Services.AddTransient<ToyotaEmployeeModel>();
+            builder.Services.AddTransient<ToyotaProcessModel>();
 
             var app = builder.Build();
 

@@ -10,7 +10,7 @@ using ToyotaProcessManager.Services.Constants;
 using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.RegisterViewModel;
-partial class RegisterViewModel
+public partial class RegisterViewModel
 {
     private ToyotaEmployee? _currentEmployeeInEdit;
 
@@ -23,12 +23,9 @@ partial class RegisterViewModel
     [ObservableProperty]
     private string? _position;
 
-    public IAsyncRelayCommand CreateNewEmployeeCommand => new AsyncRelayCommand(CreateNewEmployee);
-    public IAsyncRelayCommand ShowEmployeeCommand => new AsyncRelayCommand<ToyotaEmployee>(ShowEmployee);
-    public IAsyncRelayCommand UpdateEmployeeCommand => new AsyncRelayCommand<ToyotaEmployee>(DeleteEmployee);
-    public IAsyncRelayCommand DeleteEmployeeCommand => new AsyncRelayCommand<ToyotaEmployee>(UpdateEmployee);
     //public IAsyncRelayCommand SaveUpdateEmployeeCommand => new AsyncRelayCommand(test);
 
+    [RelayCommand]
     public async Task<bool> CreateNewEmployee()
     {
         ToyotaEmployee newEmployee = new(Title, Description);
@@ -46,22 +43,55 @@ partial class RegisterViewModel
 
         return true;
     }
+
+    [RelayCommand]
     public async Task<bool> ShowEmployee(ToyotaEmployee? toyotaEmployee)
     {
         await Application.Current.MainPage.DisplayAlert("Show", WarningTokens.ExistingProcess.Item2, "ok");
 
         return true;
     }
+
+    [RelayCommand]
     public async Task<bool> DeleteEmployee(ToyotaEmployee? toyotaEmployee)
     {
         await Application.Current.MainPage.DisplayAlert("Delete", WarningTokens.ExistingProcess.Item2, "ok");
 
         return true;
     }
+
+    [RelayCommand]
     public async Task<bool> UpdateEmployee(ToyotaEmployee? toyotaEmployee)
     {
+        LoadEmployeeFilds();
         await Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
 
+        return true;
+    }
+    [RelayCommand]
+    public async Task<bool> SaveUpdateEmployee(ToyotaEmployee? toyotaEmployee)
+    {
+        await Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
+        if(CheckIfAnythingHasChangedEmployee())
+        {
+            // Save changes logic here
+            ClearEmployeeFilds();
+        }
+
+        ClearEmployeeFilds();
+        return true;
+    }
+    [RelayCommand]
+    public async Task<bool> CancelUpdateEmployee(ToyotaEmployee? toyotaEmployee)
+    {
+        await Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
+        if (CheckIfAnythingHasChangedEmployee())
+        {
+            // Save changes logic here
+            ClearEmployeeFilds();
+        }
+
+        ClearEmployeeFilds();
         return true;
     }
     //----Tools-----

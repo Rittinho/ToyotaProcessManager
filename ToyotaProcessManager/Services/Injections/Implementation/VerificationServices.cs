@@ -25,9 +25,7 @@ namespace ToyotaProcessManager.Services.Injections.Implementation
         {
             foreach (var process in list)
             {
-                if (process.Title == toyotaProcess.Title &&
-                    process.Description == toyotaProcess.Description &&
-                    process.Icon == toyotaProcess.Icon)
+                if (process.Title == toyotaProcess.Title)
                     return true;
             }
 

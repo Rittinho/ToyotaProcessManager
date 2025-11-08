@@ -32,7 +32,7 @@ public partial class CircularIcon : ContentView
     public CircularIcon()
     {
         InitializeComponent();
-        iconColor = Color.FromArgb(ColorCode);
+        iconColor = Color.FromArgb("FFFFFF");
         externalBorder.Padding = iconSize * 0.10;
         icon.FontSize = iconSize * 0.50;
     }
