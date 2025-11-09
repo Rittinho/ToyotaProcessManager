@@ -29,13 +29,15 @@ public partial class RegisterViewModel
 
         if (_verification.CheckSameEmployee(newEmployee, [.. EmployeeList]))
         {
-            await Application.Current.MainPage.DisplayAlert(WarningTokens.ExistingEmployee.Item1, WarningTokens.ExistingEmployee.Item2, "ok");
+            await _verification.WaringPopup(WarningTokens.ExistingEmployee);
             return;
         }
 
         _toyotaEmployeeModel.CreateEmployee(newEmployee);
 
         _currentEmployeeInEdit = newEmployee;
+
+        await _verification.WaringPopup(WarningTokens.CreateSuccess);
 
         RefreshList();
 
@@ -45,16 +47,26 @@ public partial class RegisterViewModel
     [RelayCommand]
     public async Task ShowEmployee(ToyotaEmployee? toyotaEmployee)
     {
-        await Application.Current.MainPage.DisplayAlert(toyotaEmployee.Name, toyotaEmployee.Position, "ok");
+        if (toyotaEmployee is null)
+        {
+            await _verification.WaringPopup(WarningTokens.CorruptFile);
+            return;
+        }
+
+        await _popServices.ShowEmployeePopup(toyotaEmployee!);
     }
 
     [RelayCommand]
     public async Task DeleteEmployee(ToyotaEmployee? toyotaEmployee)
     {
-        //Implemente popup
-        if (_toyotaEmployeeModel.DeleteEmployee(toyotaEmployee))
-            await Application.Current.MainPage.DisplayAlert("Delete", WarningTokens.ExistingProcess.Item2, "ok");
-        //Implemente popup 
+        if (!await _verification.ConfirmPopup(WarningTokens.DeleteEmployee))
+            return;
+
+        if (_toyotaEmployeeModel!.DeleteEmployee(toyotaEmployee!))
+            await _verification.WaringPopup(WarningTokens.DeleteSuccess);
+
+        ClearEmployeeFilds();
+        SwitchMode(RegisterMode.Create);
         RefreshList();
     }
 
@@ -66,7 +78,7 @@ public partial class RegisterViewModel
         LoadEmployeeFilds();
     }
     [RelayCommand]
-    public void SaveUpdateEmployee()
+    public async Task SaveUpdateEmployee()
     {
         ToyotaEmployee newEmployee = new(Title, Description);
 
@@ -77,24 +89,29 @@ public partial class RegisterViewModel
             return;
         }
 
-        Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
+        if (!await _verification.ConfirmPopup(WarningTokens.UpdateEmployee))
+            return;
 
-        _toyotaEmployeeModel.UpdateEmployee(_currentEmployeeInEdit!, newEmployee);
+        _toyotaEmployeeModel!.UpdateEmployee(_currentEmployeeInEdit!, newEmployee);
 
         ClearEmployeeFilds();
         SwitchMode(RegisterMode.Create);
     }
     [RelayCommand]
-    public void CancelUpdateEmployee()
+    public async Task CancelUpdateEmployee()
     {
-        if (CheckIfAnythingHasChangedEmployee())
+        if (!CheckIfAnythingHasChangedEmployee())
         {
             ClearEmployeeFilds();
+            SwitchMode(RegisterMode.Create);
             return;
         }
 
-        Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
+        if (!await _verification.ConfirmPopup(WarningTokens.DescarteUpdate))
+            return;
+
         ClearEmployeeFilds();
+        SwitchMode(RegisterMode.Create);
     }
     //----Tools-----
     private bool CheckIfAnythingHasChangedEmployee()

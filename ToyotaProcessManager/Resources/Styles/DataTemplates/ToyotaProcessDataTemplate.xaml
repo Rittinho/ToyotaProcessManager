@@ -1,77 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                    xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
-                    xmlns:vm="clr-namespace:ToyotaProcessManager.MVVM.ViewModel.Pages.Main.RegisterViewModel"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-
+	                xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
+	                xmlns:vm="clr-namespace:ToyotaProcessManager.MVVM.ViewModel.Pages.Main.RegisterViewModel"
+	                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"> 
+    
     <DataTemplate x:Key="ToastProcessStyle">
-
-        <Border StrokeShape="14"
-             Padding="10,5,10,5"
-             StrokeThickness="0"
-             BackgroundColor="#323232">
-
-            <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto" ColumnSpacing="5">
-
-                <!--Icon-->
-                <elements:CircularIcon iconSize="50"
-                                       Unicode="{Binding Icon.Unicode}"
-                                       ColorCode="{Binding icon.ColorCode}"/>
-
-                <!--Name-->
-                <Border StrokeShape="14"
-                        Grid.Column="1"
-                        Padding="10"
-                        StrokeThickness="0"
-                        BackgroundColor="#222222">
-
-                    <Label Text="{Binding Title}"
-                           LineBreakMode="TailTruncation"                                                     
-                           FontSize="25"
-                           FontAttributes="Bold"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"/>
-
-                </Border>
-
-                <!--Show-Button-->
-                <Button Grid.Column="2"
-                        FontSize="20"
-                        TextColor="White"
-                        FontFamily="FAS"
-                        CornerRadius="9999"
-                        BackgroundColor="red"
-                        Command="{Binding Path=ShowProcessCommand, Source={RelativeSource AncestorType={x:Type vm:RegisterViewModel}}}"
-                        CommandParameter="{Binding .}"
-                        Text="{DynamicResource FAS_Eye}"/>
-
-                <!--Update-Button-->
-                <Button Grid.Column="3"
-                        FontSize="20"
-                        TextColor="White"
-                        FontFamily="FAS"
-                        CornerRadius="9999"
-                        BackgroundColor="red"
-                        Command="{Binding Path=UpdateProcessCommand, Source={RelativeSource AncestorType={x:Type vm:RegisterViewModel}}}"
-                        CommandParameter="{Binding .}"
-                        Text="{DynamicResource FAS_Pen}"/>
-
-                <!--Delete-Button-->
-                <Button Grid.Column="4"
-                        FontSize="20"
-                        TextColor="White"
-                        FontFamily="FAS"
-                        CornerRadius="9999"
-                        BackgroundColor="red"
-                        Command="{Binding Path=DeleteProcessCommand, Source={RelativeSource AncestorType={x:Type vm:RegisterViewModel}}}"
-                        CommandParameter="{Binding .}"
-                        Text="{DynamicResource FAS_TrashCan}"/>
-
-            </Grid>
-
-        </Border>
-
+        
+        <VerticalStackLayout>
+            
+            <Border StrokeShape="14"
+                    Padding="10,5,10,5"
+                    StrokeThickness="0"
+                    BackgroundColor="#323232">
+                
+                <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto">
+                    
+                    <!--Icon-->
+                    <elements:CircularIcon IconSize="50"
+                                           Unicode="{Binding Icon.Unicode}"
+                                           ColorCode="{Binding Icon.ColorCode}"/>
+                    
+                    <!--Name-->
+                    <Border StrokeShape="14"
+                            Margin="5,0,5,0"
+                            Grid.Column="1"
+                            Padding="10"
+                            StrokeThickness="0"
+                            BackgroundColor="#222222">
+                        
+                        <Label Text="{Binding Title}"
+                               LineBreakMode="TailTruncation"                                                     
+                               FontSize="25"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        
+                    </Border>
+                    
+                    <!--Show-Button-->
+                    <Button Grid.Column="2"
+                            FontSize="20"
+                            TextColor="White"
+                            FontFamily="FAS"
+                            CornerRadius="10"
+                            BackgroundColor="Transparent"
+                            Command="{Binding Path=ShowProcessCommand, 
+                                              Source={RelativeSource AncestorType={x:Type vm:RegisterViewModel}}}"
+                            CommandParameter="{Binding .}"
+                            Text="{DynamicResource FAS_Eye}"/>
+                    
+                    <!--Update-Button-->
+                    <Button Grid.Column="3"
+                            FontSize="20"
+                            TextColor="White"
+                            FontFamily="FAS"
+                            CornerRadius="10"
+                            BackgroundColor="Transparent"
+                            Command="{Binding Path=UpdateProcessCommand, 
+                                              Source={RelativeSource AncestorType={x:Type vm:RegisterViewModel}}}"
+                            CommandParameter="{Binding .}"
+                            Text="{DynamicResource FAS_Pen}"/>
+                    
+                    <!--Delete-Button-->
+                    <Button Grid.Column="4"
+                            FontSize="20"
+                            TextColor="White"
+                            FontFamily="FAS"
+                            CornerRadius="10"
+                            BackgroundColor="Transparent"
+                            Command="{Binding Path=DeleteProcessCommand,
+                                              Source={RelativeSource AncestorType={x:Type vm:RegisterViewModel}}}"
+                            CommandParameter="{Binding .}"
+                            Text="{DynamicResource FAS_TrashCan}"/>
+                    
+                </Grid>
+            </Border>
+        </VerticalStackLayout>
     </DataTemplate>
-
 </ResourceDictionary>

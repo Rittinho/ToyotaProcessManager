@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
+               xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button"             
+               xmlns:icons="clr-namespace:ToyotaProcessManager.Services.Icons"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="ToyotaProcessManager.MVVM.View.Modal.Warning.EmployeeDescriptionModal"
+               BackgroundColor="#343434">
+
+    <VerticalStackLayout>
+        
+        <!--Conteudo-->
+        <ScrollView >
+
+            <VerticalStackLayout>
+
+                <Label Text="{Binding Name}"
+                       FontSize="50"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Center"/>
+
+                <Label Text="{Binding Position}"
+                       FontSize="30"
+                       TextColor="White"
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Center"/>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+        <!--Botão de editar-->
+        <button:IconButton Grid.Row="1"
+                           HorizontalOptions="End"
+                           FontSize="20"
+                           TextContent="Voltar"
+                           Unicode="{StaticResource FAS_RotateLeft}"
+                           BackgorundColorCode="#4DA3FF"
+                           Event="{Binding CloseShowCommand}"/>
+        
+    </VerticalStackLayout>
+
+</toolkit:Popup>

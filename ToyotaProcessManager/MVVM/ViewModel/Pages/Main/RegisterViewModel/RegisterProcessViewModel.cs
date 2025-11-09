@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Extensions;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToyotaProcessManager.MVVM.View.Modal.Warning;
 using ToyotaProcessManager.Services.Constants;
 using ToyotaProcessManager.Services.Icons;
 using ToyotaProcessManager.Services.ValueObjects;
@@ -34,13 +36,15 @@ public partial class RegisterViewModel
 
         if (_verification.CheckSameProcess(newProcess, [.. ProcessList]))
         {
-            await Application.Current.MainPage.DisplayAlert(WarningTokens.ExistingProcess.Item1, WarningTokens.ExistingProcess.Item2, "ok");
+            await _verification.WaringPopup(WarningTokens.ExistingProcess);
             return;
         }
 
-        _toyotaProcessModel.CreateProcess(newProcess);
+        _toyotaProcessModel!.CreateProcess(newProcess);
 
         _currentProcessInEdit = newProcess;
+
+        await _verification.WaringPopup(WarningTokens.CreateSuccess);
 
         RefreshList();
 
@@ -48,20 +52,36 @@ public partial class RegisterViewModel
     }
 
     [RelayCommand]
+    public async Task UpdateIcon()
+    {
+        var result = await _popServices.IconPickerPopup(Icon); 
+
+        Icon = result as IconParameters;
+    }
+
+    [RelayCommand]
     public async Task ShowProcess(ToyotaProcess? toyotaProcess)
     {
-        await Application.Current.MainPage.DisplayAlert(toyotaProcess.Title, toyotaProcess.Description, "ok");
+        if (toyotaProcess is null)
+        {
+            await _verification.WaringPopup(WarningTokens.CorruptFile);
+            return;
+        }
+
+        await _popServices.ShowProcessPopup(toyotaProcess!);
     }
 
     [RelayCommand]
     public async Task DeleteProcess(ToyotaProcess? toyotaProcess)
     {
-        //Implemente popup 
-        if (_toyotaProcessModel.DeleteProcess(toyotaProcess!))
-        {
-            await Application.Current.MainPage.DisplayAlert("Deletou!", "Trocha!", "ok");
-        }
-        //implementar resposta visual caso n delete
+        if (!await _verification.ConfirmPopup(WarningTokens.DeleteProcess))
+            return;
+
+        if (_toyotaProcessModel!.DeleteProcess(toyotaProcess!))
+            await _verification.WaringPopup(WarningTokens.DeleteSuccess);
+
+        ClearProcessFilds();
+        SwitchMode(RegisterMode.Create);
         RefreshList();
     } 
 
@@ -73,35 +93,40 @@ public partial class RegisterViewModel
         LoadProcessFilds();
     }
     [RelayCommand]
-    public void SaveUpdateProcess()
+    public async Task SaveUpdateProcess()
     {
         ToyotaProcess newProcess = new(Title, Description, Icon);
 
-        if (!CheckIfAnythingHasChangedEmployee())
+        if (!CheckIfAnythingHasChangedProcess())
         {
             ClearProcessFilds();
             SwitchMode(RegisterMode.Create);
             return;
         }
-        
-        Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
 
-        _toyotaProcessModel.UpdateProcess(_currentProcessInEdit!, newProcess);
+        if (!await _verification.ConfirmPopup(WarningTokens.UpdateProcess))
+            return;
+
+        _toyotaProcessModel!.UpdateProcess(_currentProcessInEdit!, newProcess);
 
         ClearProcessFilds();
         SwitchMode(RegisterMode.Create);
     }
     [RelayCommand]
-    public void CancelUpdateProcess()
+    public async Task CancelUpdateProcess()
     {
-        if (CheckIfAnythingHasChangedProcess())
+        if (!CheckIfAnythingHasChangedProcess())
         {
             ClearProcessFilds();
+            SwitchMode(RegisterMode.Create);
             return;
         }
 
-        Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
+        if (!await _verification.ConfirmPopup(WarningTokens.DescarteUpdate))
+            return;
+
         ClearProcessFilds();
+        SwitchMode(RegisterMode.Create);
     }
 
     //----Tools-----
@@ -113,7 +138,7 @@ public partial class RegisterViewModel
     }
     private void ClearProcessFilds()
     {
-        Icon = new IconParameters(FASolid.Asterisk,"FFFFFF");
+        Icon = new IconParameters("Asterisk", "FFFFFF");
         Title = string.Empty;
         Description = string.Empty;
     }

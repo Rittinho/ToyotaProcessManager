@@ -35,6 +35,7 @@ namespace ToyotaProcessManager
 
             builder.Services.AddTransient<IVerificationServices, VerificationServices>();
             builder.Services.AddTransient<IJsonServices, JsonServices>();
+            builder.Services.AddTransient<IPopServices, PopServices>();
 
             //views
             builder.Services.AddTransient<CreateTableView>();

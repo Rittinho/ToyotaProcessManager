@@ -12,7 +12,7 @@ namespace ToyotaProcessManager.Services.Constants
         "Já existe esse processo!",
         "Verifique os processos existentes!"
         );
-        public static Tuple<string, string> ChangProcess = new(
+        public static Tuple<string, string> UpdateProcess = new(
             "Alterar processo?",
             "Essa ação não tem volta!"
         );
@@ -25,7 +25,7 @@ namespace ToyotaProcessManager.Services.Constants
         "Colaborador já cadastrado!",
         "Verifique os colaboradores existentes!"
         );
-        public static Tuple<string, string> ChangEmployee = new(
+        public static Tuple<string, string> UpdateEmployee = new(
             "Alterar informações do colaborador?",
             "Essa ação não tem volta!"
         );
@@ -34,9 +34,21 @@ namespace ToyotaProcessManager.Services.Constants
             "Essa ação não tem volta!"
         );
 
+        public static Tuple<string, string> CorruptFile = new (
+            "Arquivo inacessivel!",
+            "Arquivo corrompido, inacessivel ou inexistente!"
+        );
+        public static Tuple<string, string> DescarteUpdate = new(
+            "Descartar alterações?",
+            "Essa ação não tem volta!"
+        );
         public static Tuple<string, string> CreateSuccess = new(
             "Criado com sucesso!",
             "Criado com sucesso, já pode ser visto na lista"
+        );
+        public static Tuple<string, string> DeleteSuccess = new(
+            "Deletado com sucesso!",
+            "Deletado com sucesso, já pode ser visto na lista"
         );
         public static Tuple<string, string> UpdateSuccess = new(
             "Alterado com sucesso!",

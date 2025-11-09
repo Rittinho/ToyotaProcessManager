@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Maui.Services;
+using CommunityToolkit.Maui.Views;
 using ToyotaProcessManager.MVVM.View.Modal.Warning;
 using ToyotaProcessManager.Services.Injections.Contract;
 using ToyotaProcessManager.Services.ValueObjects;
@@ -31,68 +32,80 @@ namespace ToyotaProcessManager.Services.Injections.Implementation
             return false;
         }
 
-        //public async Task<bool> ConfirmPopup(Tuple<string, string> token)
-        //{
-        //    INavigation navigationContext = Shell.Current.Navigation;
+        public async Task WaringPopup(Tuple<string, string> token)
+        {
+            var page = GetCurrentPage();
 
-        //    IPopupResult<bool> result = await _popupService.ShowPopupAsync<bool>(new ConfirmActionModal(
-        //      new TokenAction(
-        //          token.Item1,
-        //          token.Item2,
-        //          true)),
-        //          PopupOptions.Empty,
-        //          CancellationToken.None);
+            IPopupResult<bool> result = await page!.ShowPopupAsync<bool>(new ConfirmActionModal(
+            new TokenAction(
+                token.Item1,
+                token.Item2,
+                false)),
+                PopupOptions.Empty,
+                CancellationToken.None);
 
-        //    if (result.WasDismissedByTappingOutsideOfPopup || !result.Result!)
-        //        return false;
+            if (result.WasDismissedByTappingOutsideOfPopup || !result.Result!)
+                return;
 
-        //    return true;
-        //}
+            return;
+        }
+        public async Task WaringPopup(string title, string description)
+        {
+            var page = GetCurrentPage();
 
-        //public async Task<bool> ConfirmPopup(string title, string description)
-        //{
-        //    IPopupResult<bool> result = await _popupService.ShowPopupAsync<bool>(new ConfirmActionModal(
-        //      new TokenAction(
-        //          title,
-        //          description,
-        //          true)),
-        //          PopupOptions.Empty,
-        //          CancellationToken.None);
+            IPopupResult<bool> result = await page!.ShowPopupAsync<bool>(new ConfirmActionModal(
+            new TokenAction(
+                title,
+                description,
+                false)));
 
-        //    if (result.WasDismissedByTappingOutsideOfPopup || !result.Result!)
-        //        return false;
+            if (result.WasDismissedByTappingOutsideOfPopup || !result.Result!)
+                return;
 
-        //    return true;
-        //}
+            return;
+        }
+        public async Task<bool> ConfirmPopup(Tuple<string,string> token)
+        {
+            var page = GetCurrentPage();
 
-        //public async Task WaringPopup(Tuple<string, string> token)
-        //{
-        //    IPopupResult<bool> result = await _popupService.ShowPopupAsync<bool>(new ConfirmActionModal(
-        //    new TokenAction(
-        //        token.Item1,
-        //        token.Item2,
-        //        false)),
-        //        PopupOptions.Empty,
-        //        CancellationToken.None);
+            IPopupResult<bool> result = await page!.ShowPopupAsync<bool>(new ConfirmActionModal(
+              new TokenAction(
+                  token.Item1,
+                  token.Item2,
+                  true)),
+                  PopupOptions.Empty,
+                  CancellationToken.None);
 
-        //    if (result.WasDismissedByTappingOutsideOfPopup || !result.Result!)
-        //        return;
+            if (result.WasDismissedByTappingOutsideOfPopup || !result.Result!)
+                return false;
 
-        //    return;
-        //}
+            return true;
+        }
+        public async Task<bool> ConfirmPopup(string title, string description)
+        {
+            var page = GetCurrentPage();
 
-        //public async Task WaringPopup(string title, string description)
-        //{
-        //    IPopupResult<bool> result = await _popupService.ShowPopupAsync<bool>(new ConfirmActionModal(
-        //    new TokenAction(
-        //        title,
-        //        description,
-        //        false)));
+            IPopupResult<bool> result = await page!.ShowPopupAsync<bool>(new ConfirmActionModal(
+              new TokenAction(
+                  title,
+                  description,
+                  true)),
+                  PopupOptions.Empty,
+                  CancellationToken.None);
 
-        //    if (result.WasDismissedByTappingOutsideOfPopup || !result.Result!)
-        //        return;
+            if (result.WasDismissedByTappingOutsideOfPopup || !result.Result!)
+                return false;
 
-        //    return;
-        //}
+            return true;
+        }
+
+        private Page? GetCurrentPage()
+        {
+            if (Shell.Current?.CurrentPage != null)
+                return Shell.Current.CurrentPage;
+
+            var mainWindow = Application.Current?.Windows.FirstOrDefault();
+            return mainWindow?.Page;
+        }
     }
 }

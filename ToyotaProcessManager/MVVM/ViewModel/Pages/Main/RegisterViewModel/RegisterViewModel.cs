@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui.Core.Extensions;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Diagnostics;
@@ -10,6 +11,7 @@ namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.RegisterViewModel;
 public partial class RegisterViewModel : ObservableObject
 {
     private readonly IVerificationServices _verification;
+    private readonly IPopServices _popServices;
 
     private readonly ToyotaEmployeeModel? _toyotaEmployeeModel;
     private readonly ToyotaProcessModel? _toyotaProcessModel;
@@ -29,9 +31,13 @@ public partial class RegisterViewModel : ObservableObject
     [ObservableProperty]
     public bool? _isInEmployeePanel;
 
-    public RegisterViewModel(IVerificationServices verificationServices, ToyotaEmployeeModel toyotaEmployeeModel, ToyotaProcessModel toyotaProcessModel)
+    public RegisterViewModel(IVerificationServices verificationServices,
+        ToyotaEmployeeModel toyotaEmployeeModel, 
+        ToyotaProcessModel toyotaProcessModel,
+        IPopServices popServices)
     {
         _verification = verificationServices;
+        _popServices = popServices;
         _toyotaEmployeeModel = toyotaEmployeeModel;
         _toyotaProcessModel = toyotaProcessModel;
         RefreshList();
@@ -40,6 +46,7 @@ public partial class RegisterViewModel : ObservableObject
         SwitchPanel(RegisterPanel.Process);
         ClearProcessFilds();
         ClearEmployeeFilds();
+        _popServices = popServices;
     }
 
     public void RefreshList()

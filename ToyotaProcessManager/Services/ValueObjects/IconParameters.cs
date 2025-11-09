@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ToyotaProcessManager.Services.Icons;
 
 namespace ToyotaProcessManager.Services.ValueObjects
 {
@@ -12,7 +8,7 @@ namespace ToyotaProcessManager.Services.ValueObjects
         public string ColorCode { get; set; }
         public IconParameters(string IconUnicode, string IconColorCode)
         {
-            Unicode = string.IsNullOrEmpty(IconUnicode) ? "\u003f" : IconUnicode;
+            Unicode = string.IsNullOrEmpty(IconUnicode) ? "Asterisk" : IconUnicode;
             ColorCode = string.IsNullOrEmpty(IconColorCode) ? "00FF00" : IconColorCode;
         }
     }

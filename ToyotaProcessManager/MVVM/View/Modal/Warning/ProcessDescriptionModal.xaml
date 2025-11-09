@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
+               xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button"
+               xmlns:icons="clr-namespace:ToyotaProcessManager.Services.Icons"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="ToyotaProcessManager.MVVM.View.Modal.Warning.ProcessDescriptionModal"
+               BackgroundColor="#343434">
+
+    <Grid RowDefinitions="*,Auto"
+      RowSpacing="20">
+
+        <!--Conteudo-->
+        <Grid ColumnDefinitions="Auto,2.5*">
+
+            <elements:CircularIcon Grid.RowSpan="2"
+                                   IconSize="250"
+                                   Unicode="{Binding Icon.Unicode}"
+                                   ColorCode="{Binding Icon.ColorCode}"/>
+
+            <ScrollView Grid.Column="1" Padding="20">
+
+                <VerticalStackLayout HorizontalOptions="Center">
+
+                    <Label Text="{Binding Title}"
+                           FontSize="50"
+                           TextColor="White" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Center"/>
+
+                    <Label Text="{Binding Description}"
+                           FontSize="30"
+                           TextColor="White"
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Center"/>
+
+                </VerticalStackLayout>
+
+            </ScrollView>
+
+        </Grid>
+
+        <!--Back button-->
+        <button:IconButton Grid.Row="1" 
+                           HorizontalOptions="End"
+                           FontSize="20"
+                           TextContent="Voltar"
+                           Unicode="{StaticResource FAS_RotateLeft}"
+                           BackgorundColorCode="#4DA3FF"
+                           Event="{Binding CloseShowCommand}"/>
+
+    </Grid>
+
+</toolkit:Popup>

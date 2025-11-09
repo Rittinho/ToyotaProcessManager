@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
+             xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button"
+             xmlns:icons="clr-namespace:ToyotaProcessManager.Services.Icons"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="ToyotaProcessManager.MVVM.View.Modal.Warning.IconSelecterModal"
+             xmlns:local="clr-namespace:ToyotaProcessManager.Services.ValueObjects"
+             x:TypeArguments="local:IconParameters"
+             BackgroundColor="#343434"
+             x:Name="Root">
+
+    <Grid ColumnDefinitions="*,3*" 
+      RowDefinitions="Auto,*,Auto"
+      RowSpacing="20">
+
+        <!--Titulos-->
+        <Label Text="Customização de icone"
+               VerticalOptions="Center" 
+               Grid.ColumnSpan="2"
+               FontSize="60"
+               FontAttributes="Bold"
+               TextColor="White"
+               HorizontalOptions="Center" />
+
+        <!--Icon preview-->
+        <elements:CircularIcon Grid.RowSpan="3" 
+                               IconSize="270"
+                               x:Name="Icon"/>
+
+        <!--Listas de icones e cores-->
+        <Border Grid.Row="1"
+                Grid.Column="1"
+                BackgroundColor="#424242"
+                StrokeThickness="0"
+                StrokeShape="24">
+
+            <Grid RowDefinitions="*,auto"
+                  RowSpacing="10">
+
+                <!--Lista de icones-->
+                <CollectionView ItemsSource="{Binding IconList}"
+                                ItemTemplate="{StaticResource DotIcon}"              
+                                SelectionMode="Single"
+                                MaximumWidthRequest="1200"
+                                SelectionChanged="SelectIcon"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill">
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="12" VerticalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+
+
+                </CollectionView>
+
+                <!--Container de cores-->
+                <Border Grid.Row="1"
+                        StrokeThickness="5"
+                        Stroke="#4DA3FF"
+                        Padding="10"
+                        StrokeShape="24">
+
+                    <!--Lista de cores-->
+                    <CollectionView ItemsSource="{Binding ColorsList}"
+                                    SelectionMode="Single"
+                                    MaximumWidthRequest="1200"
+                                    SelectionChanged="SelectColor"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill">
+
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="12"/>
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Border HeightRequest="60"
+                                    WidthRequest="60"
+                                    StrokeThickness="4"
+                                    BackgroundColor="{Binding .}"
+                                    StrokeShape="14">
+
+                                    <VisualStateManager.VisualStateGroups>
+
+                                        <VisualStateGroup Name="CommonStates">
+
+                                            <VisualState Name="Normal">
+
+                                                <VisualState.Setters>
+                                                    <Setter Property="StrokeThickness" Value="0" />
+                                                </VisualState.Setters>
+
+                                            </VisualState>
+
+                                            <VisualState Name="Selected">
+
+                                                <VisualState.Setters>
+                                                    <Setter Property="StrokeThickness" Value="5" />
+                                                    <Setter Property="Stroke" Value="#4DA3FF" />
+                                                </VisualState.Setters>
+
+                                            </VisualState>
+
+                                        </VisualStateGroup>
+
+                                    </VisualStateManager.VisualStateGroups>
+
+                                </Border>
+
+                            </DataTemplate>
+
+                        </CollectionView.ItemTemplate>
+                        
+                    </CollectionView>
+
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+        <!--Botões-->
+
+        <HorizontalStackLayout HorizontalOptions="End" 
+                           Grid.Row="3"
+                           Grid.Column="1"
+                           Spacing="8">
+
+            <button:IconButton BackgorundColorCode="#FF4C4C"
+                               TextContent="Cancelar"
+                               Unicode="{StaticResource FAS_CircleXmark}"
+                               FontSize="20"
+                               Event="{Binding Source={x:Reference Root}, Path=CancelButtonCommand}"/>
+
+            <button:IconButton BackgorundColorCode="#4CAF50"
+                               TextContent="Salvar"
+                               Unicode="{StaticResource FAS_CircleCheck}"
+                               FontSize="20"
+                               Event="{Binding Source={x:Reference Root}, Path=SaveButtonCommand}"/>
+            
+            <button:IconButton/>
+
+        </HorizontalStackLayout>
+
+    </Grid>
+
+</toolkit:Popup>
