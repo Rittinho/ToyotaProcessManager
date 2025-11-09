@@ -16,7 +16,7 @@ namespace ToyotaProcessManager.Services.ValueObjects
 
         public ToyotaProcess(string ProcessTitle, string ProcessDescription, IconParameters iconPropertys)
         {
-            Title = string.IsNullOrEmpty(ProcessTitle) ? "Sem titulo" : ProcessDescription;
+            Title = string.IsNullOrEmpty(ProcessTitle) ? "Sem titulo" : ProcessTitle;
             Description = string.IsNullOrEmpty(ProcessDescription) ? "Descrição não realizada" : ProcessDescription;
 
             Icon = iconPropertys;

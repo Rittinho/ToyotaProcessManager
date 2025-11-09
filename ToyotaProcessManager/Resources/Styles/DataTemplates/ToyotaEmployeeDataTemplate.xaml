@@ -60,7 +60,7 @@
                      BackgroundColor="red"
                      Command="{Binding Path=DeleteEmployeeCommand, Source={RelativeSource AncestorType={x:Type vm:RegisterViewModel}}}"
                      CommandParameter="{Binding .}"
-                     Text="{DynamicResource FAS_Pen}"/>
+                     Text="{DynamicResource FAS_Trash}"/>
 
             </Grid>
 

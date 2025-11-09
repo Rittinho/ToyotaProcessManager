@@ -8,14 +8,13 @@ using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.Services.Injections.Implementation
 {
-    public class VerificationServices :IVerificationServices
+    public class VerificationServices : IVerificationServices
     {
         public bool CheckSameEmployee(ToyotaEmployee toyotaEmployee, List<ToyotaEmployee> list)
         {
             foreach (var employee in list)
             {
-                if (employee.Name == toyotaEmployee.Name &&
-                    employee.Position == toyotaEmployee.Position)
+                if (employee.Name == toyotaEmployee.Name)
                     return true;
             }
 

@@ -46,59 +46,62 @@ public partial class RegisterViewModel
 
         ClearProcessFilds();
     }
-    //---Read Process---
+
     [RelayCommand]
     public async Task ShowProcess(ToyotaProcess? toyotaProcess)
     {
-        await Application.Current.MainPage.DisplayAlert("Show", WarningTokens.ExistingProcess.Item2, "ok");
+        await Application.Current.MainPage.DisplayAlert(toyotaProcess.Title, toyotaProcess.Description, "ok");
     }
-    //---Delete Process---
+
     [RelayCommand]
     public async Task DeleteProcess(ToyotaProcess? toyotaProcess)
     {
-        await Application.Current.MainPage.DisplayAlert("Delete", WarningTokens.ExistingProcess.Item2, "ok");
-            
-        _toyotaProcessModel.DeleteProcess(toyotaProcess!);
-    }
-    //---Update Process---
+        //Implemente popup 
+        if (_toyotaProcessModel.DeleteProcess(toyotaProcess!))
+        {
+            await Application.Current.MainPage.DisplayAlert("Deletou!", "Trocha!", "ok");
+        }
+        //implementar resposta visual caso n delete
+        RefreshList();
+    } 
+
     [RelayCommand]
-    public async Task<bool> UpdateProcess(ToyotaProcess? toyotaProcess)
+    public void UpdateProcess(ToyotaProcess? toyotaProcess)
     {
-        await Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
+        _currentProcessInEdit = toyotaProcess;
         SwitchMode(RegisterMode.Edit);
-
-        return true;
+        LoadProcessFilds();
     }
     [RelayCommand]
-    public async Task<bool> SaveUpdateProcess(ToyotaProcess? toyotaProcess)
+    public void SaveUpdateProcess()
     {
-        if (CheckIfAnythingHasChangedEmployee())
+        ToyotaProcess newProcess = new(Title, Description, Icon);
+
+        if (!CheckIfAnythingHasChangedEmployee())
         {
             ClearProcessFilds();
             SwitchMode(RegisterMode.Create);
-            return true;
+            return;
         }
+        
+        Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
 
-        _toyotaProcessModel.UpdateProcess(_currentProcessInEdit!, toyotaProcess!);
+        _toyotaProcessModel.UpdateProcess(_currentProcessInEdit!, newProcess);
 
-        await Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
+        ClearProcessFilds();
         SwitchMode(RegisterMode.Create);
-
-        return true;
     }
     [RelayCommand]
-    public async Task<bool> CancelUpdateProcess(ToyotaProcess? toyotaProcess)
+    public void CancelUpdateProcess()
     {
-        if (CheckIfAnythingHasChangedEmployee())
+        if (CheckIfAnythingHasChangedProcess())
         {
             ClearProcessFilds();
-            SwitchMode(RegisterMode.Create);
-            return true;
+            return;
         }
 
-        await Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
-        SwitchMode(RegisterMode.Create);
-        return true;
+        Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
+        ClearProcessFilds();
     }
 
     //----Tools-----

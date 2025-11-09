@@ -19,86 +19,87 @@ public partial class RegisterViewModel
     [ObservableProperty]
     private string? _name;
 
-
     [ObservableProperty]
     private string? _position;
 
-    //public IAsyncRelayCommand SaveUpdateEmployeeCommand => new AsyncRelayCommand(test);
-
     [RelayCommand]
-    public async Task<bool> CreateNewEmployee()
+    public async Task CreateNewEmployee()
     {
-        ToyotaEmployee newEmployee = new(Title, Description);
+        ToyotaEmployee newEmployee = new(Name, Position);
 
         if (_verification.CheckSameEmployee(newEmployee, [.. EmployeeList]))
         {
             await Application.Current.MainPage.DisplayAlert(WarningTokens.ExistingEmployee.Item1, WarningTokens.ExistingEmployee.Item2, "ok");
-            return false;
+            return;
         }
 
-        EmployeeList.Add(newEmployee);
+        _toyotaEmployeeModel.CreateEmployee(newEmployee);
+
         _currentEmployeeInEdit = newEmployee;
 
+        RefreshList();
+
         ClearEmployeeFilds();
-
-        return true;
     }
 
     [RelayCommand]
-    public async Task<bool> ShowEmployee(ToyotaEmployee? toyotaEmployee)
+    public async Task ShowEmployee(ToyotaEmployee? toyotaEmployee)
     {
-        await Application.Current.MainPage.DisplayAlert("Show", WarningTokens.ExistingProcess.Item2, "ok");
-
-        return true;
+        await Application.Current.MainPage.DisplayAlert(toyotaEmployee.Name, toyotaEmployee.Position, "ok");
     }
 
     [RelayCommand]
-    public async Task<bool> DeleteEmployee(ToyotaEmployee? toyotaEmployee)
+    public async Task DeleteEmployee(ToyotaEmployee? toyotaEmployee)
     {
-        await Application.Current.MainPage.DisplayAlert("Delete", WarningTokens.ExistingProcess.Item2, "ok");
-
-        return true;
+        //Implemente popup
+        if (_toyotaEmployeeModel.DeleteEmployee(toyotaEmployee))
+            await Application.Current.MainPage.DisplayAlert("Delete", WarningTokens.ExistingProcess.Item2, "ok");
+        //Implemente popup 
+        RefreshList();
     }
 
     [RelayCommand]
-    public async Task<bool> UpdateEmployee(ToyotaEmployee? toyotaEmployee)
+    public void UpdateEmployee(ToyotaEmployee? toyotaEmployee)
     {
+        _currentEmployeeInEdit = toyotaEmployee;
+        SwitchMode(RegisterMode.Edit);
         LoadEmployeeFilds();
-        await Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
-
-        return true;
     }
     [RelayCommand]
-    public async Task<bool> SaveUpdateEmployee(ToyotaEmployee? toyotaEmployee)
+    public void SaveUpdateEmployee()
     {
-        await Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
-        if(CheckIfAnythingHasChangedEmployee())
+        ToyotaEmployee newEmployee = new(Title, Description);
+
+        if (!CheckIfAnythingHasChangedEmployee())
         {
-            // Save changes logic here
             ClearEmployeeFilds();
+            SwitchMode(RegisterMode.Create);
+            return;
         }
 
+        Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
+
+        _toyotaEmployeeModel.UpdateEmployee(_currentEmployeeInEdit!, newEmployee);
+
         ClearEmployeeFilds();
-        return true;
+        SwitchMode(RegisterMode.Create);
     }
     [RelayCommand]
-    public async Task<bool> CancelUpdateEmployee(ToyotaEmployee? toyotaEmployee)
+    public void CancelUpdateEmployee()
     {
-        await Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
         if (CheckIfAnythingHasChangedEmployee())
         {
-            // Save changes logic here
             ClearEmployeeFilds();
+            return;
         }
 
+        Application.Current.MainPage.DisplayAlert("Update", WarningTokens.ExistingProcess.Item2, "ok");
         ClearEmployeeFilds();
-        return true;
     }
     //----Tools-----
     private bool CheckIfAnythingHasChangedEmployee()
     {
-        return !(Name == _currentEmployeeInEdit!.Name &&
-            Position == _currentEmployeeInEdit.Position);
+        return !(Name == _currentEmployeeInEdit!.Name && Position == _currentEmployeeInEdit.Position);
     }
     private void ClearEmployeeFilds()
     {
