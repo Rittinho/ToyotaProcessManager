@@ -7,7 +7,7 @@ using ToyotaProcessManager.MVVM.Model.Domain.Employee;
 using ToyotaProcessManager.MVVM.Model.Domain.Process;
 using ToyotaProcessManager.Services.Injections.Contract;
 
-namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.RegisterViewModel;
+namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
 public partial class RegisterViewModel : ObservableObject
 {
     private readonly IVerificationServices _verification;

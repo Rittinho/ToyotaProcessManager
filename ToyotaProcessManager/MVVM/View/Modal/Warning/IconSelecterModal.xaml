@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
              xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button"
-             xmlns:icons="clr-namespace:ToyotaProcessManager.Services.Icons"
+             xmlns:icons="clr-namespace:ToyotaProcessManager.Services.Constants"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="ToyotaProcessManager.MVVM.View.Modal.Warning.IconSelecterModal"
              xmlns:local="clr-namespace:ToyotaProcessManager.Services.ValueObjects"
@@ -12,8 +12,9 @@
              x:Name="Root">
 
     <Grid ColumnDefinitions="*,3*" 
-      RowDefinitions="Auto,*,Auto"
-      RowSpacing="20">
+          ColumnSpacing="20"
+          RowDefinitions="Auto,*,Auto"
+          RowSpacing="20">
 
         <!--Titulos-->
         <Label Text="Customização de icone"
@@ -41,15 +42,14 @@
 
                 <!--Lista de icones-->
                 <CollectionView ItemsSource="{Binding IconList}"
-                                ItemTemplate="{StaticResource DotIcon}"              
+                                ItemTemplate="{DynamicResource DotIconData}"                                 
                                 SelectionMode="Single"
-                                MaximumWidthRequest="1200"
                                 SelectionChanged="SelectIcon"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill">
 
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="12" VerticalItemSpacing="10"/>
+                        <GridItemsLayout Orientation="Vertical" Span="12" VerticalItemSpacing="5"/>
                     </CollectionView.ItemsLayout>
 
 
@@ -126,9 +126,9 @@
         <!--Botões-->
 
         <HorizontalStackLayout HorizontalOptions="End" 
-                           Grid.Row="3"
-                           Grid.Column="1"
-                           Spacing="8">
+                               Grid.Row="3"
+                               Grid.Column="1"
+                               Spacing="8">
 
             <button:IconButton BackgorundColorCode="#FF4C4C"
                                TextContent="Cancelar"

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
+                    xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <DataTemplate x:Key="TablePreviewData">
+
+        <Border StrokeThickness="0"
+                BackgroundColor="#242424"
+                StrokeShape="8">
+
+            <Grid ColumnDefinitions="*,*,2*,0.7*,0.7*" Padding="5" ColumnSpacing="5">
+
+                <Border StrokeThickness="0"
+                        BackgroundColor="#424242"
+                        StrokeShape="8">
+
+                    <Label Text="{Binding HiddenProcessCount}"/>
+
+                </Border>
+
+                <Border Grid.Column="1" 
+                        StrokeThickness="0"
+                        BackgroundColor="#424242"
+                        StrokeShape="8">
+
+                    <Label Text="{Binding HiddenEmployersCount}"/>
+                    
+                </Border>
+
+                <Border Grid.Column="2" 
+                        StrokeThickness="0"
+                        BackgroundColor="#424242"
+                        StrokeShape="8">
+
+                    <Label Text="{Binding CreationDate}"/>
+                    
+                </Border>
+
+                <button:IconButton Grid.Column="3"
+                                   Unicode="Eye"
+                                   BackgorundColorCode="Transparent"
+                                   FontSize="20"/>
+
+                <button:IconButton Grid.Column="4"
+                                   Unicode="Trash"
+                                   BackgorundColorCode="Transparent"
+                                   FontSize="20"/>
+
+
+            </Grid>
+
+        </Border>
+
+    </DataTemplate>
+    
+</ResourceDictionary>

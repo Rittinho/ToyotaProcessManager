@@ -12,4 +12,5 @@ public interface IJsonServices
 
     List<ToyotaEmployee> LoadEmployeeJson(string path, string jsonName);
     List<ToyotaProcess> LoadProcessJson(string path, string jsonName);
+    List<ToyotaTableGroup> LoadTableGroupJson(string path, string jsonName);
 }

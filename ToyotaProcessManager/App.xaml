@@ -11,7 +11,10 @@
                 <ResourceDictionary Source="Resources/Styles/Icons/FASolid.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/DataTemplates/ToyotaProcessDataTemplate.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/DataTemplates/ToyotaEmployeeDataTemplate.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/DataTemplates/TableGrupDataTemplate.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/DataTemplates/IconPickerDataTemplate.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/DataTemplates/TableItemDataTemplate.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/DataTemplates/PreviewTableTableDataTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

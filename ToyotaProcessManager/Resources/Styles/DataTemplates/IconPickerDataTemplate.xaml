@@ -3,7 +3,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <DataTemplate x:Key="DotIcon">
+    <DataTemplate x:Key="DotIconData">
 
         <Border HeightRequest="55"
                 WidthRequest="55"
@@ -13,6 +13,8 @@
 
             <Label Text="{Binding .}" 
                    FontFamily="FAS"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    FontSize="20"

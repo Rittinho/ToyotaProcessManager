@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToyotaProcessManager.Services.Icons;
-public static class FontaWesome
+namespace ToyotaProcessManager.Services.Constants;
+public static class FontAwesome
 {
     public static readonly Dictionary<string, string> FARegular = new Dictionary<string, string>
     {

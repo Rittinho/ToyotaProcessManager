@@ -1,5 +1,5 @@
 using System.Runtime.InteropServices;
-using ToyotaProcessManager.Services.Icons;
+using ToyotaProcessManager.Services.Constants;
 
 namespace ToyotaProcessManager.MVVM.View.Components.Elements;
 
@@ -47,7 +47,7 @@ public partial class CircularIcon : ContentView
         var control = (CircularIcon)bindable;
         if (newValue is string unicode)
         {
-            var code = FontaWesome.FASolid[unicode];
+            var code = FontAwesome.FASolid[unicode];
             control.icon.Text = code;
         }
     }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ToyotaProcessManager.Services.ValueObjects;
 
-namespace ToyotaProcessManager.Services.DTOs;
+namespace ToyotaProcessManager.MVVM.Model.Domain.Process.DTOs;
 public record ToyotaProcessDTO
 {
     public string Title { get; set; }

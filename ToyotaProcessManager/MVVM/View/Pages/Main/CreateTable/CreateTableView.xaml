@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToyotaProcessManager.MVVM.View.Pages.Main.CreateTable.CreateTableView"
+             Title="CreateTableView"
+             xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
+             xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button"
+             NavigationPage.HasNavigationBar="False"
+             x:Name="Root">
+
+    <Grid RowDefinitions="Auto,*" Padding="10">
+
+        <Border StrokeThickness="0"
+                Padding="10"
+                BackgroundColor="#0078D7">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="24,24,0,0"/>
+            </Border.StrokeShape>
+
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+
+                <button:IconButton BackgorundColorCode="#424242"
+                                   Unicode="{StaticResource FAS_AddressBook}"
+                                   TextContent="Registros"
+                                   FontSize="20"
+                                   Event="{Binding Path=SwitchToRegisterCommand, Source={x:Reference Root}}"/>
+
+                <Border StrokeThickness="0" Grid.Column="1">
+
+                    <Label Text="Gerenciar tabelas"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           FontSize="40"/>
+                </Border>
+
+                <button:IconButton Grid.Column="2"
+                                   BackgorundColorCode="#424242"
+                                   Unicode="{StaticResource FAS_Eye}"
+                                   TextContent="Ver tabelas"
+                                   FontSize="20"
+                                   Event="{Binding Path=SwitchToShowTablesCommand, Source={x:Reference Root}}"/>
+
+            </Grid>
+
+        </Border>
+
+        <Grid Grid.Row="1">
+            
+            <Border BackgroundColor="#424242"
+                    StrokeThickness="0">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0,0,24,24"/>
+                </Border.StrokeShape>
+
+                <Grid ColumnDefinitions="*,2*"
+                      ColumnSpacing="10"
+                      RowSpacing="10"
+                      Padding="10"
+                      RowDefinitions="*,Auto">
+
+                    <!--Left-->
+                    <Border BackgroundColor="#242424"                                
+                                Padding="10"                                  
+                                StrokeThickness="0">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="24,4,24,4"/>
+                        </Border.StrokeShape>
+
+                        <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10">
+
+                            <!--Container 1-->
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,*" ColumnSpacing="10">
+
+                                <Label Text="Processos"
+                                               FontSize="17"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+
+                                <Label Grid.Column="1"
+                                               Text="Colaboradores"
+                                               FontSize="17"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+
+                                <Border Padding="10,5,10,5" Grid.Row="1"
+                                                StrokeThickness="0"
+                                                BackgroundColor="#424242">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="444,4,4,4"/>
+                                    </Border.StrokeShape>
+
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+
+                                        <Border  Grid.Column="1" 
+                                                         BackgroundColor="#242424"  
+                                                         StrokeShape="14"                                                     
+                                                         StrokeThickness="0">
+
+                                            <Label Text="13"
+                                                           FontSize="25"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center"/>
+
+                                        </Border>
+
+                                        <elements:CircularIcon IconSize="50" 
+                                                                       ColorCode="FFFFFF"
+                                                                       Unicode="Scroll"/>
+
+                                    </Grid>
+
+
+                                </Border>
+
+                                <Border Grid.Column="1" Grid.Row="1"
+                                                StrokeThickness="0"
+                                                BackgroundColor="#424242"
+                                                Padding="10,5,10,5">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="0,4,0,444"/>
+                                    </Border.StrokeShape>
+
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+
+                                        <Border  BackgroundColor="#242424"  
+                                                         StrokeShape="14"
+                                                         Padding="10"
+                                                         StrokeThickness="0">
+
+                                            <Label Text="214"
+                                                           FontSize="25"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center"/>
+
+                                        </Border>
+
+                                        <elements:CircularIcon Grid.Column="1" 
+                                                                       IconSize="50"
+                                                                       ColorCode="FFFFFF"
+                                                                       Unicode="Users"/>
+
+                                    </Grid>
+
+                                </Border>
+
+                            </Grid>
+
+                            <!--Container 2-->
+                            <Border Grid.Row="1" BackgroundColor="#424242"
+                                            StrokeThickness="0"
+                                            StrokeShape="14"
+                                            Padding="10">
+
+                                <VerticalStackLayout Spacing="10">
+
+                                    <Label Text="Configurações da tabela"
+                                                   FontAttributes="Bold"
+                                                   FontSize="30"
+                                                   VerticalTextAlignment="Center"
+                                                   HorizontalTextAlignment="Center"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"/>
+
+                                    <Grid ColumnDefinitions="*,*"
+                                                  RowDefinitions="*,Auto"
+                                                  RowSpacing="10"
+                                                  ColumnSpacing="10">
+
+                                        <Border BackgroundColor="#FF4C4C"
+                                                        StrokeThickness="0"
+                                                        StrokeShape="14"
+                                                        Padding="5">
+
+                                            <Grid ColumnDefinitions="Auto,*">
+
+                                                <Border BackgroundColor="#8A2A2A"
+                                                                StrokeThickness="0"
+                                                                StrokeShape="11"
+                                                                Padding="5">
+
+                                                    <HorizontalStackLayout Spacing="10">
+
+                                                        <Label Text="{StaticResource FAS_EyeSlash}" 
+                                                                       FontFamily="FAS"
+                                                                       FontSize="15"
+                                                                       VerticalTextAlignment="Center"
+                                                                       HorizontalOptions="Center"
+                                                                       VerticalOptions="Center"/>
+
+                                                        <Label Text="3" 
+                                                                       FontSize="14"
+                                                                       FontAttributes="Bold"
+                                                                       VerticalTextAlignment="Center"
+                                                                       HorizontalOptions="Center"
+                                                                       VerticalOptions="Center"/>
+
+                                                    </HorizontalStackLayout>
+
+                                                </Border>
+
+                                                <Label Text="Processos ocultados" Grid.Column="1"
+                                                               VerticalTextAlignment="Center"
+                                                                HorizontalTextAlignment="Center"
+                                                               HorizontalOptions="Center"
+                                                               VerticalOptions="Center"/>
+
+                                            </Grid>
+
+                                        </Border>
+
+                                        <Border BackgroundColor="#FF4C4C"
+                                                        Grid.Column="1"
+                                                        StrokeThickness="0"
+                                                        StrokeShape="8"
+                                                        Padding="5">
+
+                                            <Grid ColumnDefinitions="Auto,*">
+
+                                                <Border BackgroundColor="#8A2A2A"
+                                                                StrokeThickness="0"
+                                                                StrokeShape="11"
+                                                                Padding="5">
+
+                                                    <HorizontalStackLayout Spacing="10">
+
+                                                        <Label Text="{StaticResource FAS_EyeSlash}" 
+                                                                       FontFamily="FAS"
+                                                                       FontSize="15"
+                                                                       VerticalTextAlignment="Center"
+                                                                       HorizontalOptions="Center"
+                                                                       VerticalOptions="Center"/>
+
+                                                        <Label Text="13" 
+                                                                     FontSize="14"
+                                                                       FontAttributes="Bold"
+                                                                       VerticalTextAlignment="Center"
+                                                                       HorizontalOptions="Center"
+                                                                       VerticalOptions="Center"/>
+
+                                                    </HorizontalStackLayout>
+
+                                                </Border>
+
+                                                <Label Text="Colaboradores ocultados" Grid.Column="1"
+                                                       VerticalTextAlignment="Center"
+                                                       HorizontalTextAlignment="Center"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center"/>
+
+                                            </Grid>
+
+                                        </Border>
+
+                                        <button:IconButton Grid.ColumnSpan="2" Grid.Row="1"
+                                                           Unicode="Gears" 
+                                                           TextContent="Alterar configurações"
+                                                           BackgorundColorCode="#0078D7"/>
+
+                                    </Grid>
+
+                                </VerticalStackLayout>
+
+                            </Border>
+
+                            <!--Container 3-->
+                            <Border Grid.Row="2"
+                                    BackgroundColor="#424242"
+                                    StrokeThickness="0">
+
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="24,24,24,4"/>
+                                </Border.StrokeShape>
+
+                                <ScrollView Padding="10">
+
+                                    <VerticalStackLayout>
+
+                                        <CollectionView ItemsSource="{Binding Grup}"
+                                                        ItemTemplate="{StaticResource TablePreviewData}"
+                                                        SelectionMode="None"                                  
+                                                        HorizontalOptions="Fill"
+                                                        VerticalOptions="Fill">
+
+                                            <CollectionView.ItemsLayout>
+                                                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
+                                            </CollectionView.ItemsLayout>
+
+                                        </CollectionView>
+
+                                    </VerticalStackLayout>
+
+                                </ScrollView>
+
+                            </Border>
+
+                        </Grid>
+
+                    </Border>
+
+                    <!--Right-->
+                    <Border Grid.Column="1" 
+                                BackgroundColor="#242424"                                
+                                Padding="10"                                  
+                                StrokeThickness="0">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="4,24,4,24"/>
+                        </Border.StrokeShape>
+
+                        <CollectionView ItemsSource="{Binding Grup}"
+                                        ItemTemplate="{StaticResource TableGrupData}"
+                                        SelectionMode="None"                                  
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill">
+
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" HorizontalItemSpacing="10" Span="5"/>
+                            </CollectionView.ItemsLayout>
+
+                        </CollectionView>
+
+                    </Border>
+
+                    <Grid Grid.ColumnSpan="2" Grid.Row="1" ColumnDefinitions="3*,*" ColumnSpacing="10">
+
+                        <button:IconButton BackgorundColorCode="#0078D7" 
+                                           TextContent="Gerar tabela"
+                                           Unicode="Book"
+                                           FontSize="20"
+                                           Event="{Binding CreateTableCommand}"/>
+
+                        <button:IconButton Grid.Column="1" 
+                                           BackgorundColorCode="#0078D7" 
+                                           TextContent="Pendente"
+                                           Unicode="Book"
+                                           FontSize="20"/>
+
+                    </Grid>
+
+                </Grid>
+                
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

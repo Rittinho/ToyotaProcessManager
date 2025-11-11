@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using ToyotaProcessManager.Services.Constants;
 using ToyotaProcessManager.Services.ValueObjects;
 
-namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.RegisterViewModel;
+namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
 public partial class RegisterViewModel
 {
     private ToyotaEmployee? _currentEmployeeInEdit;

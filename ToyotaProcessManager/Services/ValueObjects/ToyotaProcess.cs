@@ -1,19 +1,11 @@
 ﻿namespace ToyotaProcessManager.Services.ValueObjects
 {
-    public class ToyotaProcess
+    public class ToyotaProcess(IconParameters iconParameters, string processTitle = "Sem titulo", string processDescription = "Descrição não realizada")
     {
-        public string Title { get; set; }
+        public string Title { get; set; } = processTitle;
 
-        public string Description { get; set; }
+        public string Description { get; set; } = processDescription;
 
-        public IconParameters Icon { get; set; }
-
-        public ToyotaProcess(string ProcessTitle, string ProcessDescription, IconParameters iconPropertys)
-        {
-            Title = string.IsNullOrEmpty(ProcessTitle) ? "Sem titulo" : ProcessTitle;
-            Description = string.IsNullOrEmpty(ProcessDescription) ? "Descrição não realizada" : ProcessDescription;
-
-            Icon = iconPropertys;
-        }
+        public IconParameters Icon { get; set; } = iconParameters;
     }
 }

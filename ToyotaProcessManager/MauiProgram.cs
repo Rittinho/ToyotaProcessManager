@@ -2,9 +2,13 @@
 using Microsoft.Extensions.Logging;
 using ToyotaProcessManager.MVVM.Model.Domain.Employee;
 using ToyotaProcessManager.MVVM.Model.Domain.Process;
-using ToyotaProcessManager.MVVM.View.Pages.Main;
-using ToyotaProcessManager.MVVM.View.Pages.Main.RegisterView;
-using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.RegisterViewModel;
+using ToyotaProcessManager.MVVM.Model.Domain.Table;
+using ToyotaProcessManager.MVVM.View.Pages.Main.CreateTable;
+using ToyotaProcessManager.MVVM.View.Pages.Main.Register;
+using ToyotaProcessManager.MVVM.View.Pages.Main.ShowTable;
+using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.CreateTable;
+using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
+using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.ShowTable;
 using ToyotaProcessManager.Services.Injections.Contract;
 using ToyotaProcessManager.Services.Injections.Implementation;
 
@@ -34,18 +38,21 @@ namespace ToyotaProcessManager
     		builder.Logging.AddDebug();
 
             builder.Services.AddTransient<IVerificationServices, VerificationServices>();
+            builder.Services.AddTransient<INavigationServices, NavigationServices>();
             builder.Services.AddTransient<IJsonServices, JsonServices>();
             builder.Services.AddTransient<IPopServices, PopServices>();
 
             //views
             builder.Services.AddTransient<CreateTableView>();
             builder.Services.AddTransient<RegisterView>();
-            builder.Services.AddTransient<ShowTableViw>();
+            builder.Services.AddTransient<ShowTableView>();
             //ViewModels
-
             builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddTransient<CreateTableViewModel>();
+            builder.Services.AddTransient<ShowTableViewModel>();
 
             //models
+            builder.Services.AddTransient<CreateTableModel>();
             builder.Services.AddTransient<ToyotaEmployeeModel>();
             builder.Services.AddTransient<ToyotaProcessModel>();
 

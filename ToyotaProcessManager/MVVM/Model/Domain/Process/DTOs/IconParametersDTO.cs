@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToyotaProcessManager.Services.DTOs;
+namespace ToyotaProcessManager.MVVM.Model.Domain.Process.DTOs;
 public record IconParametersDTO
 {
     public string Unicode { get; set; }

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
+                    xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button">
+
+    <DataTemplate x:Key="TableGrupData">
+
+        <Border BackgroundColor="#323232"
+                StrokeThickness="0"
+                Padding="10"
+                StrokeShape="24">
+
+            <VerticalStackLayout>
+
+                <elements:CircularIcon IconSize="130"
+                                       Unicode="{Binding Process.Icon.Unicode}"
+                                       ColorCode="{Binding Process.Icon.ColorCode}"/>
+
+                <Label Text="{Binding Process.Title}" TextColor="White"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       VerticalOptions="Center"
+                       FontAttributes="Bold"
+                       FontSize="30"/>
+
+                <VerticalStackLayout Padding="10">
+
+                    <CollectionView ItemsSource="{Binding Employees}" 
+                                    ItemTemplate="{StaticResource TableItemData}"
+                                    SelectionMode="None"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill">
+
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="7"/>
+                        </CollectionView.ItemsLayout>
+
+                    </CollectionView>
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+    </DataTemplate>
+
+</ResourceDictionary>

@@ -1,7 +1,9 @@
 ﻿using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
-using ToyotaProcessManager.Services.DTOs;
+using ToyotaProcessManager.MVVM.Model.Domain.Employee.DTOs;
+using ToyotaProcessManager.MVVM.Model.Domain.Process.DTOs;
+using ToyotaProcessManager.MVVM.Model.Domain.Table.DTOs;
 using ToyotaProcessManager.Services.Injections.Contract;
 using ToyotaProcessManager.Services.ValueObjects;
 
@@ -88,9 +90,57 @@ public class JsonServices : IJsonServices
 
         foreach (var process in result)
         {
-            processList.Add(new (process.Title,process.Description,new(process.Icon.Unicode,process.Icon.ColorCode)));
+            processList.Add(new (new(process.Icon.Unicode, process.Icon.ColorCode), process.Title,process.Description));
         }
 
         return processList;
+    }
+
+    public List<ToyotaTableGroup> LoadTableGroupJson(string path, string jsonName)
+    {
+        var jsonPath = Path.Combine(path, $"{jsonName}.json");
+
+        if (!File.Exists(jsonPath))
+            return null;
+
+        List<ToyotaTableGroupDTO> result = null;
+
+        using (StreamReader stream = new(jsonPath))
+        {
+            string json = stream.ReadToEnd();
+            try
+            {
+                result = JsonSerializer.Deserialize<List<ToyotaTableGroupDTO>>(json, options);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        List<ToyotaTableGroup> tableGroupList = [];
+
+        foreach (var tableGroups in result)
+        {
+            ToyotaTableGroup group = new([]);
+            foreach (var tableGroup in tableGroups.TableGroup)
+            {
+                ToyotaProcess process = new(new(tableGroup.Process.Icon.Unicode, 
+                    tableGroup.Process.Icon.ColorCode), tableGroup.Process.Title, 
+                    tableGroup.Process.Description);
+
+                List<ToyotaEmployee> employees = [];
+
+                foreach (var employee in tableGroup.Employees)
+                {
+                    employees.Add(new(employee.Name, employee.Position));
+                }
+                ToyotaTable table = new(process, employees);
+                group.TableGroup.Add(table);
+            }
+            tableGroupList.Add(group);
+        }
+
+        return tableGroupList;
     }
 }

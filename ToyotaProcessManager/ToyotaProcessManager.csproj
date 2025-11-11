@@ -101,16 +101,25 @@
 	  <MauiXaml Update="MVVM\View\Modal\Warning\ProcessDescriptionModal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MVVM\View\Pages\Main\CreateTableView.xaml">
+	  <MauiXaml Update="MVVM\View\Pages\Main\CreateTable\CreateTableView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MVVM\View\Pages\Main\RegisterView\RegisterView.xaml">
+	  <MauiXaml Update="MVVM\View\Pages\Main\Register\RegisterView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MVVM\View\Pages\Main\ShowTableViw.xaml">
+	  <MauiXaml Update="MVVM\View\Pages\Main\ShowTable\ShowTableView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\DataTemplates\IconPickerDataTemplate.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\DataTemplates\PreviewTableTableDataTemplate.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\DataTemplates\TableGrupDataTemplate.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\DataTemplates\TableItemDataTemplate.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\DataTemplates\ToyotaEmployeeDataTemplate.xaml">

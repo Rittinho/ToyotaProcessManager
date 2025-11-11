@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToyotaProcessManager.Services.DTOs;
-class ToyotaEmployeeDTO
+namespace ToyotaProcessManager.MVVM.Model.Domain.Employee.DTOs;
+public class ToyotaEmployeeDTO
 {
     public string Name { get; set; }
     public string Position { get; set; }

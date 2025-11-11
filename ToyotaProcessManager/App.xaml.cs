@@ -1,6 +1,6 @@
 ﻿using ToyotaProcessManager.MVVM.View.Pages.Main;
-using ToyotaProcessManager.MVVM.View.Pages.Main.RegisterView;
-using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.RegisterViewModel;
+using ToyotaProcessManager.MVVM.View.Pages.Main.Register;
+using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
 using ToyotaProcessManager.Services.Injections.Contract;
 
 namespace ToyotaProcessManager
@@ -10,8 +10,6 @@ namespace ToyotaProcessManager
         public App()
         {
             InitializeComponent();
-
-
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

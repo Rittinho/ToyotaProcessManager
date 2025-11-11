@@ -6,15 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ToyotaProcessManager.Services.ValueObjects;
-public class ToyotaEmployee
+public class ToyotaEmployee(string employeeName = "Sem nome", string employeePosition = "Descrição não realizada")
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = employeeName;
 
-    public string Position { get; set; }
+    public string Position { get; set; } = employeePosition;
 
-    public ToyotaEmployee(string employeeName, string employeePosition)
-    {
-        Name = string.IsNullOrEmpty(employeeName) ? "Sem nome" : employeeName;
-        Position = string.IsNullOrEmpty(employeePosition) ? "Descrição não realizada" : employeePosition;
-    }
 }

@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main
+namespace ToyotaProcessManager.Services.Injections.Contract;
+public interface INavigationServices
 {
-    internal class CreateTableViewModel
-    {
-    }
+     
 }

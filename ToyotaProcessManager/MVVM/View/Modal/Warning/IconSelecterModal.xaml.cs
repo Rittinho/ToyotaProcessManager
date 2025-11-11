@@ -1,7 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using ToyotaProcessManager.Services.Icons;
+using ToyotaProcessManager.Services.Constants;
 using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.MVVM.View.Modal.Warning;
@@ -37,8 +37,6 @@ public partial class IconSelecterModal : Popup<IconParameters>
 
         GerateIcons();
 
-        bool test = string.IsNullOrEmpty(iconParameters.Unicode);
-
         _selectedUnicode = string.IsNullOrEmpty(iconParameters.Unicode)? "Asterisk" : iconParameters.Unicode ;
         _selectedColorCode = iconParameters.ColorCode ?? _iconColors[0];
 
@@ -50,7 +48,7 @@ public partial class IconSelecterModal : Popup<IconParameters>
 
     private void GerateIcons()
     {
-        foreach (var c in FontaWesome.FASolid)
+        foreach (var c in FontAwesome.FASolid)
             IconList.Add(c.Value);
 
         foreach (var d in _iconColors)
@@ -62,7 +60,7 @@ public partial class IconSelecterModal : Popup<IconParameters>
         if (e.CurrentSelection != null && e.CurrentSelection.Count > 0)
         {
             string value = e.CurrentSelection[0] as string;
-            _selectedUnicode = FontaWesome.FASolid.FirstOrDefault(kvp => kvp.Value == value).Key;
+            _selectedUnicode = FontAwesome.FASolid.FirstOrDefault(kvp => kvp.Value == value).Key;
         }
 
         Icon.Unicode = _selectedUnicode!;
