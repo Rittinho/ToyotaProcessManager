@@ -15,7 +15,7 @@ public partial class ShowTableViewModel : ObservableObject
     private readonly CreateTableModel _createTableModel;
 
     //mexer nisso aqui
-    public ObservableCollection<ToyotaTable> Grup { get; set; } = [];
+    public ObservableCollection<ToyotaProcessTable> Grup { get; set; } = [];
 
     private readonly IVerificationServices _verificationServices;
     public ShowTableViewModel(IVerificationServices verificationServices, CreateTableModel createTableModel)
@@ -23,6 +23,13 @@ public partial class ShowTableViewModel : ObservableObject
         _verificationServices = verificationServices;
         _createTableModel = createTableModel;
 
-        Grup = _createTableModel.ReadTable(1).ToObservableCollection() ?? [];
+        try
+        {
+            Grup = _createTableModel.ReadLastTable().ToObservableCollection();
+        }
+        catch (Exception ex) 
+        {
+            _verificationServices.WaringPopup(ex.Message,"Crie uma tabela na tela de criação!");
+        }
     }
 }

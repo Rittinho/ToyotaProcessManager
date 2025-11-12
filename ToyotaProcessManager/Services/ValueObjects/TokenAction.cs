@@ -8,21 +8,21 @@ namespace ToyotaProcessManager.Services.ValueObjects
 {
     public class TokenAction
     {
-        public string actionTitle { get; set; }
-        public string actionDescription { get; set; }
-        public bool canConfirm { get; set; }
+        public string ActionTitle { get; set; }
+        public string ActionDescription { get; set; }
+        public bool CanConfirm { get; set; }
 
         public TokenAction(string title, string description, bool canConfirm)
         {
-            actionTitle = title;
-            actionDescription = description;
-            this.canConfirm = canConfirm;
+            ActionTitle = title;
+            ActionDescription = description;
+            CanConfirm = canConfirm;
         }
         public TokenAction(string title, string description)
         {
-            actionTitle = title;
-            actionDescription = description;
-            canConfirm = false;
+            ActionTitle = title;
+            ActionDescription = description;
+            CanConfirm = false;
         }
     }
 }

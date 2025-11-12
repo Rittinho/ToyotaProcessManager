@@ -68,37 +68,36 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="MVVM\Model\Domain\Table\DTOs\" />
 	  <Folder Include="MVVM\ViewModel\Components\Button\" />
 	  <Folder Include="MVVM\ViewModel\Components\Elements\" />
 	  <Folder Include="MVVM\ViewModel\Modal\Description\" />
 	  <Folder Include="MVVM\ViewModel\Modal\Forms\" />
 	  <Folder Include="MVVM\ViewModel\Modal\Warning\" />
 	  <Folder Include="MVVM\ViewModel\Pages\Secondary\" />
-	  <Folder Include="MVVM\View\Modal\Forms\" />
-	  <Folder Include="MVVM\View\Modal\Description\" />
 	  <Folder Include="MVVM\View\Pages\Secondary\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="MVVM\View\Components\Button\EmptyButton.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="MVVM\View\Components\Button\IconButton.xaml">
+	  <MauiXaml Update="MVVM\View\Components\Buttons\IconButton.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\View\Components\Elements\CircularIcon.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="MVVM\View\Modal\Forms\TableConfigModal.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MVVM\View\Modal\Warning\ConfirmActionModal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MVVM\View\Modal\Warning\EmployeeDescriptionModal.xaml">
+	  <MauiXaml Update="MVVM\View\Modal\Description\EmployeeDescriptionModal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MVVM\View\Modal\Warning\IconSelecterModal.xaml">
+	  <MauiXaml Update="MVVM\View\Modal\Forms\IconSelecterModal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MVVM\View\Modal\Warning\ProcessDescriptionModal.xaml">
+	  <MauiXaml Update="MVVM\View\Modal\Description\ProcessDescriptionModal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\View\Pages\Main\CreateTable\CreateTableView.xaml">

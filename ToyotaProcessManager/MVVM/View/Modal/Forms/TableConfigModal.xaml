@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
+             xmlns:buttons="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Buttons"
+             xmlns:icons="clr-namespace:ToyotaProcessManager.Services.Constants"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="ToyotaProcessManager.MVVM.View.Modal.Forms.TableConfigModal"
+             xmlns:local="clr-namespace:ToyotaProcessManager.Services.ValueObjects"
+             x:TypeArguments="local:ToyotaTableConfiguration"
+             BackgroundColor="#343434"
+             x:Name="Root">
+
+    <Grid RowDefinitions="Auto,*,Auto" RowSpacing="10">
+
+        <Label Text="Ocultar da tabela" FontSize="40"
+               HorizontalTextAlignment="Center"/>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,1.5*" ColumnSpacing="10">
+
+            <Border BackgroundColor="#242424"  
+                    StrokeThickness="0"
+                    StrokeShape="24"
+                    Padding="10,10,10,0">
+
+                <Grid RowDefinitions="Auto,*" RowSpacing="10">
+
+                    <Border BackgroundColor="#424242"  
+                            StrokeThickness="0"
+                            StrokeShape="24"
+                            Padding="10,0,10,0">
+
+                        <Entry/>
+
+                    </Border>
+                    
+                    <CollectionView Grid.Row="1"
+                                    ItemsSource="{Binding ProcessList}"
+                                    ItemTemplate="{StaticResource ToastProcessSelectStyle}"
+                                    SelectionMode="None"
+                                    VerticalScrollBarVisibility="Always"                                  
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill">
+
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
+                        </CollectionView.ItemsLayout>
+
+                    </CollectionView>
+
+                </Grid>
+
+            </Border>
+
+            <Border Grid.Column="1"
+                    StrokeShape="24"
+                    BackgroundColor="#242424"
+                    StrokeThickness="0"
+                    Padding="10,10,10,0">
+
+                <Grid RowDefinitions="Auto,*" RowSpacing="10">
+
+                    <Border BackgroundColor="#424242"  
+                            StrokeThickness="0"
+                            StrokeShape="24"
+                            Padding="10,0,10,0">
+
+                        <Entry/>
+
+                    </Border>
+
+                    <CollectionView Grid.Row="1" ItemsSource="{Binding EmployeeList}"
+                                    ItemTemplate="{StaticResource ToastEmployeeSelectStyle}"
+                                    SelectionMode="None"
+                                    VerticalScrollBarVisibility="Always" 
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill">
+
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
+                        </CollectionView.ItemsLayout>
+
+                    </CollectionView>
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+        <HorizontalStackLayout HorizontalOptions="End" Spacing="10" Grid.Row="2">
+
+            <buttons:IconButton Unicode="Book"
+                                FontSize="20"
+                                TextContent="Cancelar"
+                                BackgroundColor="Red"/>
+            
+            <buttons:IconButton Unicode="Book"
+                                FontSize="20"
+                                TextContent="Salvar"
+                                BackgroundColor="Red"/>
+
+        </HorizontalStackLayout>
+        
+    </Grid>
+    
+</toolkit:Popup>

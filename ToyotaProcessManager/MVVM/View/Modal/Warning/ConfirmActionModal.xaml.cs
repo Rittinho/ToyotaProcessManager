@@ -12,11 +12,11 @@ public partial class ConfirmActionModal : Popup<bool>
     {
         InitializeComponent();
 
-        TitleLabel.Text = tokenAction.actionTitle;
-        DescriptionLabel.Text = tokenAction.actionDescription;
+        TitleLabel.Text = tokenAction.ActionTitle;
+        DescriptionLabel.Text = tokenAction.ActionDescription;
 
-        BackButton.IsVisible = !tokenAction.canConfirm;
-        ActionButtons.IsVisible = tokenAction.canConfirm;
+        BackButton.IsVisible = !tokenAction.CanConfirm;
+        ActionButtons.IsVisible = tokenAction.CanConfirm;
 
         BindingContext = this;
     }

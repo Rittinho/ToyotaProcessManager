@@ -4,7 +4,7 @@
              x:Class="ToyotaProcessManager.MVVM.View.Pages.Main.CreateTable.CreateTableView"
              Title="CreateTableView"
              xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
-             xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button"
+             xmlns:buttons="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Buttons"
              NavigationPage.HasNavigationBar="False"
              x:Name="Root">
 
@@ -20,7 +20,7 @@
 
             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
 
-                <button:IconButton BackgorundColorCode="#424242"
+                <buttons:IconButton BackgorundColorCode="#424242"
                                    Unicode="{StaticResource FAS_AddressBook}"
                                    TextContent="Registros"
                                    FontSize="20"
@@ -35,7 +35,7 @@
                            FontSize="40"/>
                 </Border>
 
-                <button:IconButton Grid.Column="2"
+                <buttons:IconButton Grid.Column="2"
                                    BackgorundColorCode="#424242"
                                    Unicode="{StaticResource FAS_Eye}"
                                    TextContent="Ver tabelas"
@@ -257,10 +257,11 @@
 
                                         </Border>
 
-                                        <button:IconButton Grid.ColumnSpan="2" Grid.Row="1"
-                                                           Unicode="Gears" 
-                                                           TextContent="Alterar configurações"
-                                                           BackgorundColorCode="#0078D7"/>
+                                        <buttons:IconButton Grid.ColumnSpan="2" Grid.Row="1"
+                                                            Unicode="Gears" 
+                                                            TextContent="Alterar configurações"
+                                                            BackgorundColorCode="#0078D7"
+                                                            Event="{Binding ConfigureTableCommand}"/>
 
                                     </Grid>
 
@@ -329,13 +330,13 @@
 
                     <Grid Grid.ColumnSpan="2" Grid.Row="1" ColumnDefinitions="3*,*" ColumnSpacing="10">
 
-                        <button:IconButton BackgorundColorCode="#0078D7" 
+                        <buttons:IconButton BackgorundColorCode="#0078D7" 
                                            TextContent="Gerar tabela"
                                            Unicode="Book"
                                            FontSize="20"
                                            Event="{Binding CreateTableCommand}"/>
 
-                        <button:IconButton Grid.Column="1" 
+                        <buttons:IconButton Grid.Column="1" 
                                            BackgorundColorCode="#0078D7" 
                                            TextContent="Pendente"
                                            Unicode="Book"

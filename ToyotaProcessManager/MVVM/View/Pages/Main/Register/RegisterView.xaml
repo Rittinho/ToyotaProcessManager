@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ToyotaProcessManager.MVVM.View.Pages.Main.Register.RegisterView"
              xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
-             xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button"
+             xmlns:buttons="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Buttons"
              Title="RegisterView"
              NavigationPage.HasNavigationBar="False"
              x:Name="Root">
@@ -27,7 +27,7 @@
                            FontSize="40"/>
                 </Border>
 
-                <button:IconButton Grid.Column="1"
+                <buttons:IconButton Grid.Column="1"
                                    BackgorundColorCode="#424242"
                                    Unicode="{StaticResource FAS_Table}"
                                    TextContent="Criar tabela"
@@ -35,14 +35,14 @@
                                    Event="{Binding Path=SwitchToCreateTablesCommand, Source={x:Reference Root}}"/>
 
 
-                <button:IconButton Grid.Column="2"
+                <buttons:IconButton Grid.Column="2"
                                    BackgorundColorCode="#424242"
                                    Unicode="{StaticResource FAS_Eye}"
                                    TextContent="Ver tabelas"
                                    FontSize="20"
                                    Event="{Binding Path=SwitchToShowTablesCommand, Source={x:Reference Root}}">
 
-                </button:IconButton>
+                </buttons:IconButton>
 
             </Grid>
 
@@ -62,31 +62,24 @@
 
                 <Grid ColumnDefinitions="*,2*">
 
-                    <Border 
+                    <Border Padding="10"
                             StrokeThickness="0"
                             StrokeShape="24"
                             BackgroundColor="#FF4C4C">
 
 
-                        <ScrollView Padding="10">
+                        <CollectionView ItemsSource="{Binding ProcessList}"
+                                        ItemTemplate="{StaticResource ToastProcessStyle}"
+                                        SelectionMode="None"
+                                        VerticalScrollBarVisibility="Always"                                  
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill">
 
-                            <VerticalStackLayout Spacing="10">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
+                            </CollectionView.ItemsLayout>
 
-                                <CollectionView ItemsSource="{Binding ProcessList}"
-                                ItemTemplate="{StaticResource ToastProcessStyle}"
-                                SelectionMode="None"
-                                HorizontalOptions="Fill"
-                                VerticalOptions="Fill">
-
-                                    <CollectionView.ItemsLayout>
-                                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
-                                    </CollectionView.ItemsLayout>
-
-                                </CollectionView>
-
-                            </VerticalStackLayout>
-
-                        </ScrollView>
+                        </CollectionView>
 
                     </Border>
 
@@ -187,7 +180,7 @@
 
                                 <Grid IsVisible="{Binding IsInCreateMode}">
 
-                                    <button:IconButton BackgorundColorCode="#FF4C4C"
+                                    <buttons:IconButton BackgorundColorCode="#FF4C4C"
                                                        Unicode="{DynamicResource FAS_CirclePlus}"
                                                        TextContent="Criar processo"
                                                        FontSize="20"
@@ -198,13 +191,13 @@
                                 <Grid IsVisible="{Binding IsInEditMode}"
                                       ColumnDefinitions="*,*" ColumnSpacing="10">
 
-                                    <button:IconButton BackgorundColorCode="#FF4C4C"
+                                    <buttons:IconButton BackgorundColorCode="#FF4C4C"
                                                        Unicode="{DynamicResource FAS_CircleXmark}"
                                                        TextContent="Cancelar alterações"
                                                        FontSize="20"
                                                        Event="{Binding CancelUpdateProcessCommand}"/>
 
-                                    <button:IconButton BackgorundColorCode="#0078D7"
+                                    <buttons:IconButton BackgorundColorCode="#0078D7"
                                                        Grid.Column="1"
                                                        Unicode="{DynamicResource FAS_CircleCheck}"
                                                        TextContent="Salvar alterações"
@@ -219,7 +212,7 @@
 
                         <HorizontalStackLayout HorizontalOptions="End" Spacing="10" Grid.Column="1" Grid.Row="1">
 
-                            <button:IconButton BackgorundColorCode="#FF4C4C"
+                            <buttons:IconButton BackgorundColorCode="#FF4C4C"
                                Unicode="{DynamicResource FAS_CaretRight}"
                                TextContent="Colaboradores"
                                FontSize="20"
@@ -246,31 +239,24 @@
 
                 <Grid ColumnDefinitions="2*,*">
 
-                    <Border 
+                    <Border Padding="10"
                             Grid.Column="1"
                             StrokeShape="24"
                             StrokeThickness="0"
                             BackgroundColor="#FF4C4C">
 
-                        <ScrollView Padding="10">
+                        <CollectionView ItemsSource="{Binding EmployeeList}"
+                                        ItemTemplate="{StaticResource ToastEmployeeStyle}"
+                                        SelectionMode="None"
+                                        VerticalScrollBarVisibility="Always" 
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill">
 
-                            <VerticalStackLayout Spacing="10">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
+                            </CollectionView.ItemsLayout>
 
-                                <CollectionView ItemsSource="{Binding EmployeeList}"
-                                                ItemTemplate="{StaticResource ToastEmployeeStyle}"
-                                                SelectionMode="None"
-                                                HorizontalOptions="Fill"
-                                                VerticalOptions="Fill">
-
-                                    <CollectionView.ItemsLayout>
-                                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
-                                    </CollectionView.ItemsLayout>
-
-                                </CollectionView>
-
-                            </VerticalStackLayout>
-
-                        </ScrollView>
+                        </CollectionView>
 
                     </Border>
 
@@ -325,7 +311,7 @@
 
                                 <Grid IsVisible="{Binding IsInCreateMode}">
 
-                                    <button:IconButton BackgorundColorCode="#FF4C4C"
+                                    <buttons:IconButton BackgorundColorCode="#FF4C4C"
                                                        Unicode="{DynamicResource FAS_CirclePlus}"
                                                        TextContent="Criar processo"
                                                        FontSize="20"
@@ -336,13 +322,13 @@
                                 <Grid IsVisible="{Binding IsInEditMode}"
                                       ColumnDefinitions="*,*" ColumnSpacing="10">
 
-                                    <button:IconButton BackgorundColorCode="#FF4C4C"
+                                    <buttons:IconButton BackgorundColorCode="#FF4C4C"
                                                        Unicode="{DynamicResource FAS_CircleXmark}"
                                                        TextContent="Cancelar alterações"
                                                        FontSize="20"
                                                        Event="{Binding CancelUpdateEmployeeCommand}"/>
 
-                                    <button:IconButton BackgorundColorCode="#0078D7"
+                                    <buttons:IconButton BackgorundColorCode="#0078D7"
                                                        Grid.Column="1"
                                                        Unicode="{DynamicResource FAS_CircleCheck}"
                                                        TextContent="Salvar alterações"
@@ -357,7 +343,7 @@
 
                         <HorizontalStackLayout HorizontalOptions="Start" Spacing="10" Grid.Row="1">
 
-                            <button:IconButton BackgorundColorCode="#FF4C4C"
+                            <buttons:IconButton BackgorundColorCode="#FF4C4C"
                                Unicode="{DynamicResource FAS_CaretLeft}"
                                TextContent="Processos"
                                FontSize="20"

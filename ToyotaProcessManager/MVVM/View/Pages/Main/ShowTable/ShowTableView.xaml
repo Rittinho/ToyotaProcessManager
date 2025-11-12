@@ -4,7 +4,7 @@
              x:Class="ToyotaProcessManager.MVVM.View.Pages.Main.ShowTable.ShowTableView"
              Title="ShowTableView"
              xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
-             xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button"
+             xmlns:buttons="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Buttons"
              NavigationPage.HasNavigationBar="False"
              x:Name="Root">
 
@@ -20,13 +20,13 @@
 
             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
 
-                <button:IconButton BackgorundColorCode="#424242"
+                <buttons:IconButton BackgorundColorCode="#424242"
                                    Unicode="{StaticResource FAS_AddressBook}"
                                    TextContent="Registros"
                                    FontSize="20"
                                    Event="{Binding Path=SwitchToRegisterCommand, Source={x:Reference Root}}"/>
 
-                <button:IconButton Grid.Column="1"
+                <buttons:IconButton Grid.Column="1"
                                    BackgorundColorCode="#424242"
                                    Unicode="{StaticResource FAS_Table}"
                                    TextContent="Criar tabela"
@@ -54,22 +54,19 @@
                     <RoundRectangle CornerRadius="0,0,24,24"/>
                 </Border.StrokeShape>
 
-                <ScrollView>
+                <CollectionView ItemsSource="{Binding Grup}"
+                                ItemTemplate="{StaticResource TableGrupData}"
+                                SelectionMode="None"     
+                                VerticalScrollBarVisibility="Always"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill">
 
-                    <CollectionView ItemsSource="{Binding Grup}"
-                                        ItemTemplate="{StaticResource TableGrupData}"
-                                        SelectionMode="None"                                  
-                                        HorizontalOptions="Fill"
-                                        VerticalOptions="Fill">
-                        
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" HorizontalItemSpacing="10" Span="5"/>
-                        </CollectionView.ItemsLayout>
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" HorizontalItemSpacing="10" Span="5"/>
+                    </CollectionView.ItemsLayout>
 
-                    </CollectionView>
+                </CollectionView>
 
-                </ScrollView>
-                
             </Border>
         
         </Grid>

@@ -25,7 +25,7 @@ public partial class RegisterViewModel
     [RelayCommand]
     public async Task CreateNewEmployee()
     {
-        ToyotaEmployee newEmployee = new(Name, Position);
+        ToyotaEmployee newEmployee = new(DateTime.Now.ToString(),Name, Position);
 
         if (_verification.CheckSameEmployee(newEmployee, [.. EmployeeList]))
         {
@@ -80,7 +80,7 @@ public partial class RegisterViewModel
     [RelayCommand]
     public async Task SaveUpdateEmployee()
     {
-        ToyotaEmployee newEmployee = new(Title, Description);
+        ToyotaEmployee newEmployee = new(_currentEmployeeInEdit.CreationDate, Title, Description);
 
         if (!CheckIfAnythingHasChangedEmployee())
         {

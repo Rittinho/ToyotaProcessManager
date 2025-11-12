@@ -1,16 +1,11 @@
-﻿using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using ToyotaProcessManager.MVVM.Model.Domain.Employee.DTOs;
-using ToyotaProcessManager.MVVM.Model.Domain.Process.DTOs;
-using ToyotaProcessManager.MVVM.Model.Domain.Table.DTOs;
+﻿using System.Text;using System.Text.Encodings.Web;using System.Text.Json;
 using ToyotaProcessManager.Services.Injections.Contract;
 using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.Services.Injections.Implementation;
 public class JsonServices : IJsonServices
 {
-    JsonSerializerOptions options = new JsonSerializerOptions
+    JsonSerializerOptions options = new ()
     {
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         WriteIndented = true
@@ -32,7 +27,6 @@ public class JsonServices : IJsonServices
             streamWriter.Write(json);
         }
     }
-
     public List<ToyotaEmployee> LoadEmployeeJson(string path, string jsonName)
     {
         var jsonPath = Path.Combine(path, $"{jsonName}.json");
@@ -40,14 +34,14 @@ public class JsonServices : IJsonServices
         if (!File.Exists(jsonPath))
             return null;
 
-        List<ToyotaEmployeeDTO> result = null;
+        List<ToyotaEmployee> result = null;
 
         using (StreamReader stream = new(jsonPath))
         {
             string json = stream.ReadToEnd();
             try
             {
-                result = JsonSerializer.Deserialize<List<ToyotaEmployeeDTO>>(json, options);
+                result = JsonSerializer.Deserialize<List<ToyotaEmployee>>(json, options);
             }
             catch
             {
@@ -55,14 +49,7 @@ public class JsonServices : IJsonServices
             }
         }
 
-        List<ToyotaEmployee> employeeList = [];
-
-        foreach (var employee in result)
-        {
-            employeeList.Add(new(employee.Name, employee.Position));
-        }
-
-        return employeeList;
+        return result;
     }
     public List<ToyotaProcess> LoadProcessJson(string path, string jsonName)
     {
@@ -71,31 +58,23 @@ public class JsonServices : IJsonServices
         if (!File.Exists(jsonPath))
             return null;
 
-        List<ToyotaProcessDTO> result = null;
+        List<ToyotaProcess> result = [];
 
         using (StreamReader stream = new(jsonPath))
         {
             string json = stream.ReadToEnd();
             try
             {
-                result = JsonSerializer.Deserialize<List<ToyotaProcessDTO>>(json, options);
+                result = JsonSerializer.Deserialize<List<ToyotaProcess>>(json, options);
             }
             catch
             {
-                return null;
+                return [];
             }
         }
 
-        List<ToyotaProcess> processList = [];
-
-        foreach (var process in result)
-        {
-            processList.Add(new (new(process.Icon.Unicode, process.Icon.ColorCode), process.Title,process.Description));
-        }
-
-        return processList;
+        return result;
     }
-
     public List<ToyotaTableGroup> LoadTableGroupJson(string path, string jsonName)
     {
         var jsonPath = Path.Combine(path, $"{jsonName}.json");
@@ -103,14 +82,14 @@ public class JsonServices : IJsonServices
         if (!File.Exists(jsonPath))
             return null;
 
-        List<ToyotaTableGroupDTO> result = null;
+        List<ToyotaTableGroup> result = null;
 
         using (StreamReader stream = new(jsonPath))
         {
             string json = stream.ReadToEnd();
             try
             {
-                result = JsonSerializer.Deserialize<List<ToyotaTableGroupDTO>>(json, options);
+                result = JsonSerializer.Deserialize<List<ToyotaTableGroup>>(json, options);
             }
             catch
             {
@@ -118,29 +97,6 @@ public class JsonServices : IJsonServices
             }
         }
 
-        List<ToyotaTableGroup> tableGroupList = [];
-
-        foreach (var tableGroups in result)
-        {
-            ToyotaTableGroup group = new([]);
-            foreach (var tableGroup in tableGroups.TableGroup)
-            {
-                ToyotaProcess process = new(new(tableGroup.Process.Icon.Unicode, 
-                    tableGroup.Process.Icon.ColorCode), tableGroup.Process.Title, 
-                    tableGroup.Process.Description);
-
-                List<ToyotaEmployee> employees = [];
-
-                foreach (var employee in tableGroup.Employees)
-                {
-                    employees.Add(new(employee.Name, employee.Position));
-                }
-                ToyotaTable table = new(process, employees);
-                group.TableGroup.Add(table);
-            }
-            tableGroupList.Add(group);
-        }
-
-        return tableGroupList;
+        return result;
     }
 }

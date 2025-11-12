@@ -55,7 +55,7 @@ public partial class RegisterViewModel : ObservableObject
         ProcessList.Clear();
 
         var employees = _toyotaEmployeeModel!.ReadEmployees().ToObservableCollection();
-        var processes = _toyotaProcessModel!.ReadEProcess().ToObservableCollection();
+        var processes = _toyotaProcessModel!.ReadProcesses().ToObservableCollection();
 
         foreach (var employee in employees)
             EmployeeList.Add(employee);

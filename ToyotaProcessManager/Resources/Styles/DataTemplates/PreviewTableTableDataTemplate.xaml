@@ -2,7 +2,7 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                     xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
-                    xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button"
+                    xmlns:buttons="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Buttons"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <DataTemplate x:Key="TablePreviewData">
@@ -39,12 +39,12 @@
                     
                 </Border>
 
-                <button:IconButton Grid.Column="3"
+                <buttons:IconButton Grid.Column="3"
                                    Unicode="Eye"
                                    BackgorundColorCode="Transparent"
                                    FontSize="20"/>
 
-                <button:IconButton Grid.Column="4"
+                <buttons:IconButton Grid.Column="4"
                                    Unicode="Trash"
                                    BackgorundColorCode="Transparent"
                                    FontSize="20"/>

@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using ToyotaProcessManager.MVVM.View.Modal.Warning;
 using ToyotaProcessManager.Services.Constants;
-using ToyotaProcessManager.Services.Constants;
 using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
@@ -31,7 +30,7 @@ public partial class RegisterViewModel
     [RelayCommand]
     public async Task CreateNewProcess()
     {
-        ToyotaProcess newProcess = new(Icon,Title, Description);
+        ToyotaProcess newProcess = new(Icon, DateTime.Now.ToString(), Title, Description);
 
         if (_verification.CheckSameProcess(newProcess, [.. ProcessList]))
         {
@@ -94,7 +93,7 @@ public partial class RegisterViewModel
     [RelayCommand]
     public async Task SaveUpdateProcess()
     {
-        ToyotaProcess newProcess = new(Icon, Title, Description);
+        ToyotaProcess newProcess = new(Icon, _currentProcessInEdit.CreationDate, Title, Description);
 
         if (!CheckIfAnythingHasChangedProcess())
         {

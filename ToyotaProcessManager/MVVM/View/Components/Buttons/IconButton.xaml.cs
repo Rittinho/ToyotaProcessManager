@@ -1,6 +1,6 @@
 using System.Windows.Input;
 
-namespace ToyotaProcessManager.MVVM.View.Components.Button;
+namespace ToyotaProcessManager.MVVM.View.Components.Buttons;
 
 public partial class IconButton : ContentView
 {

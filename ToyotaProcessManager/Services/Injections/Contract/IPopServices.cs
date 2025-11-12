@@ -11,4 +11,5 @@ public interface IPopServices
     Task ShowEmployeePopup(ToyotaEmployee toyotaEmployee);
     Task ShowProcessPopup(ToyotaProcess toyotaProcess);
     Task<IconParameters> IconPickerPopup(IconParameters iconParameters);
+    Task<ToyotaTableConfiguration> TableConfigPopup(List<ToyotaProcess> processes, List<ToyotaEmployee> employees);
 }

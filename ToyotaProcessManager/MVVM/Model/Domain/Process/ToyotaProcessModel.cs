@@ -27,7 +27,7 @@ public class ToyotaProcessModel
 
         return true;
     }
-    public List<ToyotaProcess> ReadEProcess() => _processData;
+    public List<ToyotaProcess> ReadProcesses() => _processData;
     public bool UpdateProcess(ToyotaProcess oldToyotaProcess, ToyotaProcess newToyotaProcess)
     {
         if (oldToyotaProcess == null)

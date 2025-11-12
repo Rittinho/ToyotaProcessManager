@@ -2,7 +2,7 @@ using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Input;
 using ToyotaProcessManager.Services.ValueObjects;
 
-namespace ToyotaProcessManager.MVVM.View.Modal.Warning;
+namespace ToyotaProcessManager.MVVM.View.Modal.Description;
 
 public partial class EmployeeDescriptionModal : Popup
 {

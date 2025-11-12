@@ -1,10 +1,6 @@
-﻿using ToyotaProcessManager.Services.Constants;
-
-namespace ToyotaProcessManager.Services.ValueObjects
+﻿namespace ToyotaProcessManager.Services.ValueObjects;
+public class IconParameters(string Unicode = "Asterisk", string ColorCode = "00FF00")
 {
-    public class IconParameters(string IconUnicode = "Asterisk", string IconColorCode = "00FF00")
-    {
-        public string Unicode { get; set; } = IconUnicode;
-        public string ColorCode { get; set; } = IconColorCode;
-    }
+    public string Unicode { get; set; } = Unicode;
+    public string ColorCode { get; set; } = ColorCode;
 }

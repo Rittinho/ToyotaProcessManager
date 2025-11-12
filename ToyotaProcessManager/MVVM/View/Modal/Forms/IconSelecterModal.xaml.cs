@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using ToyotaProcessManager.Services.Constants;
 using ToyotaProcessManager.Services.ValueObjects;
 
-namespace ToyotaProcessManager.MVVM.View.Modal.Warning;
+namespace ToyotaProcessManager.MVVM.View.Modal.Forms;
 
 public partial class IconSelecterModal : Popup<IconParameters>
 {

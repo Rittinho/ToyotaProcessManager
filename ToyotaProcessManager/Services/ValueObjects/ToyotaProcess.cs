@@ -1,11 +1,10 @@
-﻿namespace ToyotaProcessManager.Services.ValueObjects
+﻿using System.Text.Json.Serialization;
+
+namespace ToyotaProcessManager.Services.ValueObjects;
+public class ToyotaProcess(IconParameters icon, string creationDate, string title = "Sem nome", string description = "Sem descrição")
 {
-    public class ToyotaProcess(IconParameters iconParameters, string processTitle = "Sem titulo", string processDescription = "Descrição não realizada")
-    {
-        public string Title { get; set; } = processTitle;
-
-        public string Description { get; set; } = processDescription;
-
-        public IconParameters Icon { get; set; } = iconParameters;
-    }
+    public string CreationDate { get; set; } = creationDate;
+    public string Title { get; set; } = title;
+    public string Description { get; set; } = description;
+    public IconParameters Icon { get; set; } = icon;
 }

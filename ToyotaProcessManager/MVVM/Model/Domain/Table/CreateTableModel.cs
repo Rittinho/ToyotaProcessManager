@@ -32,15 +32,22 @@ public class CreateTableModel
     }
    
     public List<ToyotaTableGroup> ReadTables() => _tableData;
-    public List<ToyotaTable> ReadTable(int index) => _tableData[index].TableGroup;
-    public List<ToyotaTable> CreateRandomTables()
+    public List<ToyotaProcessTable> ReadTable(int index) => _tableData[index].TableGroup ?? [];
+    public List<ToyotaProcessTable> ReadLastTable()
+    {
+        if (_tableData is null || _tableData.Count == 0)
+            throw new Exception("Lista vazia");
+
+        return _tableData.FirstOrDefault().TableGroup;
+    }
+    public ToyotaTableGroup CreateRandomTables()
     {
         Random random = new();
 
         List <ToyotaEmployee> employeeList = _toyotaEmployeeModel.ReadEmployees();
-        List <ToyotaProcess> processList = _toyotaProcessModel.ReadEProcess();
+        List <ToyotaProcess> processList = _toyotaProcessModel.ReadProcesses();
 
-        List<ToyotaTable> tables = [];
+        List<ToyotaProcessTable> tables = [];
 
         List<ToyotaEmployee> randomizedList = [.. employeeList.OrderBy(x => random.Next())];
 
@@ -55,18 +62,21 @@ public class CreateTableModel
 
             List<ToyotaEmployee> employees = randomizedList.Skip(currentIndex).Take(count).ToList();
 
-            var table = new ToyotaTable(processList[i], employees);
+            var table = new ToyotaProcessTable(processList[i], employees);
 
             tables.Add(table);
 
             currentIndex += count;
         }
-        return tables;
+
+        ToyotaTableGroup result = new(DateTime.Now.ToString(), tables, tables.Count, employeeList.Count, baseCount,0,0);
+
+        return result;
     }
 
     public bool CreateTable()
     {
-        _tableData.Add(new(CreateRandomTables()));
+        _tableData.Add(CreateRandomTables());
 
         _jsonServices.SaveJson(_tableGroupFilePath, _tableGroupFileName, _tableData);
 

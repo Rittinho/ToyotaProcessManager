@@ -2,10 +2,10 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
-               xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button"
+               xmlns:buttons="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Buttons"
                xmlns:icons="clr-namespace:ToyotaProcessManager.Services.Constants"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-               x:Class="ToyotaProcessManager.MVVM.View.Modal.Warning.ProcessDescriptionModal"
+               x:Class="ToyotaProcessManager.MVVM.View.Modal.Description.ProcessDescriptionModal"
                BackgroundColor="#343434">
 
     <Grid RowDefinitions="*,Auto"
@@ -43,7 +43,7 @@
         </Grid>
 
         <!--Back button-->
-        <button:IconButton Grid.Row="1" 
+        <buttons:IconButton Grid.Row="1" 
                            HorizontalOptions="End"
                            FontSize="20"
                            TextContent="Voltar"

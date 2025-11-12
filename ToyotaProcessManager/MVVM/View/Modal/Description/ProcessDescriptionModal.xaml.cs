@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 using ToyotaProcessManager.Services.ValueObjects;
 
-namespace ToyotaProcessManager.MVVM.View.Modal.Warning;
+namespace ToyotaProcessManager.MVVM.View.Modal.Description;
 
 public partial class ProcessDescriptionModal : Popup
 {

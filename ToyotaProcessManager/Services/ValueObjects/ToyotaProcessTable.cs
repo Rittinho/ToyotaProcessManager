@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ToyotaProcessManager.Services.ValueObjects;
-public class ToyotaTable(ToyotaProcess process, List<ToyotaEmployee> employees)
+public class ToyotaProcessTable(ToyotaProcess Process, List<ToyotaEmployee> Employees)
 {
-    public ToyotaProcess Process { get; set; } = process;
-    public List<ToyotaEmployee> Employees { get; set; } = employees;
+    public ToyotaProcess Process { get; set; } = Process;
+    public List<ToyotaEmployee> Employees { get; set; } = Employees;
 }
