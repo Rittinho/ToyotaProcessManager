@@ -10,102 +10,113 @@
              x:TypeArguments="local:ToyotaTableConfiguration"
              MinimumWidthRequest="1140"
              Padding="-20"
-             BackgroundColor="#343434"
+             BackgroundColor="#222222"
              x:Name="Root">
 
-    <Grid RowDefinitions="Auto,*,Auto" RowSpacing="10">
+    <Grid RowDefinitions="Auto,*">
 
-        <Label Text="Ocultar da tabela" FontSize="40"
-               HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+        <Border Style="{StaticResource Border.Radius24}"
+                BackgroundColor="{StaticResource ToyotaBlue}">
 
-        <Grid Grid.Row="1" ColumnDefinitions="*,1.5*" ColumnSpacing="10">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="24,24,0,0"/>
+            </Border.StrokeShape>
 
-            <Border BackgroundColor="#242424"  
-                    StrokeThickness="0"
-                    StrokeShape="24"
-                    Padding="10,10,10,0">
+            <Label Text="Ocultar da tabela" FontSize="40"
+                   HorizontalTextAlignment="Center"
+                   FontAttributes="Bold"/>
 
-                <Grid RowDefinitions="Auto,*" RowSpacing="10">
+        </Border>
 
-                    <Border BackgroundColor="#424242"  
-                            StrokeThickness="0"
-                            StrokeShape="24"
-                            Padding="10,0,10,0">
+        <Border Grid.Row="1"
+                Style="{StaticResource Border.Radius24}"
+                BackgroundColor="{StaticResource Tertiary}">
 
-                        <Entry Text="{Binding SearchProcessText}"/>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0,0,24,24"/>
+            </Border.StrokeShape>
 
-                    </Border>
-                    
-                    <CollectionView Grid.Row="1"
-                                    ItemsSource="{Binding FiltredProcessList}"
-                                    ItemTemplate="{StaticResource ToastProcessSelectStyle}"
-                                    SelectionMode="Multiple"
-                                    VerticalScrollBarVisibility="Always"                                  
-                                    HorizontalOptions="Fill"
-                                    VerticalOptions="Fill">
+            <Grid RowDefinitions="*,Auto" 
+                  RowSpacing="10">
 
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
-                        </CollectionView.ItemsLayout>
+                <Grid ColumnDefinitions="*,1.5*,Auto" 
+                      ColumnSpacing="10">
 
-                    </CollectionView>
+                    <Border Style="{StaticResource Border.Radius24}"
+                                  BackgroundColor="{StaticResource Secondary}"                      
+                                  Padding="10,10,10,0">
 
-                </Grid>
+                        <Grid RowDefinitions="Auto,*" RowSpacing="10">
 
-            </Border>
+                            <buttons:SearchBar SearchText="{Binding SearchProcessText, Mode=TwoWay}"/>
 
-            <Border Grid.Column="1"
-                    StrokeShape="24"
-                    BackgroundColor="#242424"
-                    StrokeThickness="0"
-                    Padding="10,10,10,0">
+                            <CollectionView Grid.Row="1"
+                                                  ItemsSource="{Binding FiltredProcessList}"
+                                                  ItemTemplate="{StaticResource ToastProcessSelectStyle}"
+                                                  SelectionMode="Multiple"
+                                                  VerticalScrollBarVisibility="Never"                                  
+                                                  HorizontalOptions="Fill"
+                                                  VerticalOptions="Fill">
 
-                <Grid RowDefinitions="Auto,*" RowSpacing="10">
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
+                                </CollectionView.ItemsLayout>
 
-                    <Border BackgroundColor="#424242"  
-                            StrokeThickness="0"
-                            StrokeShape="24"
-                            Padding="10,0,10,0">
+                            </CollectionView>
 
-                        <Entry Text="{Binding SearchEmployeeText}"/>
+                        </Grid>
 
                     </Border>
 
-                    <CollectionView Grid.Row="1" ItemsSource="{Binding FiltredEmployeeList}"
-                                    ItemTemplate="{StaticResource ToastEmployeeSelectStyle}"
-                                    SelectionMode="Multiple"
-                                    VerticalScrollBarVisibility="Always" 
-                                    HorizontalOptions="Fill"
-                                    VerticalOptions="Fill">
+                    <Border Grid.Column="1"
+                        Style="{StaticResource Border.Radius24}"
+                        BackgroundColor="{StaticResource Secondary}"
+                        Padding="10,10,10,0">
 
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
-                        </CollectionView.ItemsLayout>
+                        <Grid RowDefinitions="Auto,*" RowSpacing="10">
 
-                    </CollectionView>
+                            <buttons:SearchBar SearchText="{Binding SearchEmployeeText, Mode=TwoWay}"/>
+
+                            <CollectionView Grid.Row="1" ItemsSource="{Binding FiltredEmployeeList}"
+                                        ItemTemplate="{StaticResource ToastEmployeeSelectStyle}"
+                                        SelectionMode="Multiple"
+                                        VerticalScrollBarVisibility="Never" 
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill">
+
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
+                                </CollectionView.ItemsLayout>
+
+                            </CollectionView>
+
+                        </Grid>
+
+                    </Border>
 
                 </Grid>
 
-            </Border>
 
-        </Grid>
+                <HorizontalStackLayout Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="End" Spacing="10">
 
-        <HorizontalStackLayout HorizontalOptions="End" Spacing="10" Grid.Row="2">
+                    <buttons:IconButton BackgroundColorCode="#FF4C4C"
+                                        TextContent="Cancelar"
+                                        Unicode="{StaticResource FAS_CircleXmark}"
+                                        FontSize="20"
+                                        Event="{Binding Source={x:Reference Root}, Path=CancelButtonCommand}"/>
 
-            <buttons:IconButton BackgorundColorCode="#FF4C4C"
-                                TextContent="Cancelar"
-                                Unicode="{StaticResource FAS_CircleXmark}"
-                                FontSize="20"
-                                Event="{Binding Source={x:Reference Root}, Path=CancelButtonCommand}"/>
+                    <buttons:IconButton BackgroundColorCode="#4CAF50"
+                                        TextContent="Salvar"
+                                        Unicode="{StaticResource FAS_CircleCheck}"
+                                        FontSize="20"
+                                        Event="{Binding Source={x:Reference Root}, Path=CancelButtonCommand}"/>
 
-            <buttons:IconButton BackgorundColorCode="#4CAF50"
-                                TextContent="Salvar"
-                                Unicode="{StaticResource FAS_CircleCheck}"
-                                FontSize="20"
-                                Event="{Binding Source={x:Reference Root}, Path=CancelButtonCommand}"/>
+                </HorizontalStackLayout>
 
-        </HorizontalStackLayout>
-        
+            </Grid>
+
+        </Border>
+
     </Grid>
     
 </toolkit:Popup>

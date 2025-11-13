@@ -11,8 +11,8 @@
             StrokeShape="1000000000000">
 
         <Border StrokeThickness="0"
-            Background="#323232"
-            StrokeShape="1000000000000">
+                Background="#323232"
+                StrokeShape="1000000000000">
 
             <Label FontFamily="FAS" 
                    x:Name="icon" 

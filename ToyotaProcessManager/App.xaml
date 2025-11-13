@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/BaseElements/PresenterElements.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Icons/FASolid.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/DataTemplates/ToyotaProcessDataTemplate.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/DataTemplates/ToyotaEmployeeDataTemplate.xaml"/>

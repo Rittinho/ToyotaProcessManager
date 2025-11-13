@@ -8,11 +8,10 @@
     <DataTemplate x:Key="ToastProcessStyle">
         
         <VerticalStackLayout>
-            
-            <Border StrokeShape="14"
-                    Padding="10,5,10,5"
-                    StrokeThickness="0"
-                    BackgroundColor="#323232">
+
+            <Border Style="{StaticResource Border.Radius14}"
+                    BackgroundColor="{StaticResource Primary}"
+                    Padding="10,5,10,5">
                 
                 <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto">
                     
@@ -22,13 +21,11 @@
                                            ColorCode="{Binding Icon.ColorCode}"/>
                     
                     <!--Name-->
-                    <Border StrokeShape="14"
-                            Margin="5,0,5,0"
-                            Grid.Column="1"
-                            Padding="10"
-                            StrokeThickness="0"
-                            BackgroundColor="#222222">
-                        
+                    <Border Grid.Column="1" 
+                            Style="{StaticResource Border.Radius14}"
+                            BackgroundColor="{StaticResource Secondary}"
+                            Margin="5,0,5,0">
+
                         <Label Text="{Binding Title}"
                                LineBreakMode="TailTruncation"                                                     
                                FontSize="25"
@@ -41,7 +38,7 @@
                     <!--Show-Button-->
                     <Button Grid.Column="2"
                             FontSize="20"
-                            TextColor="White"
+                            TextColor="{StaticResource PrimaryDarkText}"
                             FontFamily="FAS"
                             CornerRadius="10"
                             BackgroundColor="Transparent"
@@ -53,7 +50,7 @@
                     <!--Update-Button-->
                     <Button Grid.Column="3"
                             FontSize="20"
-                            TextColor="White"
+                            TextColor="{StaticResource PrimaryDarkText}"
                             FontFamily="FAS"
                             CornerRadius="10"
                             BackgroundColor="Transparent"
@@ -65,7 +62,7 @@
                     <!--Delete-Button-->
                     <Button Grid.Column="4"
                             FontSize="20"
-                            TextColor="White"
+                            TextColor="{StaticResource PrimaryDarkText}"
                             FontFamily="FAS"
                             CornerRadius="10"
                             BackgroundColor="Transparent"
@@ -84,10 +81,9 @@
 
     <DataTemplate x:Key="ToastProcessSelectStyle">
 
-        <Border StrokeShape="14"
-                 Padding="10,5,10,5"
-                 StrokeThickness="0"
-                 BackgroundColor="#323232">
+        <Border Style="{StaticResource Border.Radius14}"
+                BackgroundColor="{StaticResource Primary}"   
+                Padding="10,5,10,5">
 
             <Grid ColumnDefinitions="Auto,*,Auto">
 
@@ -97,12 +93,10 @@
                                         ColorCode="{Binding Icon.ColorCode}"/>
 
                 <!--Name-->
-                <Border StrokeShape="14"
-                         Margin="5,0,5,0"
-                         Grid.Column="1"
-                         Padding="10"
-                         StrokeThickness="0"
-                         BackgroundColor="#222222">
+                <Border Grid.Column="1"
+                        Style="{StaticResource Border.Radius14}"
+                        BackgroundColor="{StaticResource Secondary}"                                   
+                        Margin="5,0,5,0">
 
                     <Label Text="{Binding Title}"
                             LineBreakMode="TailTruncation"                                                     
@@ -115,35 +109,17 @@
 
                 <!--Show-Button-->
                 <Button Grid.Column="2"
-                         FontSize="20"
-                         TextColor="White"
-                         FontFamily="FAS"
-                         CornerRadius="10"
-                         BackgroundColor="Transparent"
-                         Command="{Binding Path=ShowProcessCommand, 
-                                           Source={RelativeSource AncestorType={x:Type vm:RegisterViewModel}}}"
-                         CommandParameter="{Binding .}"
-                         Text="{DynamicResource FAS_Eye}"/>
+                        FontSize="20"
+                        TextColor="{StaticResource PrimaryDarkText}"
+                        FontFamily="FAS"
+                        CornerRadius="10"
+                        BackgroundColor="Transparent"
+                        Command="{Binding Path=ShowProcessCommand, 
+                                          Source={RelativeSource AncestorType={x:Type vm:RegisterViewModel}}}"
+                        CommandParameter="{Binding .}"
+                        Text="{DynamicResource FAS_Eye}"/>
 
             </Grid>
-
-            <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup Name="CommonStates">
-                <VisualState Name="Normal">
-                    <VisualState.Setters>
-                        <Setter Property="BackgroundColor" Value="#323232"/>
-                        <Setter Property="Opacity" Value="1"/>
-                    </VisualState.Setters>
-                </VisualState>
-
-                <VisualState Name="Selected">
-                    <VisualState.Setters>
-                        <Setter Property="BackgroundColor" Value="#323232"/>
-                        <Setter Property="Opacity" Value="0.6"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
 
         </Border>
 

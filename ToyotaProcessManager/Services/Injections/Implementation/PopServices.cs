@@ -37,7 +37,11 @@ public class PopServices : IPopServices
 
         var vm = MauiProgram.ServiceProvider.GetRequiredService<IconPickerModalViewModel>();
 
-        IPopupResult<IconParameters> result = await page!.ShowPopupAsync<IconParameters>(new IconSelecterModal(iconParameters, vm));
+        var popup = new IconSelecterModal(iconParameters, vm)
+        {
+            
+        };
+        IPopupResult<IconParameters> result = await page!.ShowPopupAsync<IconParameters>(popup);
 
         if (result.WasDismissedByTappingOutsideOfPopup)
         {

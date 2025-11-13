@@ -49,7 +49,7 @@
                            FontSize="20"
                            TextContent="Voltar"
                            Unicode="{StaticResource FAS_RotateLeft}"
-                           BackgorundColorCode="#4DA3FF"
+                           BackgroundColorCode="#4DA3FF"
                            Event="{Binding CloseShowCommand}"/>
 
     </Grid>

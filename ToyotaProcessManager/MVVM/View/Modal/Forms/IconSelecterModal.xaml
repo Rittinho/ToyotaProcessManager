@@ -8,8 +8,9 @@
                x:Class="ToyotaProcessManager.MVVM.View.Modal.Forms.IconSelecterModal"
                xmlns:local="clr-namespace:ToyotaProcessManager.Services.ValueObjects"
                x:TypeArguments="local:IconParameters"
-               BackgroundColor="#343434"
+               BackgroundColor="#424242"    
                MaximumWidthRequest="1080"
+               
                Padding="-20"
                x:Name="Root">
 
@@ -49,6 +50,7 @@
                                 SelectionMode="Single"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill"
+                                VerticalScrollBarVisibility="Never"
                                 SelectionChangedCommand="{Binding IconSelectionChangedCommand}"
                                 SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference IconCollection}}"  
                                 x:Name="IconCollection">
@@ -135,13 +137,13 @@
                                Grid.Column="1"
                                Spacing="8">
 
-            <buttons:IconButton BackgorundColorCode="#FF4C4C"
+            <buttons:IconButton BackgroundColorCode="#FF4C4C"
                                TextContent="Cancelar"
                                Unicode="{StaticResource FAS_CircleXmark}"
                                FontSize="20"
                                Event="{Binding Source={x:Reference Root}, Path=CancelButtonCommand}"/>
 
-            <buttons:IconButton BackgorundColorCode="#4CAF50"
+            <buttons:IconButton BackgroundColorCode="#4CAF50"
                                TextContent="Salvar"
                                Unicode="{StaticResource FAS_CircleCheck}"
                                FontSize="20"

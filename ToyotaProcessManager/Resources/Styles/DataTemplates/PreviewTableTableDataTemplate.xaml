@@ -41,12 +41,12 @@
 
                 <buttons:IconButton Grid.Column="3"
                                    Unicode="Eye"
-                                   BackgorundColorCode="Transparent"
+                                   BackgroundColorCode="Transparent"
                                    FontSize="20"/>
 
                 <buttons:IconButton Grid.Column="4"
                                    Unicode="Trash"
-                                   BackgorundColorCode="Transparent"
+                                   BackgroundColorCode="Transparent"
                                    FontSize="20"/>
 
 

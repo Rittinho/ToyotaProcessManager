@@ -7,7 +7,7 @@
     <Border Padding="10"
             StrokeShape="14"
             StrokeThickness="0"
-            BackgroundColor="{Binding Path=BackgorundColorCode, Source={x:Reference Root}}">
+            BackgroundColor="{Binding Path=BackgroundColorCode, Source={x:Reference Root}}">
         <HorizontalStackLayout Spacing="10">
 
             <Label Text="{Binding Path=Unicode, Source={x:Reference Root}}"

@@ -31,6 +31,8 @@ namespace ToyotaProcessManager
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 
+                    fonts.AddFont("ToyotaFont.otf", "TOYOTA");
+
                     fonts.AddFont("FAR.otf", "FAR");
                     fonts.AddFont("FAS.otf", "FAS");
                     fonts.AddFont("FAB.otf", "FAB");

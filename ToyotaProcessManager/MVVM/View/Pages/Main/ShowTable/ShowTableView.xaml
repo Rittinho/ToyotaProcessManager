@@ -10,8 +10,7 @@
 
     <Grid RowDefinitions="Auto,*" Padding="10">
 
-        <Border StrokeThickness="0"
-                Padding="10"
+        <Border Style="{StaticResource Border.Base}"
                 BackgroundColor="Tomato">
 
             <Border.StrokeShape>
@@ -20,25 +19,27 @@
 
             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
 
-                <buttons:IconButton BackgorundColorCode="#424242"
-                                   Unicode="{StaticResource FAS_AddressBook}"
-                                   TextContent="Registros"
-                                   FontSize="20"
-                                   Event="{Binding Path=SwitchToRegisterCommand, Source={x:Reference Root}}"/>
+                <buttons:IconButton BackgroundColorCode="{StaticResource Tertiary}"
+                                    Unicode="{StaticResource FAS_AddressBook}"
+                                    TextContent="Registros"
+                                    FontSize="20"
+                                    Event="{Binding Path=SwitchToRegisterCommand, Source={x:Reference Root}}"/>
 
                 <buttons:IconButton Grid.Column="1"
-                                   BackgorundColorCode="#424242"
-                                   Unicode="{StaticResource FAS_Table}"
-                                   TextContent="Criar tabela"
-                                   FontSize="20"
-                                   Event="{Binding Path=SwitchToCreateTablesCommand, Source={x:Reference Root}}"/>
+                                    BackgroundColorCode="{StaticResource Tertiary}"
+                                    Unicode="{StaticResource FAS_Table}"
+                                    TextContent="Criar tabela"
+                                    FontSize="20"
+                                    Event="{Binding Path=SwitchToCreateTablesCommand, Source={x:Reference Root}}"/>
 
                 <Border StrokeThickness="0" Grid.Column="2">
+                    
                     <Label Text="Vizualizar tabelas"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
                            VerticalOptions="Center"
                            FontSize="40"/> 
+                    
                 </Border>
 
             </Grid>
@@ -47,8 +48,8 @@
         
         <Grid Grid.Row="1">
             
-            <Border StrokeThickness="0"
-                    BackgroundColor="#424242">
+            <Border Style="{StaticResource Border.Base}"
+                    BackgroundColor="{StaticResource Tertiary}">
 
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="0,0,24,24"/>
@@ -57,9 +58,7 @@
                 <CollectionView ItemsSource="{Binding Grup}"
                                 ItemTemplate="{StaticResource TableGrupData}"
                                 SelectionMode="None"     
-                                VerticalScrollBarVisibility="Always"
-                                HorizontalOptions="Fill"
-                                VerticalOptions="Fill">
+                                VerticalScrollBarVisibility="Default">
 
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" HorizontalItemSpacing="10" Span="5"/>

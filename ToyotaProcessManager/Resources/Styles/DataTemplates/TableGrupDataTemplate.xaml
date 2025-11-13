@@ -2,8 +2,7 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
-                    xmlns:button="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Button">
+                    xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements">
 
     <DataTemplate x:Key="TableGrupData">
 
@@ -12,36 +11,34 @@
                 Padding="10"
                 StrokeShape="24">
 
-            <VerticalStackLayout>
+            <Grid RowDefinitions="Auto,Auto,*">
 
                 <elements:CircularIcon IconSize="130"
                                        Unicode="{Binding Process.Icon.Unicode}"
                                        ColorCode="{Binding Process.Icon.ColorCode}"/>
 
-                <Label Text="{Binding Process.Title}" TextColor="White"
+                <Label Grid.Row="1" Text="{Binding Process.Title}" TextColor="White"
                        HorizontalOptions="Center"
                        HorizontalTextAlignment="Center"
                        VerticalOptions="Center"
                        FontAttributes="Bold"
                        FontSize="30"/>
 
-                <VerticalStackLayout Padding="10">
 
-                    <CollectionView ItemsSource="{Binding Employees}" 
+                <CollectionView Grid.Row="2" ItemsSource="{Binding Employees}" 
                                     ItemTemplate="{StaticResource TableItemData}"
                                     SelectionMode="None"
+                                    VerticalScrollBarVisibility="Never"
                                     HorizontalOptions="Fill"
                                     VerticalOptions="Fill">
 
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="7"/>
-                        </CollectionView.ItemsLayout>
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="7"/>
+                    </CollectionView.ItemsLayout>
 
-                    </CollectionView>
+                </CollectionView>
 
-                </VerticalStackLayout>
-
-            </VerticalStackLayout>
+            </Grid>
 
         </Border>
 
