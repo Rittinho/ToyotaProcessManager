@@ -1,8 +1,5 @@
-﻿using CommunityToolkit.Maui;
-using CommunityToolkit.Maui.Core.Extensions;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Diagnostics;
 using ToyotaProcessManager.MVVM.Model.Domain.Employee;
 using ToyotaProcessManager.MVVM.Model.Domain.Process;
 using ToyotaProcessManager.Services.Injections.Contract;
@@ -31,22 +28,20 @@ public partial class RegisterViewModel : ObservableObject
     [ObservableProperty]
     public bool? _isInEmployeePanel;
 
-    public RegisterViewModel(IVerificationServices verificationServices,
-        ToyotaEmployeeModel toyotaEmployeeModel, 
-        ToyotaProcessModel toyotaProcessModel,
-        IPopServices popServices)
+    public RegisterViewModel(IVerificationServices verificationServices, ToyotaEmployeeModel toyotaEmployeeModel, ToyotaProcessModel toyotaProcessModel,IPopServices popServices)
     {
         _verification = verificationServices;
         _popServices = popServices;
         _toyotaEmployeeModel = toyotaEmployeeModel;
         _toyotaProcessModel = toyotaProcessModel;
+        _popServices = popServices;
+
         RefreshList();
 
         SwitchMode(RegisterMode.Create);
         SwitchPanel(RegisterPanel.Process);
         ClearProcessFilds();
         ClearEmployeeFilds();
-        _popServices = popServices;
     }
 
     public void RefreshList()
@@ -54,14 +49,22 @@ public partial class RegisterViewModel : ObservableObject
         EmployeeList.Clear();
         ProcessList.Clear();
 
-        var employees = _toyotaEmployeeModel!.ReadEmployees().ToObservableCollection();
-        var processes = _toyotaProcessModel!.ReadProcesses().ToObservableCollection();
+        var employees = _toyotaEmployeeModel!.ReadEmployees();
+        var processes = _toyotaProcessModel!.ReadProcesses();
 
         foreach (var employee in employees)
             EmployeeList.Add(employee);
 
         foreach (var process in processes)
             ProcessList.Add(process);
+
+        FiltredProcessList.Clear();
+        foreach (var process in ProcessList)
+            FiltredProcessList.Add(process);
+
+        FiltredEmployeeList.Clear();
+        foreach (var employee in EmployeeList)
+            FiltredEmployeeList.Add(employee);
     }
     public void SwitchMode(RegisterMode mode)
     {

@@ -2,6 +2,8 @@
 using CommunityToolkit.Maui.Extensions;
 using ToyotaProcessManager.MVVM.View.Modal.Description;
 using ToyotaProcessManager.MVVM.View.Modal.Forms;
+using ToyotaProcessManager.MVVM.ViewModel.Modal.Forms.IconPicker;
+using ToyotaProcessManager.MVVM.ViewModel.Modal.Forms.TableConfigModal;
 using ToyotaProcessManager.Services.Injections.Contract;
 using ToyotaProcessManager.Services.ValueObjects;
 
@@ -33,7 +35,9 @@ public class PopServices : IPopServices
     {
         var page = GetCurrentPage();
 
-        IPopupResult<IconParameters> result = await page!.ShowPopupAsync<IconParameters>(new IconSelecterModal(iconParameters));
+        var vm = MauiProgram.ServiceProvider.GetRequiredService<IconPickerModalViewModel>();
+
+        IPopupResult<IconParameters> result = await page!.ShowPopupAsync<IconParameters>(new IconSelecterModal(iconParameters, vm));
 
         if (result.WasDismissedByTappingOutsideOfPopup)
         {
@@ -46,11 +50,13 @@ public class PopServices : IPopServices
 
         return result.Result;
     }
-    public async Task<ToyotaTableConfiguration> TableConfigPopup(List<ToyotaProcess> processes, List<ToyotaEmployee> employees)
+    public async Task<ToyotaTableConfiguration> TableConfigPopup()
     {
         var page = GetCurrentPage();
 
-        IPopupResult<ToyotaTableConfiguration> result = await page!.ShowPopupAsync<ToyotaTableConfiguration>(new TableConfigModal(processes, employees));
+        var vm = MauiProgram.ServiceProvider.GetRequiredService<TableConfigModalViewModel>();
+
+        IPopupResult<ToyotaTableConfiguration> result = await page!.ShowPopupAsync<ToyotaTableConfiguration>(new TableConfigModal(vm));
 
         if (result.WasDismissedByTappingOutsideOfPopup)
         {

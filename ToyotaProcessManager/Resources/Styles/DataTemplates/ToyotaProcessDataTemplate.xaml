@@ -75,45 +75,46 @@
                             Text="{DynamicResource FAS_TrashCan}"/>
                     
                 </Grid>
+            
             </Border>
+            
         </VerticalStackLayout>
+        
     </DataTemplate>
 
     <DataTemplate x:Key="ToastProcessSelectStyle">
 
-        <VerticalStackLayout>
-
-            <Border StrokeShape="14"
+        <Border StrokeShape="14"
                  Padding="10,5,10,5"
                  StrokeThickness="0"
                  BackgroundColor="#323232">
 
-                <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+            <Grid ColumnDefinitions="Auto,*,Auto">
 
-                    <!--Icon-->
-                    <elements:CircularIcon IconSize="50"
+                <!--Icon-->
+                <elements:CircularIcon IconSize="50"
                                         Unicode="{Binding Icon.Unicode}"
                                         ColorCode="{Binding Icon.ColorCode}"/>
 
-                    <!--Name-->
-                    <Border StrokeShape="14"
+                <!--Name-->
+                <Border StrokeShape="14"
                          Margin="5,0,5,0"
                          Grid.Column="1"
                          Padding="10"
                          StrokeThickness="0"
                          BackgroundColor="#222222">
 
-                        <Label Text="{Binding Title}"
+                    <Label Text="{Binding Title}"
                             LineBreakMode="TailTruncation"                                                     
                             FontSize="25"
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"/>
 
-                    </Border>
+                </Border>
 
-                    <!--Show-Button-->
-                    <Button Grid.Column="2"
+                <!--Show-Button-->
+                <Button Grid.Column="2"
                          FontSize="20"
                          TextColor="White"
                          FontFamily="FAS"
@@ -124,11 +125,28 @@
                          CommandParameter="{Binding .}"
                          Text="{DynamicResource FAS_Eye}"/>
 
-                    <!--Update-Button-->
-                    <CheckBox Grid.Column="3"/>
+            </Grid>
 
-                </Grid>
-            </Border>
-        </VerticalStackLayout>
+            <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup Name="CommonStates">
+                <VisualState Name="Normal">
+                    <VisualState.Setters>
+                        <Setter Property="BackgroundColor" Value="#323232"/>
+                        <Setter Property="Opacity" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState Name="Selected">
+                    <VisualState.Setters>
+                        <Setter Property="BackgroundColor" Value="#323232"/>
+                        <Setter Property="Opacity" Value="0.6"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+
+        </Border>
+
     </DataTemplate>
+    
 </ResourceDictionary>

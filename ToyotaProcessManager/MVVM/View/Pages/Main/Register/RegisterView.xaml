@@ -66,20 +66,32 @@
                             StrokeThickness="0"
                             StrokeShape="24"
                             BackgroundColor="#FF4C4C">
+                        
+                        <Grid RowDefinitions="Auto,*" RowSpacing="10">
 
+                            <Border BackgroundColor="#424242"  
+                                    StrokeThickness="0"
+                                    StrokeShape="24"
+                                    Padding="10,0,10,0">
 
-                        <CollectionView ItemsSource="{Binding ProcessList}"
-                                        ItemTemplate="{StaticResource ToastProcessStyle}"
-                                        SelectionMode="None"
-                                        VerticalScrollBarVisibility="Always"                                  
-                                        HorizontalOptions="Fill"
-                                        VerticalOptions="Fill">
+                                <Entry Text="{Binding SearchProcessText}"/>
 
-                            <CollectionView.ItemsLayout>
-                                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
-                            </CollectionView.ItemsLayout>
+                            </Border>
 
-                        </CollectionView>
+                            <CollectionView Grid.Row="1" ItemsSource="{Binding FiltredProcessList}"
+                                            ItemTemplate="{StaticResource ToastProcessStyle}"
+                                            SelectionMode="None"
+                                            VerticalScrollBarVisibility="Always"                                  
+                                            HorizontalOptions="Fill"
+                                            VerticalOptions="Fill">
+
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
+                                </CollectionView.ItemsLayout>
+
+                            </CollectionView>
+
+                        </Grid>
 
                     </Border>
 
@@ -245,18 +257,32 @@
                             StrokeThickness="0"
                             BackgroundColor="#FF4C4C">
 
-                        <CollectionView ItemsSource="{Binding EmployeeList}"
-                                        ItemTemplate="{StaticResource ToastEmployeeStyle}"
-                                        SelectionMode="None"
-                                        VerticalScrollBarVisibility="Always" 
-                                        HorizontalOptions="Fill"
-                                        VerticalOptions="Fill">
+                        <Grid RowDefinitions="Auto,*" RowSpacing="10">
 
-                            <CollectionView.ItemsLayout>
-                                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
-                            </CollectionView.ItemsLayout>
+                            <Border BackgroundColor="#424242"  
+                                    StrokeThickness="0"
+                                    StrokeShape="24"
+                                    Padding="10,0,10,0">
 
-                        </CollectionView>
+                                <Entry Text="{Binding SearchEmployeeText}"/>
+
+                            </Border>
+
+                            <CollectionView Grid.Row="1" 
+                                            ItemsSource="{Binding FiltredEmployeeList}"
+                                            ItemTemplate="{StaticResource ToastEmployeeStyle}"
+                                            SelectionMode="None"
+                                            VerticalScrollBarVisibility="Always" 
+                                            HorizontalOptions="Fill"
+                                            VerticalOptions="Fill">
+
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" Span="1"/>
+                                </CollectionView.ItemsLayout>
+
+                            </CollectionView>
+
+                        </Grid>
 
                     </Border>
 

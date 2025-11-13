@@ -5,6 +5,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              x:TypeArguments="system:Boolean"
              BackgroundColor="#343434"
+               Padding="-20"
              x:Class="ToyotaProcessManager.MVVM.View.Modal.Warning.ConfirmActionModal">
 
     <Grid RowDefinitions="Auto,*,Auto" RowSpacing="10">

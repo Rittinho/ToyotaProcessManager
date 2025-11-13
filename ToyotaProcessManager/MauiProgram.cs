@@ -6,6 +6,8 @@ using ToyotaProcessManager.MVVM.Model.Domain.Table;
 using ToyotaProcessManager.MVVM.View.Pages.Main.CreateTable;
 using ToyotaProcessManager.MVVM.View.Pages.Main.Register;
 using ToyotaProcessManager.MVVM.View.Pages.Main.ShowTable;
+using ToyotaProcessManager.MVVM.ViewModel.Modal.Forms.IconPicker;
+using ToyotaProcessManager.MVVM.ViewModel.Modal.Forms.TableConfigModal;
 using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.CreateTable;
 using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
 using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.ShowTable;
@@ -44,17 +46,19 @@ namespace ToyotaProcessManager
 
             //views
             builder.Services.AddTransient<CreateTableView>();
-            builder.Services.AddTransient<RegisterView>();
             builder.Services.AddTransient<ShowTableView>();
+            builder.Services.AddTransient<RegisterView>();
             //ViewModels
-            builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddTransient<TableConfigModalViewModel>();
+            builder.Services.AddTransient<IconPickerModalViewModel>();
             builder.Services.AddTransient<CreateTableViewModel>();
             builder.Services.AddTransient<ShowTableViewModel>();
+            builder.Services.AddTransient<RegisterViewModel>();
 
             //models
-            builder.Services.AddTransient<CreateTableModel>();
             builder.Services.AddTransient<ToyotaEmployeeModel>();
             builder.Services.AddTransient<ToyotaProcessModel>();
+            builder.Services.AddTransient<CreateTableModel>();
 
             var app = builder.Build();
 

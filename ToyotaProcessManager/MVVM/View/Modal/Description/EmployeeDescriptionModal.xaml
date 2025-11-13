@@ -6,6 +6,7 @@
                xmlns:icons="clr-namespace:ToyotaProcessManager.Services.Constants"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:Class="ToyotaProcessManager.MVVM.View.Modal.Description.EmployeeDescriptionModal"
+               Padding="-20"
                BackgroundColor="#343434">
 
     <VerticalStackLayout>

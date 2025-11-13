@@ -1,27 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.Input;
 using ToyotaProcessManager.Services.Constants;
 using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
 public partial class RegisterViewModel
 {
-    private ToyotaEmployee? _currentEmployeeInEdit;
-
-    public ObservableCollection<ToyotaEmployee> EmployeeList { get; } = [];
-
-    [ObservableProperty]
-    private string? _name;
-
-    [ObservableProperty]
-    private string? _position;
-
     [RelayCommand]
     public async Task CreateNewEmployee()
     {
@@ -96,6 +79,7 @@ public partial class RegisterViewModel
 
         ClearEmployeeFilds();
         SwitchMode(RegisterMode.Create);
+        RefreshList();
     }
     [RelayCommand]
     public async Task CancelUpdateEmployee()
@@ -112,21 +96,6 @@ public partial class RegisterViewModel
 
         ClearEmployeeFilds();
         SwitchMode(RegisterMode.Create);
-    }
-    //----Tools-----
-    private bool CheckIfAnythingHasChangedEmployee()
-    {
-        return !(Name == _currentEmployeeInEdit!.Name && Position == _currentEmployeeInEdit.Position);
-    }
-    private void ClearEmployeeFilds()
-    {
-        Name = string.Empty;
-        Position = string.Empty;
-    }
-    private void LoadEmployeeFilds()
-    {
-        Name = _currentEmployeeInEdit!.Name;
-        Position = _currentEmployeeInEdit.Position;
     }
 }
 

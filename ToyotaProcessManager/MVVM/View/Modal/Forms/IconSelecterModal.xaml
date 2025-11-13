@@ -9,6 +9,8 @@
                xmlns:local="clr-namespace:ToyotaProcessManager.Services.ValueObjects"
                x:TypeArguments="local:IconParameters"
                BackgroundColor="#343434"
+               MaximumWidthRequest="1080"
+               Padding="-20"
                x:Name="Root">
 
     <Grid ColumnDefinitions="*,3*" 
@@ -25,10 +27,11 @@
                TextColor="White"
                HorizontalOptions="Center" />
 
-        <!--Icon preview-->
+        <!--Icon preview--> 
         <elements:CircularIcon Grid.RowSpan="3" 
                                IconSize="270"
-                               x:Name="Icon"/>
+                               Unicode="{Binding SelectedUnicode}"
+                               ColorCode="{Binding SelectedColorCode}"/>
 
         <!--Listas de icones e cores-->
         <Border Grid.Row="1"
@@ -44,9 +47,11 @@
                 <CollectionView ItemsSource="{Binding IconList}"
                                 ItemTemplate="{DynamicResource DotIconData}"                                 
                                 SelectionMode="Single"
-                                SelectionChanged="SelectIcon"
                                 HorizontalOptions="Fill"
-                                VerticalOptions="Fill">
+                                VerticalOptions="Fill"
+                                SelectionChangedCommand="{Binding IconSelectionChangedCommand}"
+                                SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference IconCollection}}"  
+                                x:Name="IconCollection">
 
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" Span="12" VerticalItemSpacing="5"/>

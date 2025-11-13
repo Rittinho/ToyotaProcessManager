@@ -1,32 +1,10 @@
-﻿using CommunityToolkit.Maui.Extensions;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ToyotaProcessManager.MVVM.View.Modal.Warning;
+﻿using CommunityToolkit.Mvvm.Input;
 using ToyotaProcessManager.Services.Constants;
 using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
 public partial class RegisterViewModel
 {
-    private ToyotaProcess? _currentProcessInEdit;
-    
-    public ObservableCollection<ToyotaProcess> ProcessList { get; } = [];
-
-    [ObservableProperty]
-    private IconParameters? _icon;
-
-    [ObservableProperty]
-    private string? _title;
-
-    [ObservableProperty]
-    private string? _description;
-
     [RelayCommand]
     public async Task CreateNewProcess()
     {
@@ -56,7 +34,6 @@ public partial class RegisterViewModel
 
         Icon = result as IconParameters;
     }
-
     [RelayCommand]
     public async Task ShowProcess(ToyotaProcess? toyotaProcess)
     {
@@ -109,6 +86,7 @@ public partial class RegisterViewModel
 
         ClearProcessFilds();
         SwitchMode(RegisterMode.Create);
+        RefreshList();
     }
     [RelayCommand]
     public async Task CancelUpdateProcess()
@@ -125,25 +103,5 @@ public partial class RegisterViewModel
 
         ClearProcessFilds();
         SwitchMode(RegisterMode.Create);
-    }
-
-    //----Tools-----
-    private bool CheckIfAnythingHasChangedProcess()
-    {
-        return !(Title == _currentProcessInEdit!.Title &&
-            Description == _currentProcessInEdit.Description &&
-            Icon == _currentProcessInEdit!.Icon);
-    }
-    private void ClearProcessFilds()
-    {
-        Icon = new IconParameters("Asterisk", "FFFFFF");
-        Title = string.Empty;
-        Description = string.Empty;
-    }
-    private void LoadProcessFilds()
-    {
-        Icon = _currentProcessInEdit!.Icon;
-        Title = _currentProcessInEdit!.Title;
-        Description = _currentProcessInEdit.Description;
     }
 }

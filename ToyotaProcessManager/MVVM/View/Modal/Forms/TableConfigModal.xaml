@@ -8,13 +8,15 @@
              x:Class="ToyotaProcessManager.MVVM.View.Modal.Forms.TableConfigModal"
              xmlns:local="clr-namespace:ToyotaProcessManager.Services.ValueObjects"
              x:TypeArguments="local:ToyotaTableConfiguration"
+             MinimumWidthRequest="1140"
+             Padding="-20"
              BackgroundColor="#343434"
              x:Name="Root">
 
     <Grid RowDefinitions="Auto,*,Auto" RowSpacing="10">
 
         <Label Text="Ocultar da tabela" FontSize="40"
-               HorizontalTextAlignment="Center"/>
+               HorizontalTextAlignment="Center" FontAttributes="Bold"/>
 
         <Grid Grid.Row="1" ColumnDefinitions="*,1.5*" ColumnSpacing="10">
 
@@ -30,14 +32,14 @@
                             StrokeShape="24"
                             Padding="10,0,10,0">
 
-                        <Entry/>
+                        <Entry Text="{Binding SearchProcessText}"/>
 
                     </Border>
                     
                     <CollectionView Grid.Row="1"
-                                    ItemsSource="{Binding ProcessList}"
+                                    ItemsSource="{Binding FiltredProcessList}"
                                     ItemTemplate="{StaticResource ToastProcessSelectStyle}"
-                                    SelectionMode="None"
+                                    SelectionMode="Multiple"
                                     VerticalScrollBarVisibility="Always"                                  
                                     HorizontalOptions="Fill"
                                     VerticalOptions="Fill">
@@ -65,13 +67,13 @@
                             StrokeShape="24"
                             Padding="10,0,10,0">
 
-                        <Entry/>
+                        <Entry Text="{Binding SearchEmployeeText}"/>
 
                     </Border>
 
-                    <CollectionView Grid.Row="1" ItemsSource="{Binding EmployeeList}"
+                    <CollectionView Grid.Row="1" ItemsSource="{Binding FiltredEmployeeList}"
                                     ItemTemplate="{StaticResource ToastEmployeeSelectStyle}"
-                                    SelectionMode="None"
+                                    SelectionMode="Multiple"
                                     VerticalScrollBarVisibility="Always" 
                                     HorizontalOptions="Fill"
                                     VerticalOptions="Fill">
@@ -90,15 +92,17 @@
 
         <HorizontalStackLayout HorizontalOptions="End" Spacing="10" Grid.Row="2">
 
-            <buttons:IconButton Unicode="Book"
-                                FontSize="20"
+            <buttons:IconButton BackgorundColorCode="#FF4C4C"
                                 TextContent="Cancelar"
-                                BackgroundColor="Red"/>
-            
-            <buttons:IconButton Unicode="Book"
+                                Unicode="{StaticResource FAS_CircleXmark}"
                                 FontSize="20"
+                                Event="{Binding Source={x:Reference Root}, Path=CancelButtonCommand}"/>
+
+            <buttons:IconButton BackgorundColorCode="#4CAF50"
                                 TextContent="Salvar"
-                                BackgroundColor="Red"/>
+                                Unicode="{StaticResource FAS_CircleCheck}"
+                                FontSize="20"
+                                Event="{Binding Source={x:Reference Root}, Path=CancelButtonCommand}"/>
 
         </HorizontalStackLayout>
         

@@ -55,6 +55,6 @@ public partial class CreateTableViewModel
         var processes = _toyotaProcessModel.ReadProcesses();
         var employees = _toyotaEmployeeModel.ReadEmployees();
 
-        var result = await _popServices.TableConfigPopup(processes,employees);
+        var result = await _popServices.TableConfigPopup();
     }
 }

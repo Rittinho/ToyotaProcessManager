@@ -72,10 +72,13 @@
 	  <Folder Include="MVVM\ViewModel\Components\Button\" />
 	  <Folder Include="MVVM\ViewModel\Components\Elements\" />
 	  <Folder Include="MVVM\ViewModel\Modal\Description\" />
-	  <Folder Include="MVVM\ViewModel\Modal\Forms\" />
 	  <Folder Include="MVVM\ViewModel\Modal\Warning\" />
 	  <Folder Include="MVVM\ViewModel\Pages\Secondary\" />
 	  <Folder Include="MVVM\View\Pages\Secondary\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="MVVM\ViewModel\Pages\Main\Register\EmployeeUtils.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
