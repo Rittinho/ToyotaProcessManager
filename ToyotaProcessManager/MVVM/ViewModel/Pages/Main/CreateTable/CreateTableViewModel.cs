@@ -14,33 +14,23 @@ namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.CreateTable;
 public partial class CreateTableViewModel
 {
     private readonly IVerificationServices _verificationServices;
-    private readonly CreateTableModel _createTableModel;
+    private readonly IRepositoryServices _repositoryServices;
     private readonly IPopServices _popServices;
-    private readonly ToyotaEmployeeModel _toyotaEmployeeModel;
-    private readonly ToyotaProcessModel _toyotaProcessModel;
+
+    private readonly CreateTableModel _createTableModel;
     public ObservableCollection<ToyotaTableGroup> Tables { get; set; } = [];
 
     public ObservableCollection<ToyotaProcessTable> Grup { get; set; }
 
     public CreateTableViewModel(IVerificationServices verificationServices, IPopServices popServices,
-        ToyotaEmployeeModel toyotaEmployeeModel, ToyotaProcessModel toyotaProcessModel,
-        CreateTableModel createTableModel)
+        IRepositoryServices repositoryServices, CreateTableModel createTableModel)
     {
         _verificationServices = verificationServices;
         _createTableModel = createTableModel;
         _popServices = popServices;
-        _toyotaEmployeeModel = toyotaEmployeeModel;
-        _toyotaProcessModel = toyotaProcessModel;
-        Tables = _createTableModel.ReadTables().ToObservableCollection() ?? [];
+        _repositoryServices = repositoryServices;
 
-        //try
-        //{
-        //    Grup = Tables[0].TableGroup.ToObservableCollection();
-        //}
-        //catch
-        //{
-        //    CreateTable();
-        //}
+        Tables = _repositoryServices.GetAllTables().ToObservableCollection() ?? [];
     }
 
     [RelayCommand]
@@ -52,9 +42,6 @@ public partial class CreateTableViewModel
     [RelayCommand]
     public async Task ConfigureTable()
     {
-        var processes = _toyotaProcessModel.ReadProcesses();
-        var employees = _toyotaEmployeeModel.ReadEmployees();
-
         var result = await _popServices.TableConfigPopup();
     }
 }

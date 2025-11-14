@@ -68,7 +68,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="MVVM\Model\Domain\Table\DTOs\" />
 	  <Folder Include="MVVM\ViewModel\Components\Button\" />
 	  <Folder Include="MVVM\ViewModel\Components\Elements\" />
 	  <Folder Include="MVVM\ViewModel\Modal\Description\" />

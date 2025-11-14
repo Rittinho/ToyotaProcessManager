@@ -13,23 +13,11 @@ namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.ShowTable;
 public partial class ShowTableViewModel : ObservableObject
 {   
     private readonly CreateTableModel _createTableModel;
-
-    //mexer nisso aqui
-    public ObservableCollection<ToyotaProcessTable> Grup { get; set; } = [];
-
+    private readonly IRepositoryServices _repositoryServices;
     private readonly IVerificationServices _verificationServices;
-    public ShowTableViewModel(IVerificationServices verificationServices, CreateTableModel createTableModel)
+    public ShowTableViewModel(IVerificationServices verificationServices, IRepositoryServices repositoryServices)
     {
         _verificationServices = verificationServices;
-        _createTableModel = createTableModel;
-
-        try
-        {
-            Grup = _createTableModel.ReadLastTable().ToObservableCollection();
-        }
-        catch (Exception ex) 
-        {
-            _verificationServices.WaringPopup(ex.Message,"Crie uma tabela na tela de criação!");
-        }
+        _repositoryServices = repositoryServices;
     }
 }

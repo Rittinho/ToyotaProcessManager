@@ -3,17 +3,12 @@
 namespace ToyotaProcessManager.Services.Injections.Implementation.Repository;
 public partial class RepositoryServices
 {
-    public List<ToyotaEmployee> GetAllEmployees()
-    {
-        RefreshLists();
-        return _employeeData;
-    }
+    public List<ToyotaEmployee> GetAllEmployees() => _employeeData;
     public List<ToyotaEmployee> GetEmployeeByName(string name)
     {
         if (string.IsNullOrEmpty(name))
             throw new ArgumentNullException("O valor fornecido é nulo!");
 
-        RefreshLists();
         return [.._employeeData.Where(p => p.Name.ToLower().StartsWith(name.ToLower()))];
     }
     public List<ToyotaEmployee> GetEmployeeByPosition(string position)
@@ -21,28 +16,20 @@ public partial class RepositoryServices
         if (string.IsNullOrEmpty(position))
             throw new ArgumentNullException("O valor fornecido é nulo!");
 
-        RefreshLists();
         return [.. _employeeData.Where(p => p.Name.ToLower().StartsWith(position.ToLower()))];
     }
-    public ToyotaEmployee GetFirstEmployee()
-    {
-        RefreshLists();
-        return _employeeData.FirstOrDefault();
-    }
-    public ToyotaEmployee GetLastEmployee()
-    {
-        RefreshLists();
-        return _employeeData.LastOrDefault();
-    }
+    public ToyotaEmployee GetFirstEmployee() => _employeeData.FirstOrDefault();
+    public ToyotaEmployee GetLastEmployee() => _employeeData.LastOrDefault();
     public bool SaveNewEmployee(ToyotaEmployee newEmployee)
     {
         if (newEmployee is null)
             return false;
 
-        RefreshLists();
-        _employeeData.Add(newEmployee);
-        _jsonServices.SaveEmployeeJson(_employeeData);
-        RefreshLists();
+        lock (_locker)
+        {
+            _employeeData.Add(newEmployee);
+            _jsonServices.SaveEmployeeJson(_employeeData); 
+        }
 
         return true;
     }
@@ -51,9 +38,11 @@ public partial class RepositoryServices
         if (Employee is null)
             return false;
 
-        RefreshLists();
-        _employeeData.Remove(Employee);
-        RefreshLists();
+        lock (_locker)
+        {
+            _employeeData.Remove(Employee);
+            _jsonServices.SaveEmployeeJson(_employeeData);
+        }
 
         return true;
     }

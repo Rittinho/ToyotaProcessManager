@@ -3,30 +3,19 @@
 namespace ToyotaProcessManager.Services.Injections.Implementation.Repository;
 public partial class RepositoryServices
 {
-    public List<ToyotaTableGroup> GetAllTables()
-    {
-        RefreshLists();
-        return _tableData;
-    }
-    public ToyotaTableGroup GetFirstTable()
-    {
-        RefreshLists();
-        return _tableData.FirstOrDefault();
-    }
-    public ToyotaTableGroup GetLastTable()
-    {
-        RefreshLists();
-        return _tableData.LastOrDefault();
-    }
+    public List<ToyotaTableGroup> GetAllTables() => _tableData;
+    public ToyotaTableGroup GetFirstTable() => _tableData.FirstOrDefault();
+    public ToyotaTableGroup GetLastTable() => _tableData.LastOrDefault();
     public bool SaveNewTableGroup(ToyotaTableGroup newTableGroup)
     {
         if(newTableGroup is null)
             return false;
 
-        RefreshLists();
-        _tableData.Add(newTableGroup);
-        _jsonServices.SaveTableGroupJson(_tableData);
-        RefreshLists();
+        lock (_locker)
+        {
+            _tableData.Add(newTableGroup);
+            _jsonServices.SaveTableGroupJson(_tableData);
+        }
 
         return true;
     }
@@ -35,9 +24,12 @@ public partial class RepositoryServices
         if (TableGroup is null)
             return false;
 
-        RefreshLists();
-        _tableData.Remove(TableGroup);
-        RefreshLists();
+        lock (_locker)
+        {
+            _tableData.Remove(TableGroup);
+            _jsonServices.SaveTableGroupJson(_tableData);
+        }
+
 
         return true;
     }

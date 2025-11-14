@@ -61,8 +61,16 @@ public partial class RegisterViewModel
     } 
 
     [RelayCommand]
-    public void UpdateProcess(ToyotaProcess? toyotaProcess)
+    public async Task UpdateProcess(ToyotaProcess? toyotaProcess)
     {
+        if (!CheckIfAnythingHasChangedProcess())
+        {
+            if (!await _verification.ConfirmPopup(WarningTokens.DescarteUpdate))
+                return;
+
+            ClearProcessFilds();
+        }
+
         _currentProcessInEdit = toyotaProcess;
         SwitchMode(RegisterMode.Edit);
         LoadProcessFilds();

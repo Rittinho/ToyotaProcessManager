@@ -40,8 +40,8 @@ public class CreateTableModel
     {
         Random random = new();
 
-        List <ToyotaEmployee> employeeList = _toyotaEmployeeModel.ReadEmployees();
-        List <ToyotaProcess> processList = _toyotaProcessModel.ReadProcesses();
+        List <ToyotaEmployee> employeeList = _repositoryServices.GetAllEmployees();
+        List <ToyotaProcess> processList = _repositoryServices.GetAllProcesses();
 
         List<ToyotaProcessTable> tables = [];
 

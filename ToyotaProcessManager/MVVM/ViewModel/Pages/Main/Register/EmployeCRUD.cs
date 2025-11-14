@@ -54,8 +54,16 @@ public partial class RegisterViewModel
     }
 
     [RelayCommand]
-    public void UpdateEmployee(ToyotaEmployee? toyotaEmployee)
+    public async Task UpdateEmployee(ToyotaEmployee? toyotaEmployee)
     {
+        if (!CheckIfAnythingHasChangedEmployee())
+        {
+            if (!await _verification.ConfirmPopup(WarningTokens.DescarteUpdate))
+                return;
+
+            ClearEmployeeFilds();
+        }
+
         _currentEmployeeInEdit = toyotaEmployee;
         SwitchMode(RegisterMode.Edit);
         LoadEmployeeFilds();

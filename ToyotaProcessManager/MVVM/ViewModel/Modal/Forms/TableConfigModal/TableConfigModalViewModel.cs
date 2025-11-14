@@ -5,21 +5,21 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using ToyotaProcessManager.MVVM.Model.Domain.Employee;
 using ToyotaProcessManager.MVVM.Model.Domain.Process;
+using ToyotaProcessManager.Services.Injections.Contract;
 using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.MVVM.ViewModel.Modal.Forms.TableConfigModal;
 public partial class TableConfigModalViewModel : ObservableObject
 {
-    private readonly ToyotaEmployeeModel _toyotaEmployeeModel;
-    private readonly ToyotaProcessModel _toyotaProcessModel;
+    private readonly IRepositoryServices _repositoryServices;
 
-    public TableConfigModalViewModel(ToyotaEmployeeModel toyotaEmployeeModel, ToyotaProcessModel toyotaProcessModel)
+    public TableConfigModalViewModel(IRepositoryServices repositoryServices)
     {
-        _toyotaEmployeeModel = toyotaEmployeeModel;
-        _toyotaProcessModel = toyotaProcessModel;
+        _repositoryServices = repositoryServices;
 
-        ProcessList = _toyotaProcessModel.ReadProcesses();
-        EmployeeList = _toyotaEmployeeModel.ReadEmployees();
+
+        ProcessList = _repositoryServices.GetAllProcesses();
+        EmployeeList = _repositoryServices.GetAllEmployees();
 
         FiltredProcessList = ProcessList.ToObservableCollection();
         FiltredEmployeeList = EmployeeList.ToObservableCollection();
