@@ -4,30 +4,19 @@ using ToyotaProcessManager.Services.ValueObjects;
 namespace ToyotaProcessManager.MVVM.Model.Domain.Process;
 public class ToyotaProcessModel
 {
-    private readonly IJsonServices _jsonServices;
+    private readonly IRepositoryServices _repositoryServices;
 
-    private const string _processFilePath = "C:\\Users\\israe\\OneDrive\\Área de Trabalho\\test";
-    private const string _processFileName = "test_process";
-
-    private List<ToyotaProcess> _processData;
-    public ToyotaProcessModel(IJsonServices jsonServices)
+    public ToyotaProcessModel(IRepositoryServices repositoryServices)
     {
-        _jsonServices = jsonServices;
-
-        _processData = _jsonServices.LoadProcessJson(_processFilePath, _processFileName) ?? [];
+        _repositoryServices = repositoryServices;
     }
     public bool CreateProcess(ToyotaProcess toyotaProcess)
     {
         if (toyotaProcess == null)
             return false;
 
-        _processData.Add(toyotaProcess);
-
-        _jsonServices.SaveJson(_processFilePath, _processFileName, _processData);
-
-        return true;
+        return _repositoryServices.SaveNewProcess(toyotaProcess);
     }
-    public List<ToyotaProcess> ReadProcesses() => _processData;
     public bool UpdateProcess(ToyotaProcess oldToyotaProcess, ToyotaProcess newToyotaProcess)
     {
         if (oldToyotaProcess == null)
@@ -36,27 +25,16 @@ public class ToyotaProcessModel
         if (newToyotaProcess == null)
             return false;
 
-        _processData.Add(newToyotaProcess);
+        if (!_repositoryServices.RemoveProcess(oldToyotaProcess))
+            return false;
 
-        _processData.Remove(oldToyotaProcess);
-
-        _jsonServices.SaveJson(_processFilePath, _processFileName, _processData);
-
-        _processData = _jsonServices.LoadProcessJson(_processFilePath, _processFileName) ?? [];
-
-        return true;
+        return _repositoryServices.SaveNewProcess(newToyotaProcess);
     }
     public bool DeleteProcess(ToyotaProcess toyotaProcess)
     {
         if (toyotaProcess == null)
             return false;
 
-        _processData.Remove(toyotaProcess);
-
-        _jsonServices.SaveJson(_processFilePath, _processFileName, _processData);
-
-        _processData = _jsonServices.LoadProcessJson(_processFilePath, _processFileName) ?? [];
-
-        return true;
+        return _repositoryServices.RemoveProcess(toyotaProcess);
     }
 }

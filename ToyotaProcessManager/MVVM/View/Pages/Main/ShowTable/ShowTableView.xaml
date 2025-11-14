@@ -55,16 +55,11 @@
                     <RoundRectangle CornerRadius="0,0,24,24"/>
                 </Border.StrokeShape>
 
-                <CollectionView ItemsSource="{Binding Grup}"
-                                ItemTemplate="{StaticResource TableGrupData}"
-                                SelectionMode="None"     
-                                VerticalScrollBarVisibility="Default">
+                <ScrollView>
 
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" HorizontalItemSpacing="10" Span="5"/>
-                    </CollectionView.ItemsLayout>
+                    <VerticalStackLayout x:Name="MainContainer"/>
 
-                </CollectionView>
+                </ScrollView>
 
             </Border>
         

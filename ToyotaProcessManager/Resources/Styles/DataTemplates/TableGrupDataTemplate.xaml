@@ -4,6 +4,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="TableItemDataTemplate.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
     <DataTemplate x:Key="TableGrupData">
 
         <Border BackgroundColor="#323232"

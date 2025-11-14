@@ -8,9 +8,11 @@ using ToyotaProcessManager.Services.ValueObjects;
 namespace ToyotaProcessManager.Services.Injections.Contract;
 public interface IJsonServices
 {
-    void SaveJson<T>(string path, string jsonName, T data);
+    void SaveEmployeeJson(List<ToyotaEmployee> data);
+    void SaveProcessJson(List<ToyotaProcess> data);
+    void SaveTableGroupJson(List<ToyotaTableGroup> data);
 
-    List<ToyotaEmployee> LoadEmployeeJson(string path, string jsonName);
-    List<ToyotaProcess> LoadProcessJson(string path, string jsonName);
-    List<ToyotaTableGroup> LoadTableGroupJson(string path, string jsonName);
+    List<ToyotaEmployee> LoadEmployeeJson();
+    List<ToyotaProcess> LoadProcessJson();
+    List<ToyotaTableGroup> LoadTableGroupJson();
 }

@@ -13,6 +13,7 @@ using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
 using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.ShowTable;
 using ToyotaProcessManager.Services.Injections.Contract;
 using ToyotaProcessManager.Services.Injections.Implementation;
+using ToyotaProcessManager.Services.Injections.Implementation.Repository;
 
 namespace ToyotaProcessManager
 {
@@ -41,6 +42,9 @@ namespace ToyotaProcessManager
 #if DEBUG
     		builder.Logging.AddDebug();
 
+            //services
+            builder.Services.AddSingleton<IRepositoryServices, RepositoryServices>();
+
             builder.Services.AddTransient<IVerificationServices, VerificationServices>();
             builder.Services.AddTransient<INavigationServices, NavigationServices>();
             builder.Services.AddTransient<IJsonServices, JsonServices>();
@@ -50,12 +54,14 @@ namespace ToyotaProcessManager
             builder.Services.AddTransient<CreateTableView>();
             builder.Services.AddTransient<ShowTableView>();
             builder.Services.AddTransient<RegisterView>();
+
             //ViewModels
+            builder.Services.AddSingleton<CreateTableViewModel>();
+            builder.Services.AddSingleton<ShowTableViewModel>();
+            builder.Services.AddSingleton<RegisterViewModel>();
+
             builder.Services.AddTransient<TableConfigModalViewModel>();
             builder.Services.AddTransient<IconPickerModalViewModel>();
-            builder.Services.AddTransient<CreateTableViewModel>();
-            builder.Services.AddTransient<ShowTableViewModel>();
-            builder.Services.AddTransient<RegisterViewModel>();
 
             //models
             builder.Services.AddTransient<ToyotaEmployeeModel>();
@@ -66,7 +72,6 @@ namespace ToyotaProcessManager
 
             ServiceProvider = app.Services;
 #endif
-
             return app;
         }
     }

@@ -12,34 +12,30 @@ using ToyotaProcessManager.Services.ValueObjects;
 namespace ToyotaProcessManager.MVVM.Model.Domain.Table;
 public class CreateTableModel
 {
-    private readonly IJsonServices _jsonServices;
+    private readonly IRepositoryServices _repositoryServices;
 
-    private const string _tableGroupFilePath = "C:\\Users\\israe\\OneDrive\\Área de Trabalho\\test";
-    private const string _tableGroupFileName = "test_table_group";
-
-    private readonly ToyotaProcessModel _toyotaProcessModel;
-    private readonly ToyotaEmployeeModel _toyotaEmployeeModel;
-
-    private List<ToyotaTableGroup> _tableData;
-
-    public CreateTableModel(IJsonServices jsonServices, ToyotaEmployeeModel toyotaEmployeeModel, ToyotaProcessModel toyotaProcessModel)
+    public CreateTableModel(IRepositoryServices repositoryServices)
     {
-        _jsonServices = jsonServices;
-        _toyotaEmployeeModel = toyotaEmployeeModel;
-        _toyotaProcessModel = toyotaProcessModel;
-
-        _tableData = _jsonServices.LoadTableGroupJson(_tableGroupFilePath, _tableGroupFileName) ?? [];
+        _repositoryServices = repositoryServices;
     }
-   
-    public List<ToyotaTableGroup> ReadTables() => _tableData;
-    public List<ToyotaProcessTable> ReadTable(int index) => _tableData[index].TableGroup ?? [];
-    public List<ToyotaProcessTable> ReadLastTable()
+
+    public bool CreateTable()
     {
-        if (_tableData is null || _tableData.Count == 0)
-            throw new Exception("Lista vazia");
+        ToyotaTableGroup table = CreateRandomTables();
 
-        return _tableData.FirstOrDefault().TableGroup;
+        if (table == null)
+            return false;
+
+        return _repositoryServices.SaveNewTableGroup(table);
     }
+    public bool DeleteTable(ToyotaTableGroup toyotaTableGroup)
+    {
+        if (toyotaTableGroup == null)
+            return false;
+
+        return _repositoryServices.RemoveTableGroup(toyotaTableGroup);
+    }
+
     public ToyotaTableGroup CreateRandomTables()
     {
         Random random = new();
@@ -72,14 +68,5 @@ public class CreateTableModel
         ToyotaTableGroup result = new(DateTime.Now.ToString(), tables, tables.Count, employeeList.Count, baseCount,0,0);
 
         return result;
-    }
-
-    public bool CreateTable()
-    {
-        _tableData.Add(CreateRandomTables());
-
-        _jsonServices.SaveJson(_tableGroupFilePath, _tableGroupFileName, _tableData);
-
-        return true;
     }
 }

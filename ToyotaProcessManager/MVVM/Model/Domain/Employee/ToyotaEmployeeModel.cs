@@ -4,30 +4,19 @@ using ToyotaProcessManager.Services.ValueObjects;
 namespace ToyotaProcessManager.MVVM.Model.Domain.Employee;
 public class ToyotaEmployeeModel
 {
-    private readonly IJsonServices _jsonServices;
+    private readonly IRepositoryServices _repositoryServices;
 
-    private const string _employeeFilePath = "C:\\Users\\israe\\OneDrive\\Área de Trabalho\\test";
-    private const string _employeeFileName = "test_employee";
-
-    private List<ToyotaEmployee> _employeeData;
-    public ToyotaEmployeeModel(IJsonServices jsonServices)
+    public ToyotaEmployeeModel(IRepositoryServices repositoryServices)
     {
-        _jsonServices = jsonServices;
-
-        _employeeData = _jsonServices.LoadEmployeeJson(_employeeFilePath, _employeeFileName) ?? [];
+        _repositoryServices = repositoryServices;
     }
     public bool CreateEmployee(ToyotaEmployee toyotaEmployee)
     {
         if (toyotaEmployee == null)
             return false;
 
-        _employeeData.Add(toyotaEmployee);
-
-        _jsonServices.SaveJson(_employeeFilePath, _employeeFileName, _employeeData);    
-
-        return true;
+        return _repositoryServices.SaveNewEmployee(toyotaEmployee); 
     }
-    public List<ToyotaEmployee> ReadEmployees() => _employeeData;
     public bool UpdateEmployee(ToyotaEmployee oldToyotaEmployee, ToyotaEmployee newToyotaEmployee)
     {
         if(oldToyotaEmployee == null)
@@ -36,27 +25,16 @@ public class ToyotaEmployeeModel
         if(newToyotaEmployee == null)
             return false;
 
-        _employeeData.Add(newToyotaEmployee);
+        if(!_repositoryServices.RemoveEmployee(oldToyotaEmployee))
+            return false;
 
-        _employeeData.Remove(oldToyotaEmployee);
-
-        _jsonServices.SaveJson(_employeeFilePath, _employeeFileName, _employeeData);
-
-        _employeeData = _jsonServices.LoadEmployeeJson(_employeeFilePath, _employeeFileName) ?? [];
-
-        return true;
+        return _repositoryServices.SaveNewEmployee(newToyotaEmployee);
     }
     public bool DeleteEmployee(ToyotaEmployee toyotaEmployee)
     {
         if(toyotaEmployee == null)
             return false;
 
-        _employeeData.Remove(toyotaEmployee);
-
-        _jsonServices.SaveJson(_employeeFilePath, _employeeFileName, _employeeData);
-
-        _employeeData = _jsonServices.LoadEmployeeJson(_employeeFilePath, _employeeFileName) ?? [];
-
-        return true;
+        return _repositoryServices.RemoveEmployee(toyotaEmployee);
     }
 }

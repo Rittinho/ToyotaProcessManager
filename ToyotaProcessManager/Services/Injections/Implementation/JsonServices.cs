@@ -1,5 +1,5 @@
 ﻿using System.Text;using System.Text.Encodings.Web;using System.Text.Json;
-using ToyotaProcessManager.Services.Injections.Contract;
+using System.Text.Json.Nodes;using ToyotaProcessManager.Services.Injections.Contract;
 using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.Services.Injections.Implementation;
@@ -11,25 +11,60 @@ public class JsonServices : IJsonServices
         WriteIndented = true
     };
 
-    public void SaveJson<T>(string path, string jsonName,T data)
-    {
-        if (!Directory.Exists(path))
-            Directory.CreateDirectory(path);
+    private string _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Toyota repository");
 
-        var jsonPath = Path.Combine(path, $"{jsonName}.json");
+    public void SaveEmployeeJson(List<ToyotaEmployee> data)
+    {
+        if (!Directory.Exists(_filePath))
+            Directory.CreateDirectory(_filePath);
+
+        var jsonPath = Path.Combine(_filePath, "employee.json");
 
         if (File.Exists(jsonPath))
             File.Create(jsonPath).Dispose();
 
         using (StreamWriter streamWriter = new StreamWriter(jsonPath, false, Encoding.UTF8))
         {
-            var json = JsonSerializer.Serialize(data,options);
+            var json = JsonSerializer.Serialize(data, options);
             streamWriter.Write(json);
         }
     }
-    public List<ToyotaEmployee> LoadEmployeeJson(string path, string jsonName)
+    public void SaveProcessJson(List<ToyotaProcess> data)
     {
-        var jsonPath = Path.Combine(path, $"{jsonName}.json");
+        if (!Directory.Exists(_filePath))
+            Directory.CreateDirectory(_filePath);
+
+        var jsonPath = Path.Combine(_filePath, "process.json");
+
+        if (File.Exists(jsonPath))
+            File.Create(jsonPath).Dispose();
+
+        using (StreamWriter streamWriter = new StreamWriter(jsonPath, false, Encoding.UTF8))
+        {
+            var json = JsonSerializer.Serialize(data, options);
+            streamWriter.Write(json);
+        }
+    }
+    public void SaveTableGroupJson(List<ToyotaTableGroup> data)
+    {
+        if (!Directory.Exists(_filePath))
+            Directory.CreateDirectory(_filePath);
+
+        var jsonPath = Path.Combine(_filePath, "table-group.json");
+
+        if (File.Exists(jsonPath))
+            File.Create(jsonPath).Dispose();
+
+        using (StreamWriter streamWriter = new StreamWriter(jsonPath, false, Encoding.UTF8))
+        {
+            var json = JsonSerializer.Serialize(data, options);
+            streamWriter.Write(json);
+        }
+        throw new NotImplementedException();
+    }
+    public List<ToyotaEmployee> LoadEmployeeJson()
+    {
+        var jsonPath = Path.Combine(_filePath, "employee.json");
 
         if (!File.Exists(jsonPath))
             return null;
@@ -51,9 +86,9 @@ public class JsonServices : IJsonServices
 
         return result;
     }
-    public List<ToyotaProcess> LoadProcessJson(string path, string jsonName)
+    public List<ToyotaProcess> LoadProcessJson()
     {
-        var jsonPath = Path.Combine(path, $"{jsonName}.json");
+        var jsonPath = Path.Combine(_filePath, "process.json");
 
         if (!File.Exists(jsonPath))
             return null;
@@ -75,9 +110,9 @@ public class JsonServices : IJsonServices
 
         return result;
     }
-    public List<ToyotaTableGroup> LoadTableGroupJson(string path, string jsonName)
+    public List<ToyotaTableGroup> LoadTableGroupJson()
     {
-        var jsonPath = Path.Combine(path, $"{jsonName}.json");
+        var jsonPath = Path.Combine(_filePath, "table-group.json");
 
         if (!File.Exists(jsonPath))
             return null;
