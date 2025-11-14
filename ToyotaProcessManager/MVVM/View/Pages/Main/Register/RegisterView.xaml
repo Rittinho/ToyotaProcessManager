@@ -105,27 +105,29 @@
                                         <Border StrokeThickness="0"
                                                 Padding="30">
 
-                                            <AbsoluteLayout HeightRequest="250"
-                                                            WidthRequest="250">
+                                            <AbsoluteLayout HeightRequest="170"
+                                                            WidthRequest="170">
 
                                                 <elements:CircularIcon AbsoluteLayout.LayoutBounds="1,1,1,1"
                                                                        AbsoluteLayout.LayoutFlags="All"
                                                                        Unicode="{Binding Icon.Unicode}"
                                                                        ColorCode="{Binding Icon.ColorCode}"
-                                                                       IconSize="250"/>
+                                                                       IconSize="170"/>
 
                                                 <Border AbsoluteLayout.LayoutBounds="1,0.0,0.3,0.3"
                                                         AbsoluteLayout.LayoutFlags="All"
-                                                        BackgroundColor="#707070"
-                                                        StrokeThickness="0"
-                                                        StrokeShape="100">
+                                                        Style="{StaticResource Border.Circle}"
+                                                        BackgroundColor="{StaticResource Tertiary}"
+                                                        HorizontalOptions="Center"
+                                                        VerticalOptions="Center"
+                                                        Padding="5">
 
                                                     <Label Text="{DynamicResource FAS_Pen}"
                                                            FontFamily="FAS"
                                                            HorizontalOptions="Center"
                                                            VerticalOptions="Center"
                                                            Padding="5"
-                                                           FontSize="40"
+                                                           FontSize="30"
                                                            TextColor="White"/>
 
                                                 </Border>

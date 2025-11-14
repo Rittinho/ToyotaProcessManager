@@ -1,5 +1,5 @@
 ﻿using System.Text;using System.Text.Encodings.Web;using System.Text.Json;
-using System.Text.Json.Nodes;using ToyotaProcessManager.Services.Injections.Contract;
+using ToyotaProcessManager.Services.Injections.Contract;
 using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.Services.Injections.Implementation;
@@ -13,11 +13,16 @@ public class JsonServices : IJsonServices
 
     private string _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Toyota repository");
 
-    public void SaveEmployeeJson(List<ToyotaEmployee> data)
+    public JsonServices()
     {
         if (!Directory.Exists(_filePath))
+        {
             Directory.CreateDirectory(_filePath);
+        }
+    }
 
+    public void SaveEmployeeJson(List<ToyotaEmployee> data)
+    {
         var jsonPath = Path.Combine(_filePath, "employee.json");
 
         if (File.Exists(jsonPath))
@@ -31,9 +36,6 @@ public class JsonServices : IJsonServices
     }
     public void SaveProcessJson(List<ToyotaProcess> data)
     {
-        if (!Directory.Exists(_filePath))
-            Directory.CreateDirectory(_filePath);
-
         var jsonPath = Path.Combine(_filePath, "process.json");
 
         if (File.Exists(jsonPath))
@@ -47,9 +49,6 @@ public class JsonServices : IJsonServices
     }
     public void SaveTableGroupJson(List<ToyotaTableGroup> data)
     {
-        if (!Directory.Exists(_filePath))
-            Directory.CreateDirectory(_filePath);
-
         var jsonPath = Path.Combine(_filePath, "table-group.json");
 
         if (File.Exists(jsonPath))

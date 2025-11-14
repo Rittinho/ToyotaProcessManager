@@ -10,6 +10,12 @@ public class ToyotaProcessModel
     {
         _repositoryServices = repositoryServices;
     }
+
+    public List<ToyotaProcess> GetAllProcesses() => _repositoryServices.GetAllProcesses();
+    public ToyotaProcess GetFirstProcess() => _repositoryServices.GetFirstProcess();
+    public ToyotaProcess GetLastProcess() => _repositoryServices.GetLastProcess();
+    public List<ToyotaProcess> GetProcessByName(string name) => _repositoryServices.GetProcessByName(name);
+
     public bool CreateProcess(ToyotaProcess toyotaProcess)
     {
         if (toyotaProcess == null)

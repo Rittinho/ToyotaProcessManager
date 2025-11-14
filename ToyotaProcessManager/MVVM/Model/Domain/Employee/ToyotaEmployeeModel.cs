@@ -10,6 +10,13 @@ public class ToyotaEmployeeModel
     {
         _repositoryServices = repositoryServices;
     }
+
+    public List<ToyotaEmployee> GetAllEmployees() => _repositoryServices.GetAllEmployees();
+    public ToyotaEmployee GetFirstEmployee() => _repositoryServices.GetFirstEmployee();
+    public ToyotaEmployee GetLastEmployee() => _repositoryServices.GetLastEmployee();
+    public List<ToyotaEmployee> GetEmployeeByName(string name) => _repositoryServices.GetEmployeeByName(name);
+    public List<ToyotaEmployee> GetEmployeeByPosition(string position) => _repositoryServices.GetEmployeeByPosition(position);
+
     public bool CreateEmployee(ToyotaEmployee toyotaEmployee)
     {
         if (toyotaEmployee == null)

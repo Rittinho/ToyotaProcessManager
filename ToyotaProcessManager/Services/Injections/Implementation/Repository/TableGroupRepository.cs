@@ -1,4 +1,6 @@
-﻿using ToyotaProcessManager.Services.ValueObjects;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using ToyotaProcessManager.Services.Constants.Messages.TableGroup;
+using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.Services.Injections.Implementation.Repository;
 public partial class RepositoryServices
@@ -15,21 +17,25 @@ public partial class RepositoryServices
         {
             _tableData.Add(newTableGroup);
             _jsonServices.SaveTableGroupJson(_tableData);
+            _messenger.Send(new TableGroupAddedMessage(newTableGroup));
         }
 
         return true;
     }
-    public bool RemoveTableGroup(ToyotaTableGroup TableGroup)
+    public bool RemoveTableGroup(ToyotaTableGroup tableGroup)
     {
-        if (TableGroup is null)
+        if (tableGroup is null)
             return false;
 
         lock (_locker)
         {
-            _tableData.Remove(TableGroup);
-            _jsonServices.SaveTableGroupJson(_tableData);
-        }
+            if(!_tableData.Remove(tableGroup))
+                return false;
 
+            _jsonServices.SaveTableGroupJson(_tableData);
+            _messenger.Send(new TableGroupRemovedMessage(tableGroup));
+
+        }
 
         return true;
     }

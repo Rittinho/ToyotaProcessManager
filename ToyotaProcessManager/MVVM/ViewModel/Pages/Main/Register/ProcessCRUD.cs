@@ -22,8 +22,6 @@ public partial class RegisterViewModel
 
         await _verification.WaringPopup(WarningTokens.CreateSuccess);
 
-        RefreshList();
-
         ClearProcessFilds();
     }
 
@@ -57,7 +55,6 @@ public partial class RegisterViewModel
 
         ClearProcessFilds();
         SwitchMode(RegisterMode.Create);
-        RefreshList();
     } 
 
     [RelayCommand]
@@ -94,7 +91,6 @@ public partial class RegisterViewModel
 
         ClearProcessFilds();
         SwitchMode(RegisterMode.Create);
-        RefreshList();
     }
     [RelayCommand]
     public async Task CancelUpdateProcess()

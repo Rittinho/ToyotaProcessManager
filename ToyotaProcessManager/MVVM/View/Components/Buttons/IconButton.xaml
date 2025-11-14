@@ -4,10 +4,9 @@
              x:Class="ToyotaProcessManager.MVVM.View.Components.Buttons.IconButton"
              x:Name="Root">
 
-    <Border Padding="10"
-            StrokeShape="14"
-            StrokeThickness="0"
+    <Border Style="{StaticResource Border.Radius14}"
             BackgroundColor="{Binding Path=BackgroundColorCode, Source={x:Reference Root}}">
+        
         <HorizontalStackLayout Spacing="10">
 
             <Label Text="{Binding Path=Unicode, Source={x:Reference Root}}"
@@ -21,8 +20,7 @@
                    TextColor="{Binding Path=FontColorCode, Source={x:Reference Root}}"
                    FontSize="{Binding Path=FontSize, Source={x:Reference Root}}"
                    HorizontalOptions="Center"
-                   VerticalOptions="Center" 
-                   FontAttributes="Bold"/>
+                   VerticalOptions="Center"/>
 
         </HorizontalStackLayout>
 

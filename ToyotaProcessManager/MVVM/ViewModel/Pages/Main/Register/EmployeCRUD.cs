@@ -22,8 +22,6 @@ public partial class RegisterViewModel
 
         await _verification.WaringPopup(WarningTokens.CreateSuccess);
 
-        RefreshList();
-
         ClearEmployeeFilds();
     }
 
@@ -50,7 +48,6 @@ public partial class RegisterViewModel
 
         ClearEmployeeFilds();
         SwitchMode(RegisterMode.Create);
-        RefreshList();
     }
 
     [RelayCommand]
@@ -87,7 +84,6 @@ public partial class RegisterViewModel
 
         ClearEmployeeFilds();
         SwitchMode(RegisterMode.Create);
-        RefreshList();
     }
     [RelayCommand]
     public async Task CancelUpdateEmployee()

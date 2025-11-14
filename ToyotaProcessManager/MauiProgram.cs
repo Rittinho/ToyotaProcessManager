@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
 using ToyotaProcessManager.MVVM.Model.Domain.Employee;
 using ToyotaProcessManager.MVVM.Model.Domain.Process;
@@ -44,10 +45,11 @@ namespace ToyotaProcessManager
 
             //services
             builder.Services.AddSingleton<IRepositoryServices, RepositoryServices>();
+            builder.Services.AddSingleton<IJsonServices, JsonServices>();
+            builder.Services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
 
             builder.Services.AddTransient<IVerificationServices, VerificationServices>();
             builder.Services.AddTransient<INavigationServices, NavigationServices>();
-            builder.Services.AddTransient<IJsonServices, JsonServices>();
             builder.Services.AddTransient<IPopServices, PopServices>();
 
             //views

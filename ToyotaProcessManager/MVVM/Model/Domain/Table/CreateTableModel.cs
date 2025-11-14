@@ -19,6 +19,10 @@ public class CreateTableModel
         _repositoryServices = repositoryServices;
     }
 
+    public List<ToyotaTableGroup> GetAllTables() => _repositoryServices.GetAllTables();
+    public ToyotaTableGroup GetFirstTable() => _repositoryServices.GetFirstTable();
+    public ToyotaTableGroup GetLastTable() => _repositoryServices.GetLastTable();
+
     public bool CreateTable()
     {
         ToyotaTableGroup table = CreateRandomTables();
@@ -35,7 +39,6 @@ public class CreateTableModel
 
         return _repositoryServices.RemoveTableGroup(toyotaTableGroup);
     }
-
     public ToyotaTableGroup CreateRandomTables()
     {
         Random random = new();

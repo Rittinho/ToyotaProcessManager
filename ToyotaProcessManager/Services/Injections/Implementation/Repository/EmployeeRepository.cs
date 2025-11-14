@@ -1,4 +1,6 @@
-﻿using ToyotaProcessManager.Services.ValueObjects;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using ToyotaProcessManager.Services.Constants.Messages.Employee;
+using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.Services.Injections.Implementation.Repository;
 public partial class RepositoryServices
@@ -28,20 +30,24 @@ public partial class RepositoryServices
         lock (_locker)
         {
             _employeeData.Add(newEmployee);
-            _jsonServices.SaveEmployeeJson(_employeeData); 
+            _jsonServices.SaveEmployeeJson(_employeeData);
+            _messenger.Send(new EmployeeAddedMessage(newEmployee));
         }
 
         return true;
     }
-    public bool RemoveEmployee(ToyotaEmployee Employee)
+    public bool RemoveEmployee(ToyotaEmployee employee)
     {
-        if (Employee is null)
+        if (employee is null)
             return false;
 
         lock (_locker)
         {
-            _employeeData.Remove(Employee);
+            if (!_employeeData.Remove(employee))
+                return false;
+
             _jsonServices.SaveEmployeeJson(_employeeData);
+            _messenger.Send(new EmployeeRemovedMessage(employee));
         }
 
         return true;

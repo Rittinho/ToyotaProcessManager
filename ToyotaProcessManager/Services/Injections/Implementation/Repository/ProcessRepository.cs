@@ -1,4 +1,6 @@
-﻿using ToyotaProcessManager.Services.ValueObjects;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using ToyotaProcessManager.Services.Constants.Messages.Process;
+using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.Services.Injections.Implementation.Repository;
 public partial class RepositoryServices
@@ -22,19 +24,24 @@ public partial class RepositoryServices
         {
             _processData.Add(newProcess);
             _jsonServices.SaveProcessJson(_processData);
+            _messenger.Send(new ProcessAddedMessage(newProcess));
         }
 
         return true;
     }
-    public bool RemoveProcess(ToyotaProcess Process)
+    public bool RemoveProcess(ToyotaProcess process)
     {
-        if (Process is null)
+        if (process is null)
             return false;
 
         lock (_locker)
         {
-            _processData.Remove(Process);
+            if(!_processData.Remove(process))
+                return false;
+           
             _jsonServices.SaveProcessJson(_processData);
+            _messenger.Send(new ProcessRemovedMessage(process));
+
         }
 
         return true;

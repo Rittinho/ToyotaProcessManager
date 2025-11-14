@@ -4,7 +4,7 @@
              x:Class="ToyotaProcessManager.MVVM.View.Components.Buttons.SearchBar"
              x:Name="Root">
 
-    <Border Style="{StaticResource Border.Circle}"
+    <Border Style="{StaticResource Border.Radius14}"
             BackgroundColor="{StaticResource Primary}"
             HorizontalOptions="Fill"    
             Padding="5,0,0,0">

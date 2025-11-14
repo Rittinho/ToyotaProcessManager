@@ -1,15 +1,20 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using ToyotaProcessManager.MVVM.Model.Domain.Employee;
 using ToyotaProcessManager.MVVM.Model.Domain.Process;
+using ToyotaProcessManager.Services.Constants.Messages.Employee;
+using ToyotaProcessManager.Services.Constants.Messages.Process;
 using ToyotaProcessManager.Services.Injections.Contract;
 
 namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
-public partial class RegisterViewModel : ObservableObject
+public partial class RegisterViewModel : ObservableObject, 
+    IRecipient<EmployeeAddedMessage>, IRecipient<EmployeeRemovedMessage>, 
+    IRecipient<ProcessAddedMessage>, IRecipient<ProcessRemovedMessage>
 {
     private readonly IVerificationServices _verification;
-    private readonly IRepositoryServices _repositoryServices;
     private readonly IPopServices _popServices;
+    private readonly IMessenger _messenger;
 
     private readonly ToyotaEmployeeModel? _toyotaEmployeeModel;
     private readonly ToyotaProcessModel? _toyotaProcessModel;
@@ -29,45 +34,21 @@ public partial class RegisterViewModel : ObservableObject
     [ObservableProperty]
     public bool? _isInEmployeePanel;
 
-    public RegisterViewModel(IVerificationServices verificationServices, ToyotaEmployeeModel toyotaEmployeeModel, ToyotaProcessModel toyotaProcessModel,IPopServices popServices, IRepositoryServices repositoryServices)
+    public RegisterViewModel(IVerificationServices verificationServices, ToyotaEmployeeModel toyotaEmployeeModel, ToyotaProcessModel toyotaProcessModel,IPopServices popServices, IMessenger messenger)
     {
         _verification = verificationServices;
         _popServices = popServices;
         _toyotaEmployeeModel = toyotaEmployeeModel;
         _toyotaProcessModel = toyotaProcessModel;
         _popServices = popServices;
-        _repositoryServices = repositoryServices;
 
-        RefreshList();
         SwitchMode(RegisterMode.Create);
         SwitchPanel(RegisterPanel.Process);
         ClearProcessFilds();
         ClearEmployeeFilds();
+        _messenger = messenger;
     }
 
-    public void RefreshList()
-    {
-        EmployeeList.Clear();
-        ProcessList.Clear();
-
-        var employees = _repositoryServices.GetAllEmployees();
-        var processes = _repositoryServices.GetAllProcesses();
-
-        foreach (var employee in employees)
-            EmployeeList.Add(employee);
-
-        foreach (var process in processes)
-            ProcessList.Add(process);
-
-        FiltredProcessList.Clear();
-        FiltredEmployeeList.Clear();
-
-        foreach (var process in ProcessList)
-            FiltredProcessList.Add(process);
-
-        foreach (var employee in EmployeeList)
-            FiltredEmployeeList.Add(employee);
-    }
     public void SwitchMode(RegisterMode mode)
     {
         switch (mode)

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
+using ToyotaProcessManager.Services.Constants.Messages.Process;
 using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
@@ -21,6 +22,24 @@ public partial class RegisterViewModel
 
     [ObservableProperty]
     private string? _description;
+
+    public void Receive(ProcessAddedMessage message)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            ProcessList.Add(message.Value);
+            FiltredProcessList.Add(message.Value);
+        });
+    }
+
+    public void Receive(ProcessRemovedMessage message)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            ProcessList.Remove(message.Value);
+            FiltredProcessList.Remove(message.Value);
+        });
+    }
 
     partial void OnSearchProcessTextChanged(string value)
     {

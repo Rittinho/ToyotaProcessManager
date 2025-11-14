@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
+using ToyotaProcessManager.Services.Constants.Messages.Employee;
 using ToyotaProcessManager.Services.ValueObjects;
 
 namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
@@ -19,6 +20,24 @@ public partial class RegisterViewModel
     [ObservableProperty]
     private string? _position;
 
+    public void Receive(EmployeeRemovedMessage message)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            EmployeeList.Add(message.Value);
+            FiltredEmployeeList.Add(message.Value);
+        });
+    }
+
+    public void Receive(EmployeeAddedMessage message)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            EmployeeList.Remove(message.Value);
+            FiltredEmployeeList.Remove(message.Value);
+        });
+    }
+
     partial void OnSearchEmployeeTextChanged(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -37,7 +56,6 @@ public partial class RegisterViewModel
         foreach (var item in filtered)
             FiltredEmployeeList.Add(item);
     }
-
     private bool CheckIfAnythingHasChangedEmployee()
     {
         return !(Name == _currentEmployeeInEdit!.Name && Position == _currentEmployeeInEdit.Position);
