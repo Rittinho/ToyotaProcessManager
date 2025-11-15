@@ -20,7 +20,7 @@ public partial class RegisterViewModel
     [ObservableProperty]
     private string? _position;
 
-    public void Receive(EmployeeRemovedMessage message)
+    public void Receive(EmployeeAddedMessage message)
     {
         MainThread.BeginInvokeOnMainThread(() =>
         {
@@ -29,7 +29,7 @@ public partial class RegisterViewModel
         });
     }
 
-    public void Receive(EmployeeAddedMessage message)
+    public void Receive(EmployeeRemovedMessage message)
     {
         MainThread.BeginInvokeOnMainThread(() =>
         {

@@ -10,17 +10,12 @@ public partial class RegisterViewModel
     {
         ToyotaEmployee newEmployee = new(DateTime.Now.ToString(),Name, Position);
 
-        if (_verification.CheckSameEmployee(newEmployee, [.. EmployeeList]))
-        {
-            await _verification.WaringPopup(WarningTokens.ExistingEmployee);
-            return;
-        }
 
         _toyotaEmployeeModel.CreateEmployee(newEmployee);
 
         _currentEmployeeInEdit = newEmployee;
 
-        await _verification.WaringPopup(WarningTokens.CreateSuccess);
+        await _popServices.WaringPopup(WarningTokens.CreateSuccess);
 
         ClearEmployeeFilds();
     }
@@ -30,7 +25,7 @@ public partial class RegisterViewModel
     {
         if (toyotaEmployee is null)
         {
-            await _verification.WaringPopup(WarningTokens.CorruptFile);
+            await _popServices.WaringPopup(WarningTokens.CorruptFile);
             return;
         }
 
@@ -40,11 +35,11 @@ public partial class RegisterViewModel
     [RelayCommand]
     public async Task DeleteEmployee(ToyotaEmployee? toyotaEmployee)
     {
-        if (!await _verification.ConfirmPopup(WarningTokens.DeleteEmployee))
+        if (!await _popServices.ConfirmPopup(WarningTokens.DeleteEmployee))
             return;
 
         if (_toyotaEmployeeModel!.DeleteEmployee(toyotaEmployee!))
-            await _verification.WaringPopup(WarningTokens.DeleteSuccess);
+            await _popServices.WaringPopup(WarningTokens.DeleteSuccess);
 
         ClearEmployeeFilds();
         SwitchMode(RegisterMode.Create);
@@ -55,7 +50,7 @@ public partial class RegisterViewModel
     {
         if (!CheckIfAnythingHasChangedEmployee())
         {
-            if (!await _verification.ConfirmPopup(WarningTokens.DescarteUpdate))
+            if (!await _popServices.ConfirmPopup(WarningTokens.DescarteUpdate))
                 return;
 
             ClearEmployeeFilds();
@@ -77,7 +72,7 @@ public partial class RegisterViewModel
             return;
         }
 
-        if (!await _verification.ConfirmPopup(WarningTokens.UpdateEmployee))
+        if (!await _popServices.ConfirmPopup(WarningTokens.UpdateEmployee))
             return;
 
         _toyotaEmployeeModel!.UpdateEmployee(_currentEmployeeInEdit!, newEmployee);
@@ -95,7 +90,7 @@ public partial class RegisterViewModel
             return;
         }
 
-        if (!await _verification.ConfirmPopup(WarningTokens.DescarteUpdate))
+        if (!await _popServices.ConfirmPopup(WarningTokens.DescarteUpdate))
             return;
 
         ClearEmployeeFilds();

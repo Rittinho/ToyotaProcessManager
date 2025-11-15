@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace ToyotaProcessManager
+namespace ToyotaProcessManager.Platforms.iOS
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

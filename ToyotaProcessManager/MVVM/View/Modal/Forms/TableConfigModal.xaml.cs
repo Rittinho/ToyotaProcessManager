@@ -22,5 +22,4 @@ public partial class TableConfigModal : Popup<ToyotaTableConfiguration>
 
     //[RelayCommand]
     //private async Task SaveButton() => await CloseAsync(new ToyotaTableConfiguration([..ProcessList],[..EmployeeList], [..ProcessList], [..EmployeeList]));
-
 }

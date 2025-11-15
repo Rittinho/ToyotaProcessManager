@@ -17,25 +17,29 @@ public class ToyotaEmployeeModel
     public List<ToyotaEmployee> GetEmployeeByName(string name) => _repositoryServices.GetEmployeeByName(name);
     public List<ToyotaEmployee> GetEmployeeByPosition(string position) => _repositoryServices.GetEmployeeByPosition(position);
 
-    public bool CreateEmployee(ToyotaEmployee toyotaEmployee)
+    public void CreateEmployee(ToyotaEmployee toyotaEmployee)
     {
         if (toyotaEmployee == null)
-            return false;
+            throw new Exception("Valor nulo!");
 
-        return _repositoryServices.SaveNewEmployee(toyotaEmployee); 
+        if (CheckSameEmployee(toyotaEmployee))
+            throw new Exception("Já existe esse processo!");
+
+        _repositoryServices.SaveNewEmployee(toyotaEmployee); 
     }
-    public bool UpdateEmployee(ToyotaEmployee oldToyotaEmployee, ToyotaEmployee newToyotaEmployee)
+    public void UpdateEmployee(ToyotaEmployee oldToyotaEmployee, ToyotaEmployee newToyotaEmployee)
     {
-        if(oldToyotaEmployee == null)
-            return false;
+        if (oldToyotaEmployee == null)
+            throw new Exception("Valor nulo!");
 
-        if(newToyotaEmployee == null)
-            return false;
+        if (newToyotaEmployee == null)
+            throw new Exception("Valor nulo!");
 
-        if(!_repositoryServices.RemoveEmployee(oldToyotaEmployee))
-            return false;
+        if (CheckSameEmployee(newToyotaEmployee))
+            throw new Exception("Já existe esse processo!");
 
-        return _repositoryServices.SaveNewEmployee(newToyotaEmployee);
+        _repositoryServices.RemoveEmployee(oldToyotaEmployee);
+        _repositoryServices.SaveNewEmployee(newToyotaEmployee);
     }
     public bool DeleteEmployee(ToyotaEmployee toyotaEmployee)
     {
@@ -43,5 +47,14 @@ public class ToyotaEmployeeModel
             return false;
 
         return _repositoryServices.RemoveEmployee(toyotaEmployee);
+    }
+
+    public bool CheckSameEmployee(ToyotaEmployee toyotaEmployee)
+    {
+        foreach (var employee in _repositoryServices.GetAllEmployees())
+            if (employee.Name == toyotaEmployee.Name)
+                return true;
+
+        return false;
     }
 }

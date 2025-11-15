@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace ToyotaProcessManager.Services.ValueObjects;
-public class ToyotaProcess(IconParameters icon, string creationDate, string title = "Sem nome", string description = "Sem descrição")
+public class ToyotaProcess(IconParameters icon, string creationDate, string title, string description)
 {
     public string CreationDate { get; set; } = creationDate;
     public string Title { get; set; } = title;

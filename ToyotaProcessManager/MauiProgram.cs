@@ -48,7 +48,6 @@ namespace ToyotaProcessManager
             builder.Services.AddSingleton<IJsonServices, JsonServices>();
             builder.Services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
 
-            builder.Services.AddTransient<IVerificationServices, VerificationServices>();
             builder.Services.AddTransient<INavigationServices, NavigationServices>();
             builder.Services.AddTransient<IPopServices, PopServices>();
 

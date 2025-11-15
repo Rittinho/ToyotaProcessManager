@@ -8,19 +8,23 @@ public partial class RegisterViewModel
     [RelayCommand]
     public async Task CreateNewProcess()
     {
-        ToyotaProcess newProcess = new(Icon, DateTime.Now.ToString(), Title, Description);
-
-        if (_verification.CheckSameProcess(newProcess, [.. ProcessList]))
+        if (string.IsNullOrEmpty(Title))
         {
-            await _verification.WaringPopup(WarningTokens.ExistingProcess);
+            await _popServices.WaringPopup(WarningTokens.EmptyFild);
             return;
         }
 
-        _toyotaProcessModel!.CreateProcess(newProcess);
+        try
+        {
+            _toyotaProcessModel!.CreateProcess(new(Icon, DateTime.Now.ToString(), Title, Description ?? "Sem descrição"));
+        }
+        catch
+        {
+            await _popServices.WaringPopup(WarningTokens.ExistingProcess);
+            return;
+        }
 
-        _currentProcessInEdit = newProcess;
-
-        await _verification.WaringPopup(WarningTokens.CreateSuccess);
+        await _popServices.WaringPopup(WarningTokens.CreateSuccess);
 
         ClearProcessFilds();
     }
@@ -37,7 +41,7 @@ public partial class RegisterViewModel
     {
         if (toyotaProcess is null)
         {
-            await _verification.WaringPopup(WarningTokens.CorruptFile);
+            await _popServices.WaringPopup(WarningTokens.CorruptFile);
             return;
         }
 
@@ -47,11 +51,11 @@ public partial class RegisterViewModel
     [RelayCommand]
     public async Task DeleteProcess(ToyotaProcess? toyotaProcess)
     {
-        if (!await _verification.ConfirmPopup(WarningTokens.DeleteProcess))
+        if (!await _popServices.ConfirmPopup(WarningTokens.DeleteProcess))
             return;
 
         if (_toyotaProcessModel!.DeleteProcess(toyotaProcess!))
-            await _verification.WaringPopup(WarningTokens.DeleteSuccess);
+            await _popServices.WaringPopup(WarningTokens.DeleteSuccess);
 
         ClearProcessFilds();
         SwitchMode(RegisterMode.Create);
@@ -62,7 +66,7 @@ public partial class RegisterViewModel
     {
         if (!CheckIfAnythingHasChangedProcess())
         {
-            if (!await _verification.ConfirmPopup(WarningTokens.DescarteUpdate))
+            if (!await _popServices.ConfirmPopup(WarningTokens.DescarteUpdate))
                 return;
 
             ClearProcessFilds();
@@ -75,7 +79,11 @@ public partial class RegisterViewModel
     [RelayCommand]
     public async Task SaveUpdateProcess()
     {
-        ToyotaProcess newProcess = new(Icon, _currentProcessInEdit.CreationDate, Title, Description);
+        if (string.IsNullOrEmpty(Title))
+        {
+            await _popServices.WaringPopup(WarningTokens.EmptyFild);
+            return;
+        }
 
         if (!CheckIfAnythingHasChangedProcess())
         {
@@ -84,10 +92,17 @@ public partial class RegisterViewModel
             return;
         }
 
-        if (!await _verification.ConfirmPopup(WarningTokens.UpdateProcess))
+        try
+        {
+            _toyotaProcessModel!.UpdateProcess(_currentProcessInEdit,new(Icon, _currentProcessInEdit.CreationDate, Title, Description ?? "Sem descrição"));
+        }
+        catch
+        {
+            await _popServices.WaringPopup(WarningTokens.ExistingProcess);
             return;
+        }
 
-        _toyotaProcessModel!.UpdateProcess(_currentProcessInEdit!, newProcess);
+        await _popServices.WaringPopup(WarningTokens.UpdateSuccess);
 
         ClearProcessFilds();
         SwitchMode(RegisterMode.Create);
@@ -102,7 +117,7 @@ public partial class RegisterViewModel
             return;
         }
 
-        if (!await _verification.ConfirmPopup(WarningTokens.DescarteUpdate))
+        if (!await _popServices.ConfirmPopup(WarningTokens.DescarteUpdate))
             return;
 
         ClearProcessFilds();

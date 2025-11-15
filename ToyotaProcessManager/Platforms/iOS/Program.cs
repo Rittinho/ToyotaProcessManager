@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace ToyotaProcessManager
+namespace ToyotaProcessManager.Platforms.iOS
 {
     public class Program
     {

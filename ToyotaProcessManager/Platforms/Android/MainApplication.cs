@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace ToyotaProcessManager
+namespace ToyotaProcessManager.Platforms.Android
 {
     [Application]
     public class MainApplication : MauiApplication

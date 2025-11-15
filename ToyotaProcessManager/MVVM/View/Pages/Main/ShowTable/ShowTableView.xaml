@@ -1,70 +1,72 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ToyotaProcessManager.MVVM.View.Pages.Main.ShowTable.ShowTableView"
-             Title="ShowTableView"
-             xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
-             xmlns:buttons="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Buttons"
-             NavigationPage.HasNavigationBar="False"
-             x:Name="Root">
+<ContentPage
+    x:Class="ToyotaProcessManager.MVVM.View.Pages.Main.ShowTable.ShowTableView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Buttons"
+    xmlns:elements="clr-namespace:ToyotaProcessManager.MVVM.View.Components.Elements"
+    x:Name="Root"
+    Title="ShowTableView"
+    NavigationPage.HasNavigationBar="False">
 
-    <Grid RowDefinitions="Auto,*" Padding="10">
+    <Grid Padding="10" RowDefinitions="Auto,*">
 
-        <Border Style="{StaticResource Border.Base}"
-                BackgroundColor="Tomato">
+        <Border BackgroundColor="Tomato" Style="{StaticResource Border.Base}">
 
             <Border.StrokeShape>
-                <RoundRectangle CornerRadius="24,24,0,0"/>
+                <RoundRectangle CornerRadius="24,24,0,0" />
             </Border.StrokeShape>
 
             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
 
-                <buttons:IconButton BackgroundColorCode="{StaticResource Tertiary}"
-                                    Unicode="{StaticResource FAS_AddressBook}"
-                                    TextContent="Registros"
-                                    FontSize="20"
-                                    Event="{Binding Path=SwitchToRegisterCommand, Source={x:Reference Root}}"/>
+                <buttons:IconButton
+                    BackgroundColorCode="{StaticResource Tertiary}"
+                    Event="{Binding Path=SwitchToRegisterCommand, Source={x:Reference Root}}"
+                    FontSize="20"
+                    TextContent="Registros"
+                    Unicode="{StaticResource FAS_AddressBook}" />
 
-                <buttons:IconButton Grid.Column="1"
-                                    BackgroundColorCode="{StaticResource Tertiary}"
-                                    Unicode="{StaticResource FAS_Table}"
-                                    TextContent="Criar tabela"
-                                    FontSize="20"
-                                    Event="{Binding Path=SwitchToCreateTablesCommand, Source={x:Reference Root}}"/>
+                <buttons:IconButton
+                    Grid.Column="1"
+                    BackgroundColorCode="{StaticResource Tertiary}"
+                    Event="{Binding Path=SwitchToCreateTablesCommand, Source={x:Reference Root}}"
+                    FontSize="20"
+                    TextContent="Criar tabela"
+                    Unicode="{StaticResource FAS_Table}" />
 
-                <Border StrokeThickness="0" Grid.Column="2">
-                    
-                    <Label Text="Vizualizar tabelas"
-                           FontAttributes="Bold"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"
-                           FontSize="40"/> 
-                    
+                <Border Grid.Column="2" StrokeThickness="0">
+
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="40"
+                        HorizontalOptions="Center"
+                        Text="Vizualizar tabelas"
+                        VerticalOptions="Center" />
+
                 </Border>
 
             </Grid>
 
         </Border>
-        
+
         <Grid Grid.Row="1">
-            
-            <Border Style="{StaticResource Border.Base}"
-                    BackgroundColor="{StaticResource Tertiary}">
+
+            <Border BackgroundColor="{StaticResource Tertiary}" Style="{StaticResource Border.Base}">
 
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="0,0,24,24"/>
+                    <RoundRectangle CornerRadius="0,0,24,24" />
                 </Border.StrokeShape>
 
                 <ScrollView>
 
-                    <VerticalStackLayout x:Name="MainContainer"/>
+                    <VerticalStackLayout x:Name="MainContainer" />
 
                 </ScrollView>
 
             </Border>
-        
+
         </Grid>
-        
+
     </Grid>
 
 </ContentPage>

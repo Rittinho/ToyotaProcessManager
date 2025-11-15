@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using ToyotaProcessManager.Services.Constants.Messages.Employee;
 using ToyotaProcessManager.Services.Constants.Messages.Process;
 using ToyotaProcessManager.Services.ValueObjects;
 
@@ -25,6 +26,7 @@ public partial class RepositoryServices
             _processData.Add(newProcess);
             _jsonServices.SaveProcessJson(_processData);
             _messenger.Send(new ProcessAddedMessage(newProcess));
+            _messenger.Send(new ProcessesCountChanged(_processData.Count));
         }
 
         return true;
@@ -41,7 +43,7 @@ public partial class RepositoryServices
            
             _jsonServices.SaveProcessJson(_processData);
             _messenger.Send(new ProcessRemovedMessage(process));
-
+            _messenger.Send(new ProcessesCountChanged(_processData.Count));
         }
 
         return true;

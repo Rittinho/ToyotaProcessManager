@@ -1,7 +1,9 @@
-﻿using CommunityToolkit.Maui.Core;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Extensions;
 using ToyotaProcessManager.MVVM.View.Modal.Description;
 using ToyotaProcessManager.MVVM.View.Modal.Forms;
+using ToyotaProcessManager.MVVM.View.Modal.Warning;
 using ToyotaProcessManager.MVVM.ViewModel.Modal.Forms.IconPicker;
 using ToyotaProcessManager.MVVM.ViewModel.Modal.Forms.TableConfigModal;
 using ToyotaProcessManager.Services.Injections.Contract;
@@ -10,20 +12,12 @@ using ToyotaProcessManager.Services.ValueObjects;
 namespace ToyotaProcessManager.Services.Injections.Implementation;
 public class PopServices : IPopServices
 {
-    private readonly IVerificationServices _verificationServices;
-
-    public PopServices(IVerificationServices verificationServices)
-    {
-        _verificationServices = verificationServices;
-    }
-
     public async Task ShowEmployeePopup(ToyotaEmployee toyotaEmployee)
     {
         var page = GetCurrentPage();    
 
         await page!.ShowPopupAsync(new EmployeeDescriptionModal(toyotaEmployee));
     }
-
     public async Task ShowProcessPopup(ToyotaProcess toyotaProcess)
     {
         var page = GetCurrentPage();
@@ -45,7 +39,7 @@ public class PopServices : IPopServices
 
         if (result.WasDismissedByTappingOutsideOfPopup)
         {
-            await _verificationServices.WaringPopup("Alterações descartadas!", "As alterações foram perdidas");
+            await WaringPopup("Alterações descartadas!", "As alterações foram perdidas");
             return iconParameters;
         }
 
@@ -64,7 +58,7 @@ public class PopServices : IPopServices
 
         if (result.WasDismissedByTappingOutsideOfPopup)
         {
-            await _verificationServices.WaringPopup("Alterações descartadas!", "As alterações foram perdidas");
+            await WaringPopup("Alterações descartadas!", "As alterações foram perdidas");
             return null;
         }
 
@@ -72,6 +66,73 @@ public class PopServices : IPopServices
             return null;
 
         return result.Result;
+    }
+
+    public async Task WaringPopup(Tuple<string, string> token)
+    {
+        var page = GetCurrentPage();
+
+        IPopupResult<bool> result = await page!.ShowPopupAsync<bool>(new ConfirmActionModal(
+        new TokenAction(
+            token.Item1,
+            token.Item2,
+            false)),
+            PopupOptions.Empty,
+            CancellationToken.None);
+
+        if (result.WasDismissedByTappingOutsideOfPopup || !result.Result!)
+            return;
+
+        return;
+    }
+    public async Task WaringPopup(string title, string description)
+    {
+        var page = GetCurrentPage();
+
+        IPopupResult<bool> result = await page!.ShowPopupAsync<bool>(new ConfirmActionModal(
+        new TokenAction(
+            title,
+            description,
+            false)));
+
+        if (result.WasDismissedByTappingOutsideOfPopup || !result.Result!)
+            return;
+
+        return;
+    }
+    public async Task<bool> ConfirmPopup(Tuple<string, string> token)
+    {
+        var page = GetCurrentPage();
+
+        IPopupResult<bool> result = await page!.ShowPopupAsync<bool>(new ConfirmActionModal(
+          new TokenAction(
+              token.Item1,
+              token.Item2,
+              true)),
+              PopupOptions.Empty,
+              CancellationToken.None);
+
+        if (result.WasDismissedByTappingOutsideOfPopup || !result.Result!)
+            return false;
+
+        return true;
+    }
+    public async Task<bool> ConfirmPopup(string title, string description)
+    {
+        var page = GetCurrentPage();
+
+        IPopupResult<bool> result = await page!.ShowPopupAsync<bool>(new ConfirmActionModal(
+          new TokenAction(
+              title,
+              description,
+              true)),
+              PopupOptions.Empty,
+              CancellationToken.None);
+
+        if (result.WasDismissedByTappingOutsideOfPopup || !result.Result!)
+            return false;
+
+        return true;
     }
 
     private Page? GetCurrentPage()

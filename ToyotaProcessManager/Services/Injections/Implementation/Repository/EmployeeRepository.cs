@@ -32,6 +32,7 @@ public partial class RepositoryServices
             _employeeData.Add(newEmployee);
             _jsonServices.SaveEmployeeJson(_employeeData);
             _messenger.Send(new EmployeeAddedMessage(newEmployee));
+            _messenger.Send(new EmployeesCountChanged (_employeeData.Count));
         }
 
         return true;
@@ -48,6 +49,7 @@ public partial class RepositoryServices
 
             _jsonServices.SaveEmployeeJson(_employeeData);
             _messenger.Send(new EmployeeRemovedMessage(employee));
+            _messenger.Send(new EmployeesCountChanged(_employeeData.Count));
         }
 
         return true;

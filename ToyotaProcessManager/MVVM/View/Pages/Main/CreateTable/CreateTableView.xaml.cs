@@ -1,7 +1,6 @@
 using CommunityToolkit.Mvvm.Input;
 using ToyotaProcessManager.MVVM.View.Pages.Main.Register;
 using ToyotaProcessManager.MVVM.View.Pages.Main.ShowTable;
-using ToyotaProcessManager.MVVM.ViewModel.Pages.Main;
 using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.CreateTable;
 using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
 using ToyotaProcessManager.MVVM.ViewModel.Pages.Main.ShowTable;

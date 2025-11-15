@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace ToyotaProcessManager
+namespace ToyotaProcessManager.Platforms.MacCatalyst
 {
     public class Program
     {

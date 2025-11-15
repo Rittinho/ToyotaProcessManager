@@ -16,25 +16,29 @@ public class ToyotaProcessModel
     public ToyotaProcess GetLastProcess() => _repositoryServices.GetLastProcess();
     public List<ToyotaProcess> GetProcessByName(string name) => _repositoryServices.GetProcessByName(name);
 
-    public bool CreateProcess(ToyotaProcess toyotaProcess)
+    public void CreateProcess(ToyotaProcess toyotaProcess)
     {
         if (toyotaProcess == null)
-            return false;
+            throw new Exception("Valor nulo!");
 
-        return _repositoryServices.SaveNewProcess(toyotaProcess);
+        if(CheckSameProcess(toyotaProcess))
+            throw new Exception("Já existe esse processo!");
+        
+        _repositoryServices.SaveNewProcess(toyotaProcess);
     }
-    public bool UpdateProcess(ToyotaProcess oldToyotaProcess, ToyotaProcess newToyotaProcess)
+    public void UpdateProcess(ToyotaProcess oldToyotaProcess, ToyotaProcess newToyotaProcess)
     {
         if (oldToyotaProcess == null)
-            return false;
+            throw new Exception("Valor nulo!");
 
         if (newToyotaProcess == null)
-            return false;
+            throw new Exception("Valor nulo!");
 
-        if (!_repositoryServices.RemoveProcess(oldToyotaProcess))
-            return false;
+        if (CheckSameProcess(newToyotaProcess))
+            throw new Exception("Já existe esse processo!");
 
-        return _repositoryServices.SaveNewProcess(newToyotaProcess);
+        _repositoryServices.RemoveProcess(oldToyotaProcess);
+        _repositoryServices.SaveNewProcess(newToyotaProcess);
     }
     public bool DeleteProcess(ToyotaProcess toyotaProcess)
     {
@@ -42,5 +46,14 @@ public class ToyotaProcessModel
             return false;
 
         return _repositoryServices.RemoveProcess(toyotaProcess);
+    }
+
+    public bool CheckSameProcess(ToyotaProcess toyotaProcess)
+    {
+        foreach (var process in _repositoryServices.GetAllProcesses())
+            if (process.Title == toyotaProcess.Title)
+                return true;
+
+        return false;
     }
 }

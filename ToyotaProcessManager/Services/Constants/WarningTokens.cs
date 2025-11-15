@@ -12,6 +12,10 @@ namespace ToyotaProcessManager.Services.Constants
         "Já existe esse processo!",
         "Verifique os processos existentes!"
         );
+        public static Tuple<string, string> EmptyFild= new(
+        "Camplo não preenchido",
+        "Por favor, preencha o campo corretamente"
+        );
         public static Tuple<string, string> UpdateProcess = new(
             "Alterar processo?",
             "Essa ação não tem volta!"

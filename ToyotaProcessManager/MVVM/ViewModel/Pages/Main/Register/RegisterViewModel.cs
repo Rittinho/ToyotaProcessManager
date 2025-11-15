@@ -8,11 +8,8 @@ using ToyotaProcessManager.Services.Constants.Messages.Process;
 using ToyotaProcessManager.Services.Injections.Contract;
 
 namespace ToyotaProcessManager.MVVM.ViewModel.Pages.Main.Register;
-public partial class RegisterViewModel : ObservableObject, 
-    IRecipient<EmployeeAddedMessage>, IRecipient<EmployeeRemovedMessage>, 
-    IRecipient<ProcessAddedMessage>, IRecipient<ProcessRemovedMessage>
+public partial class RegisterViewModel : ObservableObject, IRecipient<EmployeeAddedMessage>, IRecipient<EmployeeRemovedMessage>, IRecipient<ProcessAddedMessage>, IRecipient<ProcessRemovedMessage>
 {
-    private readonly IVerificationServices _verification;
     private readonly IPopServices _popServices;
     private readonly IMessenger _messenger;
 
@@ -34,21 +31,43 @@ public partial class RegisterViewModel : ObservableObject,
     [ObservableProperty]
     public bool? _isInEmployeePanel;
 
-    public RegisterViewModel(IVerificationServices verificationServices, ToyotaEmployeeModel toyotaEmployeeModel, ToyotaProcessModel toyotaProcessModel,IPopServices popServices, IMessenger messenger)
+    public RegisterViewModel(ToyotaEmployeeModel toyotaEmployeeModel, ToyotaProcessModel toyotaProcessModel,IPopServices popServices, IMessenger messenger)
     {
-        _verification = verificationServices;
         _popServices = popServices;
         _toyotaEmployeeModel = toyotaEmployeeModel;
         _toyotaProcessModel = toyotaProcessModel;
         _popServices = popServices;
+        _messenger = messenger;
 
         SwitchMode(RegisterMode.Create);
         SwitchPanel(RegisterPanel.Process);
         ClearProcessFilds();
         ClearEmployeeFilds();
-        _messenger = messenger;
+        _messenger.RegisterAll(this);
+        LoadInitialData();
     }
+    private void LoadInitialData()
+    {
+        var initialEmployees = _toyotaEmployeeModel.GetAllEmployees();
+        var initialProcesses = _toyotaProcessModel.GetAllProcesses();
 
+        EmployeeList.Clear();
+        ProcessList.Clear();
+        FiltredEmployeeList.Clear();
+        FiltredProcessList.Clear();
+
+        foreach (var employee in initialEmployees)
+        {
+            EmployeeList.Add(employee);
+            FiltredEmployeeList.Add(employee); 
+        }
+
+        foreach (var process in initialProcesses)
+        {
+            ProcessList.Add(process);
+            FiltredProcessList.Add(process); 
+        }
+    }
     public void SwitchMode(RegisterMode mode)
     {
         switch (mode)
